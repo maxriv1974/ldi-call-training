@@ -2,7 +2,7 @@
   {
     "id": "carolina-pataky",
     "name": "Dr. Carolina Pataky",
-    "credentials": "Licensed \u00b7 PhD",
+    "credentials": "Licensed · PhD",
     "url": "https://www.lovediscovery.org/team/dr.-carolina-pataky",
     "level": "expert",
     "insurance": [
@@ -40,7 +40,7 @@
   {
     "id": "max-riv",
     "name": "Dr. Max Riv",
-    "credentials": "Licensed \u00b7 PhD \u00b7 Director",
+    "credentials": "Licensed · PhD · Director",
     "url": "https://www.lovediscovery.org/team/dr.-max-riv",
     "level": "expert",
     "insurance": [
@@ -185,14 +185,13 @@
     "slidingScale": "",
     "pqEmail": "ana@lovediscovery.org",
     "serviceTypes": [
-      "couples",
       "individual"
     ]
   },
   {
     "id": "bacheline-joseph",
     "name": "Dr. Bacheline Joseph",
-    "credentials": "Licensed \u00b7 PhD",
+    "credentials": "Licensed · PhD",
     "url": "https://www.lovediscovery.org/team/dr.-bacheline-joseph",
     "level": "qualified",
     "insurance": [
@@ -220,14 +219,13 @@
     "slidingScale": "",
     "pqEmail": "bacheline@lovediscovery.org",
     "serviceTypes": [
-      "couples",
       "individual"
     ]
   },
   {
     "id": "beatriz-delgado",
     "name": "Beatriz Delgado",
-    "credentials": "Licensed \u00b7 LCSW",
+    "credentials": "Licensed · LCSW",
     "url": "https://www.lovediscovery.org/team/beatriz-delgado",
     "level": "qualified",
     "insurance": [
@@ -263,7 +261,6 @@
     "slidingScale": "",
     "pqEmail": "beatriz@lovediscovery.org",
     "serviceTypes": [
-      "couples",
       "individual",
       "minors"
     ]
@@ -348,7 +345,6 @@
     "slidingScale": "",
     "pqEmail": "anaiz@lovediscovery.org",
     "serviceTypes": [
-      "couples",
       "individual",
       "minors"
     ]
@@ -388,7 +384,6 @@
     "slidingScale": "",
     "pqEmail": "yamaris@lovediscovery.org",
     "serviceTypes": [
-      "couples",
       "individual"
     ]
   },
