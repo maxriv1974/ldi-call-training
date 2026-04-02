@@ -622,5 +622,95 @@
       "en",
       "es"
     ]
+  },
+  {
+    "id": "jillian",
+    "name": "Jillian",
+    "credentials": "",
+    "level": "associate",
+    "location": "telehealth",
+    "rate": "",
+    "slidingScale": "",
+    "url": "",
+    "pqEmail": "",
+    "language": "en",
+    "languages": [
+      "en"
+    ],
+    "insurance": [
+      "aetna",
+      "bcbs",
+      "avmed",
+      "optum",
+      "oscar",
+      "united",
+      "cigna",
+      "self"
+    ],
+    "sessionTypes": [
+      "Individual",
+      "Couples",
+      "Children",
+      "Adolescents/Teens",
+      "Family",
+      "Group"
+    ],
+    "ageGroups": [
+      "Children (under 12)",
+      "Teens (13-17)",
+      "Teens (16+)",
+      "Young Adults (18-25)",
+      "Adults",
+      "Seniors"
+    ],
+    "approaches": [
+      "CBT",
+      "EMDR",
+      "Psychodynamic",
+      "Gottman Method",
+      "Mindfulness-Based",
+      "Somatic/Body-Based",
+      "Play Therapy",
+      "DBT",
+      "ACT",
+      "Hypnotherapy",
+      "Faith-Based (Christian)",
+      "Narrative Therapy",
+      "Solution-Focused"
+    ],
+    "areasOfFocus": [
+      "Anxiety",
+      "Depression",
+      "Trauma/PTSD",
+      "Grief & Loss",
+      "Relationship Issues",
+      "Couples Therapy",
+      "Intimacy",
+      "Self-Esteem",
+      "Life Transitions",
+      "Behavioral Issues",
+      "Family Conflict",
+      "Women's Issues",
+      "Stress Management",
+      "Anger Management",
+      "Faith & Spirituality",
+      "Communication",
+      "LGBTQ+",
+      "Parenting",
+      "Trust Issues",
+      "Sexual Concerns",
+      "Substance Use",
+      "Eating Concerns",
+      "Sleep Issues",
+      "Emotional Regulation",
+      "ADHD"
+    ],
+    "serviceTypes": [
+      "individual",
+      "couples",
+      "minors",
+      "coaching"
+    ],
+    "days": []
   }
 ]
