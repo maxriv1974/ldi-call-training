@@ -28,7 +28,7 @@ export default async function handler(req, res) {
   const getPeriod = h => h < 12 ? 'am' : h < 14 ? 'mid' : h < 17 ? 'aft' : 'eve';
 
   try {
-    const pages = await Promise.all([1,2,3].map(page =>
+    const pages = await Promise.all([1,2,3,4,5,6].map(page =>
       fetch('https://intakeq.com/api/v1/appointments?startDate='+startDate+'&endDate='+endDate+'&page='+page, {
         headers: { 'X-Auth-Key': apiKey }
       }).then(r => r.ok ? r.json() : [])

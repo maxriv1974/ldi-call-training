@@ -2571,7 +2571,7 @@ async function savePageContent() {
     var weeks = 0, total = 0;
     if (d.lastWeek) { total += d.lastWeek; weeks++; }
     if (d.thisWeek) { total += d.thisWeek; weeks++; }
-    if (d.nextWeek) { total += d.nextWeek; weeks++; }
+    if (weeks === 0 && d.nextWeek) { total += d.nextWeek; weeks++; }
     if (weeks === 0) return '<span class="avail-badge avail-none">&#x25cf; Light</span>';
     var avg = Math.round(total / weeks);
     var label, cls;
