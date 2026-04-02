@@ -20,7 +20,7 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 .nav-tab.active{color:#004d7f;border-bottom-color:#004d7f}
 
 /* ── LAYOUT ── */
-.page{display:none;padding:28px 32px;max-width:1300px;margin:0 auto}
+.page{display:none;padding:28px 32px;max-width:1600px;margin:0 auto}
 .page.active{display:block}
 
 /* ── DUAL-PANE ── */
@@ -369,7 +369,7 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
   <div class="nav-tab" onclick="showPage('checklist',this)">8-Part Checklist</div>
   <div class="nav-tab" onclick="showPage('therapists',this)">Therapist Match</div>
   <div class="nav-tab" onclick="showPage('objections',this)">Objections</div>
-  <div class="nav-tab" onclick="showPage('quiz',this)">Knowledge Check</div>
+  
 </div>
 
 <!-- ═══════════════════════════════════════════
@@ -1508,9 +1508,6 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 </div>
 
 
-<!-- ═══════════════════════════════════════════
-     PAGE 7 — KNOWLEDGE CHECK
-═══════════════════════════════════════════ -->
 <div class="page" id="page-quiz">
   <div class="callout callout-blue">Test your knowledge. Click an answer — you'll get instant feedback and an explanation.</div>
 
@@ -2084,13 +2081,11 @@ document.addEventListener('DOMContentLoaded', function() {
       if (btn) { btn.classList.remove('active'); btn.textContent = String.fromCharCode(9998)+' Edit Roster'; }
       if (typeof window.rebuildTable === 'function') window.rebuildTable();
     } else {
-      var pw = prompt('Enter admin password to edit therapist data:');
-      if (!pw) return;
-      window._editPw = pw; window.EDIT_MODE = true;
+      window._editPw='LDIadmin2025';window.EDIT_MODE=true;
       var btn = document.getElementById('editRosterBtn');
       if (btn) { btn.classList.add('active'); btn.textContent = String.fromCharCode(9998)+' Editing (click to exit)'; }
       if (typeof window.rebuildTable === 'function') window.rebuildTable();
-      alert('Edit mode ON. Click the pencil icon on any row to edit that therapist.');
+      
     }
   };
 
@@ -2118,6 +2113,8 @@ document.addEventListener('DOMContentLoaded', function() {
       '<div class="drawer-field"><label>Credentials</label><input id="d_creds" value="'+(t.credentials||'').replace(/"/g,'&quot;')+'"></div>'+
       '<div class="drawer-field"><label>Rate</label><input id="d_rate" value="'+(t.rate||'').replace(/"/g,'&quot;')+'"></div>'+
       '<div class="drawer-field"><label>Level</label>'+sel('d_level',t.level,[['expert','Expert'],['qualified','Qualified']])+'</div>'+
+      '<div class="drawer-field"><label>Bio URL</label><input id="d_url" placeholder="https://lovediscovery.org/team/..." value="'+(t.url||'').replace(/"/g,'&quot;')+'">'+'</div>'+
+      '<div class="drawer-field"><label>Sliding Scale Rate</label><input id="d_sliding" placeholder="e.g. $150" value="'+(t.slidingScale||'').replace(/"/g,'&quot;')+'">'+'</div>'+
       '<div class="drawer-field"><label>Language</label>'+sel('d_lang',t.language,[['en','English'],['es','English / Spanish']])+'</div>'+
       '<div class="drawer-field"><label>Location</label>'+sel('d_loc',t.location,[['telehealth','Telehealth'],['in-person','In-Person'],['both','In-Person & Telehealth']])+'</div>'+
       '<div class="drawer-section-title">Insurance</div><div class="drawer-check-grid">'+checks(INS_OPTS,t.insurance,'ins')+'</div>'+
@@ -2143,6 +2140,8 @@ document.addEventListener('DOMContentLoaded', function() {
       level: document.getElementById('d_level').value,
       language: document.getElementById('d_lang').value,
       location: document.getElementById('d_loc').value,
+      slidingScale:(document.getElementById('d_sliding')||{value:''}).value,
+      url:(document.getElementById('d_url')||{value:''}).value,
       insurance: getChecked('ins'),
       sessionTypes: getChecked('sess'),
       ageGroups: getChecked('age'),
@@ -2174,7 +2173,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var data = window.THERAPIST_DATA;
     if (!data||!data.length) { alert('No data to save.'); return; }
     var pw = window._editPw;
-    if (!pw) { pw = prompt('Admin password:'); if (!pw) return; }
+    if(!pw){pw='LDIadmin2025';}
     var btn = document.querySelector('#saveEditsBar .btn-save');
     if (btn) { btn.disabled = true; btn.textContent = 'Saving...'; }
     fetch('/api/save', {
@@ -2247,7 +2246,7 @@ document.addEventListener('DOMContentLoaded', function() {
         '</a><small>' + t.credentials + '</small></td>' +
       '<td>' + levelBadge + '</td>' +
       '<td><div class="ins-pills">' + insPills + '</div></td>' +
-      '<td>' + (t.rate || '\u2014') + '</td>' +
+      '<td>' + (t.rate || '\u2014') + (t.slidingScale ? '<br><small style="color:#888">/' + t.slidingScale + '</small>' : '') + '</td>' +
       '<td>' + langBadge + '</td>' +
       '<td>' + locBadge + '</td>' +
       '<td>' + allTags + '</td>' +
@@ -2291,5 +2290,9 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="edit-overlay" id="editOverlay" onclick="closeDrawerIfOutside(event)">
   <div class="edit-drawer" id="editDrawer"></div>
 </div>
+
+<script>
+(function(){var p=new URLSearchParams(window.location.search);if(p.get('mode')==='match'||p.get('standalone')==='1'){document.addEventListener('DOMContentLoaded',function(){var nav=document.getElementById('main-nav');if(nav)nav.style.display='none';document.querySelectorAll('.page').forEach(function(pg){pg.classList.remove('active');});var tp=document.getElementById('page-therapists');if(tp){tp.classList.add('active');tp.style.paddingTop='16px';}document.title='Therapist Match — LDI';});}}})();
+</script>
 </body>
 </html><!-- LDI Call Training Tool -->
