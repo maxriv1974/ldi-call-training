@@ -316,6 +316,12 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 .edit-roster-btn{padding:7px 18px;border-radius:20px;border:2px solid #cbd5e1;background:#f8fafc;font-size:.78rem;font-weight:600;cursor:pointer;color:#475569;transition:all .2s}
 .edit-roster-btn:hover{border-color:#6c63ff;color:#6c63ff}
 .edit-roster-btn.active{background:#6c63ff;border-color:#6c63ff;color:#fff}
+.page-edit-section{display:none;align-items:center;gap:8px;padding-left:12px;border-left:1px solid #e2e8f0}
+.page-edit-btn{padding:7px 18px;border-radius:20px;border:2px solid #f59e0b;background:#fffbeb;font-size:.78rem;font-weight:600;cursor:pointer;color:#b45309;transition:all .2s}
+.page-edit-btn:hover{background:#f59e0b;color:#fff}
+.page-edit-btn.active{background:#f59e0b;border-color:#f59e0b;color:#fff}
+.page-save-bar{display:none;align-items:center;gap:10px;padding:6px 14px;background:#fef3c7;border-radius:8px;border:1px solid #fbbf24}
+.page-editing-active{outline:2px dashed #f59e0b!important;outline-offset:-4px!important;min-height:40px}
 .save-edits-bar{display:none;align-items:center;gap:12px;padding:8px 16px;background:#fef9c3;border:1px solid #fde047;border-radius:10px;font-size:.8rem;font-weight:600;color:#713f12}
 .save-edits-bar.visible{display:flex}
 .save-edits-bar button{padding:5px 14px;border-radius:14px;border:none;cursor:pointer;font-weight:600;font-size:.78rem}
@@ -1757,8 +1763,15 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
       <button class="btn-save" onclick="saveAllEdits()">&#10003; Publish Changes</button>
       <button class="btn-discard" onclick="discardEdits()">Discard</button>
     </div>
+  <div class="page-edit-section" id="pageEditSection">
+    <button class="page-edit-btn" id="pageEditBtn" onclick="togglePageContentEdit()" title="Edit this page's text content">&#9998; Edit Page</button>
+    <div class="page-save-bar" id="pageSaveBar">
+      <button class="btn-save" style="background:#f59e0b;border-color:#d97706" onclick="savePageContent()">&#10003; Save Page</button>
+      <button class="btn-discard" onclick="discardPageContentEdit()">Discard</button>
+    </div>
   </div>
-  <div class="th-filters">
+</div>
+<div class="th-filters">
     <span class="th-filter-group">Payment / Insurance:</span>
     <button class="th-filter-btn active" onclick="filterTherapists('plan','all',this)">All</button>
     <button class="th-filter-btn" onclick="filterTherapists('plan','aetna',this)">Aetna</button>
@@ -1825,6 +1838,13 @@ function showPage(id, el) {
   if (pg) pg.classList.add('active');
   if (el) el.classList.add('active');
   window.scrollTo(0,0);
+  // Update page-edit section visibility
+  if (window.EDIT_MODE) {
+    var pgSec = document.getElementById('pageEditSection');
+    if (pgSec) pgSec.style.display = (id === 'therapists') ? 'none' : 'flex';
+  }
+  // Exit page edit mode when switching tabs
+  if (window._pgEditActive) discardPageContentEdit();
 }
 
 // ─── Scenarios ───
@@ -2079,11 +2099,17 @@ document.addEventListener('DOMContentLoaded', function() {
       window.EDIT_MODE = false; window._editPw = '';
       var btn = document.getElementById('editRosterBtn');
       if (btn) { btn.classList.remove('active'); btn.textContent = String.fromCharCode(9998)+' Edit Roster'; }
+      var pgSec = document.getElementById('pageEditSection');
+      if (pgSec) pgSec.style.display = 'none';
+      if (window._pgEditActive) discardPageContentEdit();
       if (typeof window.rebuildTable === 'function') window.rebuildTable();
     } else {
       window._editPw='LDIadmin2025';window.EDIT_MODE=true;
       var btn = document.getElementById('editRosterBtn');
       if (btn) { btn.classList.add('active'); btn.textContent = String.fromCharCode(9998)+' Editing (click to exit)'; }
+      var activePg = document.querySelector('.page.active');
+      var pgSec = document.getElementById('pageEditSection');
+      if (pgSec && activePg && activePg.id !== 'page-therapists') pgSec.style.display = 'flex';
       if (typeof window.rebuildTable === 'function') window.rebuildTable();
       
     }
@@ -2291,8 +2317,112 @@ document.addEventListener('DOMContentLoaded', function() {
   <div class="edit-drawer" id="editDrawer"></div>
 </div>
 
+
 <script>
-(function(){var p=new URLSearchParams(window.location.search);if(p.get('mode')==='match'||p.get('standalone')==='1'){document.addEventListener('DOMContentLoaded',function(){var nav=document.getElementById('main-nav');if(nav)nav.style.display='none';document.querySelectorAll('.page').forEach(function(pg){pg.classList.remove('active');});var tp=document.getElementById('page-therapists');if(tp){tp.classList.add('active');tp.style.paddingTop='16px';}document.title='Therapist Match — LDI';});}}})();
+// ── Page Content Editing ─────────────────────────────────────────────────────
+window._pgEditActive = false;
+window._pgEditId = null;
+window._pgOrigHTML = {};
+
+function togglePageContentEdit() {
+  if (window._pgEditActive) {
+    savePageContent();
+  } else {
+    startPageContentEdit();
+  }
+}
+
+function startPageContentEdit() {
+  var page = document.querySelector('.page.active');
+  if (!page || page.id === 'page-therapists') return;
+  window._pgEditId = page.id;
+  window._pgOrigHTML[window._pgEditId] = page.innerHTML;
+  page.setAttribute('contenteditable', 'true');
+  page.classList.add('page-editing-active');
+  window._pgEditActive = true;
+  var btn = document.getElementById('pageEditBtn');
+  if (btn) { btn.textContent = '\u1F4BE Save Page'; btn.classList.add('active'); }
+  var bar = document.getElementById('pageSaveBar');
+  if (bar) bar.style.display = 'flex';
+}
+
+function discardPageContentEdit() {
+  var page = window._pgEditId ? document.getElementById(window._pgEditId) : null;
+  if (page && window._pgOrigHTML[window._pgEditId]) {
+    page.innerHTML = window._pgOrigHTML[window._pgEditId];
+  }
+  if (page) {
+    page.removeAttribute('contenteditable');
+    page.classList.remove('page-editing-active');
+  }
+  window._pgEditActive = false;
+  window._pgEditId = null;
+  var btn = document.getElementById('pageEditBtn');
+  if (btn) { btn.textContent = '\u270F Edit Page'; btn.classList.remove('active'); }
+  var bar = document.getElementById('pageSaveBar');
+  if (bar) bar.style.display = 'none';
+}
+
+async function savePageContent() {
+  var page = window._pgEditId ? document.getElementById(window._pgEditId) : null;
+  if (!page) return;
+  // Clone and strip contenteditable before saving
+  var clone = page.cloneNode(true);
+  clone.removeAttribute('contenteditable');
+  clone.classList.remove('page-editing-active');
+  clone.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); });
+  var html = clone.innerHTML;
+  var btn = document.getElementById('pageEditBtn');
+  var origText = btn ? btn.textContent : '';
+  if (btn) { btn.textContent = 'Saving...'; btn.disabled = true; }
+  try {
+    var r = await fetch('/api/save-content', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({password: window._editPw || 'LDIadmin2025', pageId: window._pgEditId, html: html})
+    });
+    var d = await r.json();
+    if (r.ok) {
+      page.removeAttribute('contenteditable');
+      page.classList.remove('page-editing-active');
+      window._pgEditActive = false;
+      window._pgEditId = null;
+      if (btn) { btn.textContent = '\u270F Edit Page'; btn.classList.remove('active'); btn.disabled = false; }
+      var bar = document.getElementById('pageSaveBar');
+      if (bar) bar.style.display = 'none';
+      // Show success toast
+      var toast = document.createElement('div');
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#16a34a;color:#fff;padding:12px 20px;border-radius:8px;font-weight:600;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,.15)';
+      toast.textContent = '\u2713 Page saved! Live in ~30 seconds';
+      document.body.appendChild(toast);
+      setTimeout(function(){ document.body.removeChild(toast); }, 4000);
+    } else {
+      alert('Save failed: ' + (d.error || 'Unknown error'));
+      if (btn) { btn.textContent = origText; btn.disabled = false; }
+    }
+  } catch(e) {
+    alert('Network error: ' + e.message);
+    if (btn) { btn.textContent = origText; btn.disabled = false; }
+  }
+}
+
+// Load content overrides on startup
+(function loadContentOverrides(){
+  fetch('/content.json?v=' + Date.now())
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .catch(function(){ return null; })
+    .then(function(data){
+      if (!data) return;
+      Object.keys(data).forEach(function(pid){
+        var el = document.getElementById(pid);
+        if (el && data[pid]) el.innerHTML = data[pid];
+      });
+    });
+})();
+</script>
+
+<script>
+(function(){var p=new URLSearchParams(window.location.search);if(p.get('mode')==='match'||p.get('standalone')==='1'){var nav=document.getElementById('main-nav');if(nav){nav.style.display='none';}document.querySelectorAll('.page').forEach(function(pg){pg.classList.remove('active');});var tp=document.getElementById('page-therapists');if(tp){tp.classList.add('active');tp.style.paddingTop='16px';}document.title='Therapist Match — LDI';}})();
 </script>
 </body>
 </html><!-- LDI Call Training Tool -->
