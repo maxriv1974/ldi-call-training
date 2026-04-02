@@ -1994,11 +1994,16 @@ function filterTherapists(type, val, btn) {
     const af = window._availFilters || { day: null, svcType: null };
     let finalShow = show;
     if (finalShow && af.day) {
-      const email = (row.getAttribute('data-pq-email')||'').toLowerCase();
-      const avd = (window._availData||{})[email];
-      if (avd) {
-        const wd = (avd.thisWorkDays||[]).concat(avd.nextWorkDays||[]);
-        if (!wd.includes(af.day)) finalShow = false;
+      const storedDays = (row.getAttribute('data-days')||'').split(' ').filter(Boolean);
+      if (storedDays.length > 0) {
+        if (!storedDays.includes(af.day)) finalShow = false;
+      } else {
+        const email = (row.getAttribute('data-pq-email')||'').toLowerCase();
+        const avd = (window._availData||{})[email];
+        if (avd) {
+          const wd = (avd.thisWorkDays||[]).concat(avd.nextWorkDays||[]);
+          if (!wd.includes(af.day)) finalShow = false;
+        }
       }
     }
     if (finalShow && af.svcType) {
@@ -2139,6 +2144,7 @@ document.addEventListener('DOMContentLoaded', function() {
   window.EDIT_MODE = false;
   window._editPw = '';
   window._pendingEdits = {};
+  var DAY_OPTS = ['Mon','Tue','Wed','Thu','Fri','Sat'];
   var LANG_OPTS = {'en':'English','es':'Spanish','pt':'Portuguese','fr':'French','ht':'Haitian Creole'};
   var INS_OPTS = ['aetna','bcbs','avmed','optum','oscar','united','cigna','self'];
   var INS_LABELS = {aetna:'Aetna',bcbs:'BCBS',avmed:'AvMed',optum:'Optum',oscar:'Oscar',united:'United',cigna:'Cigna','self':'Self-Pay'};
@@ -2220,6 +2226,7 @@ document.addEventListener('DOMContentLoaded', function() {
       '<div class="drawer-field"><label>Level</label>'+sel('d_level',t.level,[['expert','Expert'],['qualified','Qualified']])+'</div>'+
       '<div class="drawer-field"><label>Bio URL</label><input id="d_url" placeholder="https://lovediscovery.org/team/..." value="'+(t.url||'').replace(/"/g,'&quot;')+'">'+'</div>'+
       '<div class="drawer-field"><label>Sliding Scale Rate</label><input id="d_sliding" placeholder="e.g. $150" value="'+(t.slidingScale||'').replace(/"/g,'&quot;')+'">'+'</div>'+
+      '<div class="drawer-section-title">Working Days</div><div class="drawer-check-grid">'+checks(DAY_OPTS,t.days||[],'days')+'</div>'+
       '<div class="drawer-section-title">Languages</div><div class="drawer-check-grid">'+checksLang(t.languages||(t.language==='es'?['en','es']:['en']))+'</div>'+
       '<div class="drawer-field"><label>Location</label>'+sel('d_loc',t.location,[['telehealth','Telehealth'],['in-person','In-Person'],['both','In-Person & Telehealth']])+'</div>'+
       '<div class="drawer-section-title">Insurance</div><div class="drawer-check-grid">'+checks(INS_OPTS,t.insurance,'ins')+'</div>'+
@@ -2244,6 +2251,7 @@ document.addEventListener('DOMContentLoaded', function() {
       rate: document.getElementById('d_rate').value,
       level: document.getElementById('d_level').value,
       languages: getChecked('lang'),
+      days: getChecked('days'),
       location: document.getElementById('d_loc').value,
       slidingScale:(document.getElementById('d_sliding')||{value:''}).value,
       url:(document.getElementById('d_url')||{value:''}).value,
@@ -2357,7 +2365,7 @@ document.addEventListener('DOMContentLoaded', function() {
       (window.EDIT_MODE ? '<button class="edit-row-btn" onclick="openEditor(\'' + pid + '\')" title="Edit">&#9998;</button>' : '') +
       '</td>';
     return '<tr data-plans="' + plans + '" data-lang="' + (t.languages||[t.language||'en']).join(' ') +
-      '" data-loc="' + t.location + '" data-level="' + t.level +
+      '" data-days="' + (t.days||[]).join(' ') + '" data-loc="' + t.location + '" data-level="' + t.level +
       '" data-sessions="' + sessData + '" data-approaches="' + approachData +
       '" data-focus="' + focusData + '" data-id="' + pid + '" data-pq-email="' + (t.pqEmail||'') + '" data-service-types="' + getSvcFilterTypes(t) + '">' +
       '<td class="th-name"><a href="' + t.url + '" target="_blank">' + t.name +
@@ -2561,15 +2569,17 @@ async function savePageContent() {
   function renderDayBadges(row, email) {
     var container = row.querySelector('.day-badges');
     if (!container) return;
-    var d = window._availData && window._availData[(email||'').toLowerCase()];
-    if (!d) { container.innerHTML = ''; return; }
     var ORDER = ['Mon','Tue','Wed','Thu','Fri','Sat'];
-    var allDays = (d.thisWorkDays||[]).concat(d.nextWorkDays||[]);
-    var workDays = ORDER.filter(function(day){ return allDays.indexOf(day) >= 0; });
-    var html = workDays.map(function(day){
+    var storedDays = (row.getAttribute('data-days')||'').split(' ').filter(Boolean);
+    var d = window._availData && window._availData[(email||'').toLowerCase()];
+    var sourceDays = d ? ORDER.filter(function(day){
+      return (d.thisWorkDays||[]).concat(d.nextWorkDays||[]).indexOf(day) >= 0;
+    }) : storedDays;
+    if (sourceDays.length === 0 && storedDays.length > 0) sourceDays = storedDays;
+    var html = sourceDays.map(function(day){
       return '<span class="day-badge">' + day + '</span>';
     }).join('');
-    container.innerHTML = html || '<span class="day-badge-none">-</span>';
+    container.innerHTML = html || (storedDays.length === 0 ? '<span class="day-badge-none">-</span>' : '');
   }
 
   function setAvailFilter(type, val, btn) {
