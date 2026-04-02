@@ -238,7 +238,7 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 .spec-tag.identity{background:#ccfbf1;color:#134e4a}
 .spec-tag.anxiety{background:#fef9c3;color:#854d0e}
 .spec-tag.depression{background:#dbeafe;color:#1e3a8a}
-.spec-tag.bilingual{background:#f0fdf4;color:#166534;border:1px solid #86efac}
+.spec-tag.bilingual{background:#f0fdf4;color:#166534;border:1px solid #86efac}.spec-tag.tag-sess{background:#d1fae5;color:#065f46;border:1px solid #6ee7b7}.spec-tag.tag-approach{background:#ede9fe;color:#5b21b6;border:1px solid #c4b5fd;font-style:italic}
 
 /* ── Best-For tags ── */
 .bf-tag{display:inline-block;border-radius:3px;padding:1px 5px;font-size:.62rem;
@@ -2028,17 +2028,19 @@ document.addEventListener('DOMContentLoaded', function() {
 (function loadTherapistTable() {
   var INS_LABELS = {aetna:'Aetna',bcbs:'BCBS',avmed:'AvMed',optum:'Optum',oscar:'Oscar',united:'United',cigna:'Cigna','self':'Self-Pay'};
   var INS_BADGE  = {aetna:'badge-aetna',bcbs:'badge-bcbs',avmed:'badge-avmed',optum:'badge-optum',oscar:'badge-oscar',united:'badge-united',cigna:'badge-cigna','self':'badge-self'};
-  var SPEC_CLASS = {anxiety:'anxiety',depression:'depression',trauma:'trauma',emdr:'trauma',couples:'couples','gottman method':'couples',children:'child',adolescents:'child',teens:'child',bilingual:'bilingual'};
-
-  function specTag(s) {
-    var k = s.toLowerCase();
-    var c = SPEC_CLASS[k] || '';
+  function sessionTag(s) { return '<span class="spec-tag tag-sess">' + s + '</span>'; }
+  function approachTag(s) { return '<span class="spec-tag tag-approach">' + s + '</span>'; }
+  function focusTag(s) {
+    var MAP = {'anxiety':'anxiety','depression':'depression','trauma/ptsd':'trauma','grief & loss':'trauma','couples therapy':'couples','relationship issues':'couples'};
+    var c = MAP[s.toLowerCase()] || '';
     return '<span class="spec-tag' + (c ? ' ' + c : '') + '">' + s + '</span>';
   }
-
   function buildRow(t) {
-    var plans = t.insurance.join(' ');
-    var levelBadge = t.level === 'expert'
+    var plans       = t.insurance.join(' ');
+    var sessData    = (t.sessionTypes  || []).join(' ');
+    var approachData= (t.approaches    || []).join(' | ');
+    var focusData   = (t.areasOfFocus  || []).join(' | ');
+    var levelBadge  = t.level === 'expert'
       ? '<span class="badge badge-exp">Expert</span>'
       : '<span class="badge badge-qual">Qualified</span>';
     var insPills = t.insurance.map(function(i) {
@@ -2052,28 +2054,38 @@ document.addEventListener('DOMContentLoaded', function() {
       : t.location === 'in-person'
         ? '<span class="badge badge-inperson">In-Person</span>'
         : '<span class="badge badge-tele">Telehealth</span>';
-    var specs = (t.specializations || []).map(specTag).join('');
+    var allTags =
+      (t.sessionTypes  || []).map(sessionTag).join('') +
+      (t.approaches    || []).map(approachTag).join('') +
+      (t.areasOfFocus  || []).map(focusTag).join('');
     var pid = t.id || t.name.toLowerCase().replace(/\s+/g, '-');
-    var priority = '<td class="th-priority"><select class="priority-select" data-id="' + pid + '" data-val="" onchange="savePriority(this)" title="Set weekly pitch priority">' +
-      '<option value="">—</option><option value="High">High</option><option value="Medium">Medium</option>' +
-      '<option value="Low">Low</option><option value="Closed">Closed</option></select></td>';
-    return '<tr data-plans="' + plans + '" data-lang="' + t.language + '" data-loc="' + t.location + '" data-level="' + t.level + '" data-id="' + pid + '">' +
-      '<td class="th-name"><a href="' + t.url + '" target="_blank">' + t.name + '</a><small>' + t.credentials + '</small></td>' +
+    var priority = '<td class="th-priority">' +
+      '<select class="priority-select" data-id="' + pid + '" data-val="" onchange="savePriority(this)" title="Set weekly pitch priority">' +
+      '<option value="">—</option><option value="High">High</option>' +
+      '<option value="Medium">Medium</option><option value="Low">Low</option>' +
+      '<option value="Closed">Closed</option></select></td>';
+    return '<tr data-plans="' + plans + '" data-lang="' + t.language +
+      '" data-loc="' + t.location + '" data-level="' + t.level +
+      '" data-sessions="' + sessData +
+      '" data-approaches="' + approachData +
+      '" data-focus="' + focusData +
+      '" data-id="' + pid + '">' +
+      '<td class="th-name"><a href="' + t.url + '" target="_blank">' + t.name +
+        '</a><small>' + t.credentials + '</small></td>' +
       '<td>' + levelBadge + '</td>' +
       '<td><div class="ins-pills">' + insPills + '</div></td>' +
       '<td>' + (t.rate || '—') + '</td>' +
       '<td>' + langBadge + '</td>' +
       '<td>' + locBadge + '</td>' +
-      '<td>' + specs + '</td>' +
+      '<td>' + allTags + '</td>' +
       priority + '</tr>';
   }
-
   fetch('/therapists.json?t=' + Date.now())
     .then(function(r) { return r.json(); })
-    .then(function(therapists) {
+    .then(function(data) {
       var tbody = document.getElementById('therapist-tbody');
       if (!tbody) return;
-      tbody.innerHTML = therapists.map(buildRow).join('');
+      tbody.innerHTML = data.map(buildRow).join('');
       if (typeof loadPriorities === 'function') loadPriorities();
       if (typeof filterTherapists === 'function') filterTherapists();
     })

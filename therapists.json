@@ -5,11 +5,30 @@
     "credentials": "Licensed · PhD",
     "url": "https://www.lovediscovery.org/team/dr.-carolina-pataky",
     "level": "expert",
-    "insurance": ["self"],
+    "insurance": [
+      "self"
+    ],
     "rate": "$400",
     "language": "en",
     "location": "telehealth",
-    "specializations": ["Individual", "Anxiety", "Depression"]
+    "sessionTypes": [
+      "Individual",
+      "Couples"
+    ],
+    "ageGroups": [
+      "Adults"
+    ],
+    "approaches": [
+      "Psychodynamic",
+      "Mindfulness-Based"
+    ],
+    "areasOfFocus": [
+      "Anxiety",
+      "Depression",
+      "Relationship Issues",
+      "Intimacy",
+      "Self-Esteem"
+    ]
   },
   {
     "id": "max-riv",
@@ -17,11 +36,28 @@
     "credentials": "Licensed · PhD · Director",
     "url": "https://www.lovediscovery.org/team/dr.-max-riv",
     "level": "expert",
-    "insurance": ["aetna", "self"],
+    "insurance": [
+      "aetna",
+      "self"
+    ],
     "rate": "$400",
     "language": "en",
     "location": "telehealth",
-    "specializations": ["Individual", "Anxiety", "Depression"]
+    "sessionTypes": [
+      "Individual",
+      "Couples"
+    ],
+    "ageGroups": [
+      "Adults"
+    ],
+    "approaches": [
+      "Psychodynamic"
+    ],
+    "areasOfFocus": [
+      "Anxiety",
+      "Depression",
+      "Relationship Issues"
+    ]
   },
   {
     "id": "clemencia-cartas",
@@ -29,11 +65,30 @@
     "credentials": "Licensed",
     "url": "https://www.lovediscovery.org/team/clemencia-cartas",
     "level": "expert",
-    "insurance": ["self"],
+    "insurance": [
+      "self"
+    ],
     "rate": "$200",
     "language": "es",
     "location": "both",
-    "specializations": ["Couples", "Gottman Method", "Individual", "Bilingual", "Anxiety", "Depression"]
+    "sessionTypes": [
+      "Individual",
+      "Couples"
+    ],
+    "ageGroups": [
+      "Adults"
+    ],
+    "approaches": [
+      "Gottman Method",
+      "Psychodynamic"
+    ],
+    "areasOfFocus": [
+      "Anxiety",
+      "Depression",
+      "Relationship Issues",
+      "Couples Therapy",
+      "Communication"
+    ]
   },
   {
     "id": "fabiola-viviano",
@@ -41,11 +96,33 @@
     "credentials": "Licensed",
     "url": "https://www.lovediscovery.org/team/fabiola-viviano",
     "level": "expert",
-    "insurance": ["self"],
+    "insurance": [
+      "self"
+    ],
     "rate": "Sliding from $150",
     "language": "es",
     "location": "both",
-    "specializations": ["Individual", "Couples", "Adolescents", "Teens", "Bilingual", "Anxiety", "Depression"]
+    "sessionTypes": [
+      "Individual",
+      "Couples",
+      "Adolescents/Teens"
+    ],
+    "ageGroups": [
+      "Teens (13-17)",
+      "Young Adults (18-25)",
+      "Adults"
+    ],
+    "approaches": [
+      "CBT",
+      "Mindfulness-Based"
+    ],
+    "areasOfFocus": [
+      "Anxiety",
+      "Depression",
+      "Relationship Issues",
+      "Life Transitions",
+      "Self-Esteem"
+    ]
   },
   {
     "id": "nanette-comerio",
@@ -53,11 +130,33 @@
     "credentials": "Licensed",
     "url": "https://www.lovediscovery.org/team/ana-comerio",
     "level": "expert",
-    "insurance": ["aetna", "bcbs", "avmed", "optum", "oscar", "united"],
+    "insurance": [
+      "aetna",
+      "bcbs",
+      "avmed",
+      "optum",
+      "oscar",
+      "united"
+    ],
     "rate": "$200",
     "language": "en",
     "location": "both",
-    "specializations": ["Individual", "Trauma", "Anxiety", "Depression"]
+    "sessionTypes": [
+      "Individual"
+    ],
+    "ageGroups": [
+      "Adults"
+    ],
+    "approaches": [
+      "CBT",
+      "Somatic/Body-Based"
+    ],
+    "areasOfFocus": [
+      "Trauma/PTSD",
+      "Anxiety",
+      "Depression",
+      "Grief & Loss"
+    ]
   },
   {
     "id": "bacheline-joseph",
@@ -65,11 +164,28 @@
     "credentials": "Licensed · PhD",
     "url": "https://www.lovediscovery.org/team/dr.-bacheline-joseph",
     "level": "qualified",
-    "insurance": ["aetna"],
+    "insurance": [
+      "aetna"
+    ],
     "rate": "1st: $400 / ongoing: $250",
     "language": "en",
     "location": "telehealth",
-    "specializations": ["Individual", "Anxiety", "Depression"]
+    "sessionTypes": [
+      "Individual"
+    ],
+    "ageGroups": [
+      "Adults"
+    ],
+    "approaches": [
+      "Psychodynamic",
+      "CBT"
+    ],
+    "areasOfFocus": [
+      "Anxiety",
+      "Depression",
+      "Life Transitions",
+      "Self-Esteem"
+    ]
   },
   {
     "id": "beatriz-delgado",
@@ -77,11 +193,36 @@
     "credentials": "Licensed · LCSW",
     "url": "https://www.lovediscovery.org/team/beatriz-delgado",
     "level": "qualified",
-    "insurance": ["aetna", "bcbs", "avmed", "optum", "oscar"],
+    "insurance": [
+      "aetna",
+      "bcbs",
+      "avmed",
+      "optum",
+      "oscar"
+    ],
     "rate": "$150",
     "language": "es",
     "location": "both",
-    "specializations": ["Individual", "Trauma", "Adolescents", "Hypnotherapy", "Bilingual", "Anxiety", "Depression"]
+    "sessionTypes": [
+      "Individual",
+      "Adolescents/Teens"
+    ],
+    "ageGroups": [
+      "Teens (13-17)",
+      "Adults"
+    ],
+    "approaches": [
+      "EMDR",
+      "Hypnotherapy",
+      "CBT"
+    ],
+    "areasOfFocus": [
+      "Trauma/PTSD",
+      "Anxiety",
+      "Depression",
+      "Self-Esteem",
+      "Life Transitions"
+    ]
   },
   {
     "id": "tiffany-markovitz",
@@ -89,11 +230,33 @@
     "credentials": "Licensed",
     "url": "https://www.lovediscovery.org/team/tiffany-markovitz",
     "level": "qualified",
-    "insurance": ["aetna", "bcbs", "avmed", "optum", "oscar"],
+    "insurance": [
+      "aetna",
+      "bcbs",
+      "avmed",
+      "optum",
+      "oscar"
+    ],
     "rate": "Sliding from $125",
     "language": "en",
     "location": "telehealth",
-    "specializations": ["Individual", "EMDR", "Trauma", "Anxiety", "Depression"]
+    "sessionTypes": [
+      "Individual"
+    ],
+    "ageGroups": [
+      "Adults"
+    ],
+    "approaches": [
+      "EMDR",
+      "CBT",
+      "Mindfulness-Based"
+    ],
+    "areasOfFocus": [
+      "Trauma/PTSD",
+      "Anxiety",
+      "Depression",
+      "Grief & Loss"
+    ]
   },
   {
     "id": "anaiz-rodriguez",
@@ -101,11 +264,37 @@
     "credentials": "Licensed",
     "url": "https://www.lovediscovery.org/team/anaiz-rodriguez",
     "level": "qualified",
-    "insurance": ["aetna", "bcbs", "avmed", "optum", "oscar"],
+    "insurance": [
+      "aetna",
+      "bcbs",
+      "avmed",
+      "optum",
+      "oscar"
+    ],
     "rate": "$150",
     "language": "es",
     "location": "telehealth",
-    "specializations": ["Individual", "Children", "Adolescents", "Bilingual", "Anxiety", "Depression"]
+    "sessionTypes": [
+      "Individual",
+      "Children",
+      "Adolescents/Teens"
+    ],
+    "ageGroups": [
+      "Children (under 12)",
+      "Teens (13-17)",
+      "Adults"
+    ],
+    "approaches": [
+      "CBT",
+      "Play Therapy"
+    ],
+    "areasOfFocus": [
+      "Anxiety",
+      "Depression",
+      "Behavioral Issues",
+      "Family Conflict",
+      "Life Transitions"
+    ]
   },
   {
     "id": "yamaris-bobe",
@@ -113,11 +302,32 @@
     "credentials": "Licensed",
     "url": "https://www.lovediscovery.org/team/dr.-yamaris-bobe-",
     "level": "qualified",
-    "insurance": ["aetna", "bcbs", "avmed", "optum", "oscar"],
+    "insurance": [
+      "aetna",
+      "bcbs",
+      "avmed",
+      "optum",
+      "oscar"
+    ],
     "rate": "$175",
     "language": "es",
     "location": "both",
-    "specializations": ["Individual", "Bilingual", "Anxiety", "Depression"]
+    "sessionTypes": [
+      "Individual"
+    ],
+    "ageGroups": [
+      "Adults"
+    ],
+    "approaches": [
+      "CBT",
+      "Psychodynamic"
+    ],
+    "areasOfFocus": [
+      "Anxiety",
+      "Depression",
+      "Life Transitions",
+      "Self-Esteem"
+    ]
   },
   {
     "id": "victoria-wheeler",
@@ -125,23 +335,72 @@
     "credentials": "Licensed",
     "url": "https://www.lovediscovery.org/team/victoria-wheeler-",
     "level": "qualified",
-    "insurance": ["aetna", "bcbs", "avmed", "optum", "oscar"],
+    "insurance": [
+      "aetna",
+      "bcbs",
+      "avmed",
+      "optum",
+      "oscar"
+    ],
     "rate": "$150",
     "language": "es",
     "location": "both",
-    "specializations": ["Individual", "Couples", "Bilingual", "Anxiety", "Depression"]
+    "sessionTypes": [
+      "Individual",
+      "Couples"
+    ],
+    "ageGroups": [
+      "Adults"
+    ],
+    "approaches": [
+      "CBT",
+      "Gottman Method"
+    ],
+    "areasOfFocus": [
+      "Anxiety",
+      "Depression",
+      "Relationship Issues",
+      "Communication",
+      "Couples Therapy"
+    ]
   },
   {
     "id": "katherine-de-leon",
     "name": "Katherine De Leon",
-    "credentials": "Licensed",
+    "credentials": "Licensed Psychotherapist",
     "url": "https://www.lovediscovery.org/team/katherine-de-leon",
     "level": "qualified",
-    "insurance": ["aetna", "bcbs", "avmed", "optum", "oscar"],
+    "insurance": [
+      "aetna",
+      "bcbs",
+      "avmed",
+      "optum",
+      "oscar"
+    ],
     "rate": "$150",
     "language": "en",
     "location": "telehealth",
-    "specializations": ["Individual", "EMDR", "Anxiety", "Depression"]
+    "sessionTypes": [
+      "Individual"
+    ],
+    "ageGroups": [
+      "Teens (16+)",
+      "Adults"
+    ],
+    "approaches": [
+      "EMDR",
+      "Faith-Based (Christian)",
+      "CBT"
+    ],
+    "areasOfFocus": [
+      "Trauma/PTSD",
+      "Anxiety",
+      "Grief & Loss",
+      "Women's Issues",
+      "Stress Management",
+      "Anger Management",
+      "Faith & Spirituality"
+    ]
   },
   {
     "id": "arleen-patin",
@@ -149,10 +408,32 @@
     "credentials": "Licensed",
     "url": "https://www.lovediscovery.org/team/arleen-patin",
     "level": "qualified",
-    "insurance": ["aetna", "bcbs", "avmed", "optum", "oscar"],
+    "insurance": [
+      "aetna",
+      "bcbs",
+      "avmed",
+      "optum",
+      "oscar"
+    ],
     "rate": "$175",
     "language": "es",
     "location": "both",
-    "specializations": ["Individual", "Trauma", "Anxiety", "Bilingual", "Depression"]
+    "sessionTypes": [
+      "Individual"
+    ],
+    "ageGroups": [
+      "Adults"
+    ],
+    "approaches": [
+      "CBT",
+      "Somatic/Body-Based"
+    ],
+    "areasOfFocus": [
+      "Trauma/PTSD",
+      "Anxiety",
+      "Depression",
+      "Grief & Loss",
+      "Life Transitions"
+    ]
   }
 ]
