@@ -27,7 +27,13 @@
       "Depression",
       "Relationship Issues",
       "Intimacy",
-      "Self-Esteem"
+      "Self-Esteem",
+      "LGBTQ+",
+      "Trust Issues",
+      "Sexual Concerns",
+      "Substance Use",
+      "Sleep Issues",
+      "Emotional Regulation"
     ],
     "slidingScale": "",
     "pqEmail": "carolina@lovediscovery.org",
@@ -66,7 +72,14 @@
     "areasOfFocus": [
       "Anxiety",
       "Depression",
-      "Relationship Issues"
+      "Relationship Issues",
+      "LGBTQ+",
+      "Trust Issues",
+      "Sexual Concerns",
+      "Substance Use",
+      "Sleep Issues",
+      "Emotional Regulation",
+      "ADHD"
     ],
     "slidingScale": "",
     "pqEmail": "max@lovediscovery.org",
@@ -105,7 +118,9 @@
       "Depression",
       "Relationship Issues",
       "Couples Therapy",
-      "Communication"
+      "Communication",
+      "Substance Use",
+      "Sleep Issues"
     ],
     "slidingScale": "",
     "pqEmail": "clemencia@lovediscovery.org",
@@ -149,7 +164,14 @@
       "Depression",
       "Relationship Issues",
       "Life Transitions",
-      "Self-Esteem"
+      "Self-Esteem",
+      "LGBTQ+",
+      "Parenting",
+      "Trust Issues",
+      "Substance Use",
+      "Eating Concerns",
+      "Sleep Issues",
+      "Emotional Regulation"
     ],
     "slidingScale": "",
     "pqEmail": "fabiola@lovediscovery.org",
@@ -175,7 +197,8 @@
       "avmed",
       "optum",
       "oscar",
-      "united"
+      "united",
+      "self"
     ],
     "rate": "$200",
     "language": "en",
@@ -194,7 +217,11 @@
       "Trauma/PTSD",
       "Anxiety",
       "Depression",
-      "Grief & Loss"
+      "Grief & Loss",
+      "LGBTQ+",
+      "Substance Use",
+      "Eating Concerns",
+      "Sleep Issues"
     ],
     "slidingScale": "",
     "pqEmail": "ana@lovediscovery.org",
@@ -212,7 +239,8 @@
     "url": "https://www.lovediscovery.org/team/dr.-bacheline-joseph",
     "level": "qualified",
     "insurance": [
-      "aetna"
+      "aetna",
+      "self"
     ],
     "rate": "1st: $400 / ongoing: $250",
     "language": "en",
@@ -231,7 +259,11 @@
       "Anxiety",
       "Depression",
       "Life Transitions",
-      "Self-Esteem"
+      "Self-Esteem",
+      "LGBTQ+",
+      "Substance Use",
+      "Sleep Issues",
+      "ADHD"
     ],
     "slidingScale": "",
     "pqEmail": "bacheline@lovediscovery.org",
@@ -253,7 +285,8 @@
       "bcbs",
       "avmed",
       "optum",
-      "oscar"
+      "oscar",
+      "self"
     ],
     "rate": "$150",
     "language": "es",
@@ -276,7 +309,13 @@
       "Anxiety",
       "Depression",
       "Self-Esteem",
-      "Life Transitions"
+      "Life Transitions",
+      "LGBTQ+",
+      "Parenting",
+      "Substance Use",
+      "Eating Concerns",
+      "Sleep Issues",
+      "Emotional Regulation"
     ],
     "slidingScale": "",
     "pqEmail": "beatriz@lovediscovery.org",
@@ -300,7 +339,8 @@
       "bcbs",
       "avmed",
       "optum",
-      "oscar"
+      "oscar",
+      "self"
     ],
     "rate": "Sliding from $125",
     "language": "en",
@@ -320,7 +360,9 @@
       "Trauma/PTSD",
       "Anxiety",
       "Depression",
-      "Grief & Loss"
+      "Grief & Loss",
+      "Substance Use",
+      "Sleep Issues"
     ],
     "slidingScale": "",
     "pqEmail": "tiffany@lovediscovery.org",
@@ -343,7 +385,8 @@
       "bcbs",
       "avmed",
       "optum",
-      "oscar"
+      "oscar",
+      "self"
     ],
     "rate": "$150",
     "language": "es",
@@ -367,7 +410,13 @@
       "Depression",
       "Behavioral Issues",
       "Family Conflict",
-      "Life Transitions"
+      "Life Transitions",
+      "LGBTQ+",
+      "Parenting",
+      "Substance Use",
+      "Eating Concerns",
+      "Sleep Issues",
+      "Emotional Regulation"
     ],
     "slidingScale": "",
     "pqEmail": "anaiz@lovediscovery.org",
@@ -391,7 +440,8 @@
       "bcbs",
       "avmed",
       "optum",
-      "oscar"
+      "oscar",
+      "self"
     ],
     "rate": "$175",
     "language": "es",
@@ -410,7 +460,11 @@
       "Anxiety",
       "Depression",
       "Life Transitions",
-      "Self-Esteem"
+      "Self-Esteem",
+      "LGBTQ+",
+      "Parenting",
+      "Substance Use",
+      "Sleep Issues"
     ],
     "slidingScale": "",
     "pqEmail": "yamaris@lovediscovery.org",
@@ -433,7 +487,8 @@
       "bcbs",
       "avmed",
       "optum",
-      "oscar"
+      "oscar",
+      "self"
     ],
     "rate": "$150",
     "language": "es",
@@ -454,7 +509,9 @@
       "Depression",
       "Relationship Issues",
       "Communication",
-      "Couples Therapy"
+      "Couples Therapy",
+      "Substance Use",
+      "Sleep Issues"
     ],
     "slidingScale": "",
     "pqEmail": "victoria@lovediscovery.org",
@@ -478,7 +535,8 @@
       "bcbs",
       "avmed",
       "optum",
-      "oscar"
+      "oscar",
+      "self"
     ],
     "rate": "$150",
     "language": "en",
@@ -502,7 +560,9 @@
       "Women's Issues",
       "Stress Management",
       "Anger Management",
-      "Faith & Spirituality"
+      "Faith & Spirituality",
+      "Substance Use",
+      "Sleep Issues"
     ],
     "slidingScale": "",
     "pqEmail": "katherine@lovediscovery.org",
@@ -524,7 +584,8 @@
       "bcbs",
       "avmed",
       "optum",
-      "oscar"
+      "oscar",
+      "self"
     ],
     "rate": "$175",
     "language": "es",
@@ -544,7 +605,13 @@
       "Anxiety",
       "Depression",
       "Grief & Loss",
-      "Life Transitions"
+      "Life Transitions",
+      "LGBTQ+",
+      "Trust Issues",
+      "Sexual Concerns",
+      "Substance Use",
+      "Sleep Issues",
+      "Emotional Regulation"
     ],
     "slidingScale": "",
     "pqEmail": "arleen@lovediscovery.org",
