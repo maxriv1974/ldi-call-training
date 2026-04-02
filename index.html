@@ -1972,6 +1972,7 @@ function filterTherapists(type, val, btn) {
     }
   });
   btn.classList.add('active');
+  }
   document.querySelectorAll('#therapist-table tbody tr').forEach(row => {
     const plans = (row.dataset.plans || '').split(' ');
     const lang  = row.dataset.lang;
