@@ -353,6 +353,10 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 .drawer-field{margin-bottom:14px}
 .drawer-field label{display:block;font-size:.75rem;font-weight:700;color:#475569;margin-bottom:5px;text-transform:uppercase;letter-spacing:.03em}
 .drawer-field input,.drawer-field select{width:100%;padding:7px 10px;border:1px solid #cbd5e1;border-radius:8px;font-size:.85rem}
+.add-opt-row{display:flex;gap:4px;margin-top:6px;width:100%;flex-basis:100%}
+.add-opt-input{flex:1;padding:3px 6px;font-size:.75rem;border:1px solid #cbd5e1;border-radius:4px}
+.add-opt-btn{padding:3px 8px;font-size:.8rem;background:#e2e8f0;border:1px solid #cbd5e1;border-radius:4px;cursor:pointer;font-weight:700}
+.add-opt-btn:hover{background:#cbd5e1}
 .drawer-check-grid{display:flex;flex-wrap:wrap;gap:6px}
 .drawer-check-grid label{display:flex;align-items:center;gap:5px;font-size:.78rem;background:#f1f5f9;padding:4px 10px;border-radius:14px;cursor:pointer;border:1px solid #e2e8f0}
 .drawer-check-grid label:hover{border-color:#6c63ff}
@@ -1793,7 +1797,7 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
     <button class="th-filter-btn" onclick="filterTherapists('plan','oscar',this)">Oscar</button>
     <button class="th-filter-btn" onclick="filterTherapists('plan','self',this)">Self-Pay</button>
     <span class="th-filter-group">Language:</span>
-    <button class="th-filter-btn" onclick="filterTherapists('lang','en',this)">English Only</button>
+    <button class="th-filter-btn" onclick="filterTherapists('lang','en',this)">English</button>
     <button class="th-filter-btn" onclick="filterTherapists('lang','es',this)">Spanish</button>
     <span class="th-filter-group">Location:</span>
     <button class="th-filter-btn" onclick="filterTherapists('loc','telehealth',this)">Telehealth</button>
@@ -1983,7 +1987,7 @@ function filterTherapists(type, val, btn) {
       plans.includes(activeFilters.plan) ||
       (activeFilters.plan === 'optum' && plans.includes('united'));
     const show = planMatch &&
-      (activeFilters.lang  === 'all' || lang  === activeFilters.lang || (activeFilters.lang === 'es' && lang === 'es')) &&
+      (activeFilters.lang  === 'all' || lang.split(' ').indexOf(activeFilters.lang) >= 0) &&
       (activeFilters.loc   === 'all' || loc   === activeFilters.loc  || loc === 'both') &&
       (activeFilters.level === 'all' || level === activeFilters.level);
     // Availability + service type filters
@@ -2135,12 +2139,26 @@ document.addEventListener('DOMContentLoaded', function() {
   window.EDIT_MODE = false;
   window._editPw = '';
   window._pendingEdits = {};
+  var LANG_OPTS = {'en':'English','es':'Spanish','pt':'Portuguese','fr':'French','ht':'Haitian Creole'};
   var INS_OPTS = ['aetna','bcbs','avmed','optum','oscar','united','cigna','self'];
   var INS_LABELS = {aetna:'Aetna',bcbs:'BCBS',avmed:'AvMed',optum:'Optum',oscar:'Oscar',united:'United',cigna:'Cigna','self':'Self-Pay'};
   var SESS_OPTS = ['Individual','Couples','Children','Adolescents/Teens','Family','Group'];
   var AGE_OPTS = ['Children (under 12)','Teens (13-17)','Teens (16+)','Young Adults (18-25)','Adults','Seniors'];
   var APPROACH_OPTS = ['CBT','EMDR','Psychodynamic','Gottman Method','Mindfulness-Based','Somatic/Body-Based','Play Therapy','DBT','ACT','Hypnotherapy','Faith-Based (Christian)','Narrative Therapy','Solution-Focused'];
   var FOCUS_OPTS = ['Anxiety','Depression','Trauma/PTSD','Grief & Loss','Relationship Issues','Couples Therapy','Intimacy','Self-Esteem','Life Transitions','Behavioral Issues','Family Conflict',"Women's Issues",'Stress Management','Anger Management','Faith & Spirituality','Communication'];
+
+  window.addCustomOpt = function(btn) {
+    var input = btn.previousElementSibling;
+    var val = (input.value||'').trim();
+    if (!val) return;
+    var grid = btn.closest('.drawer-check-grid');
+    var sampleCb = grid.querySelector('input[type="checkbox"]');
+    var field = sampleCb ? sampleCb.getAttribute('data-field') : 'custom';
+    var lbl = document.createElement('label');
+    lbl.innerHTML = '<input type="checkbox" data-field="'+field+'" value="'+val.replace(/"/g,'&quot;')+'" checked> '+val;
+    grid.insertBefore(lbl, btn.closest('.add-opt-row'));
+    input.value = '';
+  };
 
   window.toggleEditMode = function() {
     if (window.EDIT_MODE) {
@@ -2173,10 +2191,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function renderDrawer(t) {
     function checks(opts, selected, field) {
-      return opts.map(function(o) {
+      var allOpts = opts.slice();
+      (selected||[]).forEach(function(v){ if (allOpts.indexOf(v) < 0) allOpts.push(v); });
+      return allOpts.map(function(o) {
         var chk = selected && selected.indexOf(o) >= 0 ? 'checked' : '';
         return '<label><input type="checkbox" data-field="'+field+'" value="'+o.replace(/"/g,'&quot;')+'" '+chk+'> '+o+'</label>';
-      }).join('');
+      }).join('') +
+      '<div class="add-opt-row"><input type="text" class="add-opt-input" placeholder="Add option..."><button type="button" class="add-opt-btn" onclick="addCustomOpt(this)">+</button></div>';
+    }
+    function checksLang(selected) {
+      var langMap = LANG_OPTS;
+      var opts = Object.keys(langMap);
+      (selected||[]).forEach(function(v){ if (opts.indexOf(v) < 0) opts.push(v); });
+      return opts.map(function(o){
+        var chk = (selected||[]).indexOf(o) >= 0 ? 'checked' : '';
+        return '<label><input type="checkbox" data-field="lang" value="'+o+'" '+chk+'> '+(langMap[o]||o)+'</label>';
+      }).join('') +
+      '<div class="add-opt-row"><input type="text" class="add-opt-input" placeholder="Add language..."><button type="button" class="add-opt-btn" onclick="addCustomOpt(this)">+</button></div>';
     }
     var sel = function(id,val,opts) {
       return '<select id="'+id+'">'+opts.map(function(o){return '<option value="'+o[0]+'"'+(val===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('')+'</select>';
@@ -2189,7 +2220,7 @@ document.addEventListener('DOMContentLoaded', function() {
       '<div class="drawer-field"><label>Level</label>'+sel('d_level',t.level,[['expert','Expert'],['qualified','Qualified']])+'</div>'+
       '<div class="drawer-field"><label>Bio URL</label><input id="d_url" placeholder="https://lovediscovery.org/team/..." value="'+(t.url||'').replace(/"/g,'&quot;')+'">'+'</div>'+
       '<div class="drawer-field"><label>Sliding Scale Rate</label><input id="d_sliding" placeholder="e.g. $150" value="'+(t.slidingScale||'').replace(/"/g,'&quot;')+'">'+'</div>'+
-      '<div class="drawer-field"><label>Language</label>'+sel('d_lang',t.language,[['en','English'],['es','English / Spanish']])+'</div>'+
+      '<div class="drawer-section-title">Languages</div><div class="drawer-check-grid">'+checksLang(t.languages||(t.language==='es'?['en','es']:['en']))+'</div>'+
       '<div class="drawer-field"><label>Location</label>'+sel('d_loc',t.location,[['telehealth','Telehealth'],['in-person','In-Person'],['both','In-Person & Telehealth']])+'</div>'+
       '<div class="drawer-section-title">Insurance</div><div class="drawer-check-grid">'+checks(INS_OPTS,t.insurance,'ins')+'</div>'+
       '<div class="drawer-section-title">Session Types</div><div class="drawer-check-grid">'+checks(SESS_OPTS,t.sessionTypes,'sess')+'</div>'+
@@ -2212,7 +2243,7 @@ document.addEventListener('DOMContentLoaded', function() {
       credentials: document.getElementById('d_creds').value,
       rate: document.getElementById('d_rate').value,
       level: document.getElementById('d_level').value,
-      language: document.getElementById('d_lang').value,
+      languages: getChecked('lang'),
       location: document.getElementById('d_loc').value,
       slidingScale:(document.getElementById('d_sliding')||{value:''}).value,
       url:(document.getElementById('d_url')||{value:''}).value,
@@ -2301,9 +2332,12 @@ document.addEventListener('DOMContentLoaded', function() {
     var insPills = t.insurance.map(function(i) {
       return '<span class="badge ' + (INS_BADGE[i]||'badge-self') + '">' + (INS_LABELS[i]||i) + '</span>';
     }).join('');
-    var langBadge = t.language === 'es'
+    var langs = t.languages || [t.language||'en'];
+    var langBadge = langs.length > 1 || langs.indexOf('es') >= 0
       ? '<span class="badge badge-es">English / Spanish</span>'
-      : '<span class="badge badge-en">English</span>';
+      : langs.indexOf('pt') >= 0
+        ? '<span class="badge badge-es">English / Portuguese</span>'
+        : '<span class="badge badge-en">English</span>';
     var locBadge = t.location === 'both'
       ? '<span class="badge badge-both">In-Person &amp; Telehealth</span>'
       : t.location === 'in-person'
@@ -2322,7 +2356,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var editBtn = '<td class="th-edit-col">' +
       (window.EDIT_MODE ? '<button class="edit-row-btn" onclick="openEditor(\'' + pid + '\')" title="Edit">&#9998;</button>' : '') +
       '</td>';
-    return '<tr data-plans="' + plans + '" data-lang="' + t.language +
+    return '<tr data-plans="' + plans + '" data-lang="' + (t.languages||[t.language||'en']).join(' ') +
       '" data-loc="' + t.location + '" data-level="' + t.level +
       '" data-sessions="' + sessData + '" data-approaches="' + approachData +
       '" data-focus="' + focusData + '" data-id="' + pid + '" data-pq-email="' + (t.pqEmail||'') + '" data-service-types="' + getSvcFilterTypes(t) + '">' +

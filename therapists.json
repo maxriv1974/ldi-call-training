@@ -35,6 +35,9 @@
       "coaching",
       "couples",
       "individual"
+    ],
+    "languages": [
+      "en"
     ]
   },
   {
@@ -69,6 +72,9 @@
     "pqEmail": "max@lovediscovery.org",
     "serviceTypes": [
       "individual"
+    ],
+    "languages": [
+      "en"
     ]
   },
   {
@@ -106,6 +112,10 @@
     "serviceTypes": [
       "couples",
       "individual"
+    ],
+    "languages": [
+      "en",
+      "es"
     ]
   },
   {
@@ -147,6 +157,10 @@
       "couples",
       "individual",
       "minors"
+    ],
+    "languages": [
+      "en",
+      "es"
     ]
   },
   {
@@ -186,6 +200,9 @@
     "pqEmail": "ana@lovediscovery.org",
     "serviceTypes": [
       "individual"
+    ],
+    "languages": [
+      "en"
     ]
   },
   {
@@ -220,6 +237,9 @@
     "pqEmail": "bacheline@lovediscovery.org",
     "serviceTypes": [
       "individual"
+    ],
+    "languages": [
+      "en"
     ]
   },
   {
@@ -263,6 +283,10 @@
     "serviceTypes": [
       "individual",
       "minors"
+    ],
+    "languages": [
+      "en",
+      "es"
     ]
   },
   {
@@ -303,6 +327,9 @@
     "serviceTypes": [
       "individual",
       "minors"
+    ],
+    "languages": [
+      "en"
     ]
   },
   {
@@ -347,6 +374,10 @@
     "serviceTypes": [
       "individual",
       "minors"
+    ],
+    "languages": [
+      "en",
+      "es"
     ]
   },
   {
@@ -385,6 +416,10 @@
     "pqEmail": "yamaris@lovediscovery.org",
     "serviceTypes": [
       "individual"
+    ],
+    "languages": [
+      "en",
+      "es"
     ]
   },
   {
@@ -426,6 +461,10 @@
     "serviceTypes": [
       "couples",
       "individual"
+    ],
+    "languages": [
+      "en",
+      "es"
     ]
   },
   {
@@ -469,6 +508,9 @@
     "pqEmail": "katherine@lovediscovery.org",
     "serviceTypes": [
       "individual"
+    ],
+    "languages": [
+      "en"
     ]
   },
   {
@@ -508,6 +550,10 @@
     "pqEmail": "arleen@lovediscovery.org",
     "serviceTypes": [
       "individual"
+    ],
+    "languages": [
+      "en",
+      "es"
     ]
   }
 ]
