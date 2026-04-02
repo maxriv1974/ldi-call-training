@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LDI Admin — Therapist Roster</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f7fa; color: #1a1a2e; }
+
+  #login-screen {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  }
+  .login-box {
+    background: white; border-radius: 16px; padding: 48px; width: 360px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .login-box h1 { font-size: 22px; margin-bottom: 8px; color: #1a1a2e; }
+  .login-box p { color: #666; font-size: 14px; margin-bottom: 28px; }
+  .login-box input {
+    width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 8px;
+    font-size: 15px; margin-bottom: 16px; outline: none; transition: border-color 0.2s;
+  }
+  .login-box input:focus { border-color: #6c63ff; }
+  .login-box button {
+    width: 100%; padding: 13px; background: #6c63ff; color: white; border: none;
+    border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s;
+  }
+  .login-box button:hover { background: #5a52d5; }
+  #login-error { color: #e53e3e; font-size: 13px; margin-top: 8px; display: none; }
+
+  #admin-panel { display: none; }
+
+  header {
+    background: #1a1a2e; color: white; padding: 16px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  header h1 { font-size: 18px; font-weight: 600; }
+  header span { font-size: 13px; color: #a0aec0; }
+
+  .toolbar {
+    background: white; border-bottom: 1px solid #e5e7eb;
+    padding: 16px 32px; display: flex; align-items: center; gap: 12px;
+  }
+  .btn {
+    padding: 9px 18px; border-radius: 8px; font-size: 14px; font-weight: 500;
+    cursor: pointer; border: none; transition: all 0.2s;
+  }
+  .btn-primary { background: #6c63ff; color: white; }
+  .btn-primary:hover { background: #5a52d5; }
+  .btn-success { background: #38a169; color: white; }
+  .btn-success:hover { background: #2f855a; }
+  .btn-outline { background: white; color: #374151; border: 2px solid #e5e7eb; }
+  .btn-outline:hover { border-color: #6c63ff; color: #6c63ff; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  #save-status {
+    font-size: 13px; padding: 8px 14px; border-radius: 6px; display: none;
+  }
+  #save-status.success { background: #c6f6d5; color: #276749; display: block; }
+  #save-status.error { background: #fed7d7; color: #9b2c2c; display: block; }
+  #save-status.loading { background: #ebf8ff; color: #2b6cb0; display: block; }
+
+  .main { padding: 32px; }
+  .section-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; color: #1a1a2e; }
+
+  .therapist-card {
+    background: white; border-radius: 12px; margin-bottom: 16px;
+    border: 2px solid #e5e7eb; transition: border-color 0.2s; overflow: hidden;
+  }
+  .therapist-card.modified { border-color: #6c63ff; }
+
+  .card-header {
+    padding: 16px 20px; display: flex; align-items: center; gap: 16px;
+    cursor: pointer; user-select: none;
+  }
+  .card-header:hover { background: #f9fafb; }
+  .card-name { font-size: 16px; font-weight: 600; flex: 1; }
+  .card-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+  .badge {
+    padding: 3px 9px; border-radius: 99px; font-size: 11px; font-weight: 600;
+  }
+  .badge-ins { background: #ebf8ff; color: #2b6cb0; }
+  .badge-self { background: #f0fff4; color: #276749; }
+  .badge-expert { background: #faf5ff; color: #6b46c1; }
+  .badge-qualified { background: #fff8e1; color: #975a16; }
+  .card-toggle { color: #9ca3af; font-size: 18px; transition: transform 0.2s; }
+  .card-toggle.open { transform: rotate(180deg); }
+
+  .card-body { padding: 20px; border-top: 1px solid #e5e7eb; display: none; }
+  .card-body.open { display: block; }
+
+  .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .field-group { display: flex; flex-direction: column; gap: 6px; }
+  .field-group.full { grid-column: 1 / -1; }
+  label { font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
+  input[type="text"], input[type="url"], select {
+    padding: 9px 12px; border: 2px solid #e5e7eb; border-radius: 8px;
+    font-size: 14px; outline: none; transition: border-color 0.2s; width: 100%;
+  }
+  input[type="text"]:focus, input[type="url"]:focus, select:focus { border-color: #6c63ff; }
+
+  .insurance-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .ins-check {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 10px; border: 2px solid #e5e7eb; border-radius: 8px;
+    cursor: pointer; transition: all 0.2s; font-size: 13px; font-weight: 500;
+  }
+  .ins-check:hover { border-color: #6c63ff; }
+  .ins-check input[type="checkbox"] { accent-color: #6c63ff; width: 15px; height: 15px; }
+  .ins-check.checked { border-color: #6c63ff; background: #f0f0ff; }
+
+  .spec-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+  .spec-tag {
+    display: flex; align-items: center; gap: 6px;
+    padding: 5px 10px; background: #f3f4f6; border-radius: 6px; font-size: 13px;
+  }
+  .spec-tag button {
+    background: none; border: none; color: #9ca3af; cursor: pointer;
+    font-size: 14px; line-height: 1; padding: 0;
+  }
+  .spec-tag button:hover { color: #e53e3e; }
+  .add-spec { display: flex; gap: 8px; }
+  .add-spec input { flex: 1; }
+  .add-spec button { padding: 9px 14px; }
+
+  .card-footer {
+    display: flex; justify-content: flex-end; padding-top: 16px;
+    border-top: 1px solid #f3f4f6; margin-top: 16px;
+  }
+  .btn-danger { background: #fff5f5; color: #e53e3e; border: 2px solid #fed7d7; }
+  .btn-danger:hover { background: #fed7d7; }
+
+  .add-therapist-card {
+    background: white; border-radius: 12px; border: 2px dashed #d1d5db;
+    padding: 24px; text-align: center; cursor: pointer; transition: all 0.2s; margin-bottom: 16px;
+  }
+  .add-therapist-card:hover { border-color: #6c63ff; background: #f9f8ff; }
+  .add-therapist-card span { font-size: 28px; display: block; margin-bottom: 8px; }
+  .add-therapist-card p { color: #6b7280; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<div id="login-screen">
+  <div class="login-box">
+    <h1>LDI Admin</h1>
+    <p>Sign in to update the therapist roster</p>
+    <input type="password" id="password-input" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">Sign In</button>
+    <p id="login-error">Incorrect password. Try again.</p>
+  </div>
+</div>
+
+<div id="admin-panel">
+  <header>
+    <h1>LDI Admin — Therapist Roster</h1>
+    <span>Changes go live at ghl-ldi1.vercel.app in ~30 seconds after publishing</span>
+  </header>
+  <div class="toolbar">
+    <button class="btn btn-success" onclick="publishChanges()">Publish Changes</button>
+    <button class="btn btn-outline" onclick="loadTherapists()">Reload</button>
+    <span id="save-status"></span>
+  </div>
+  <div class="main">
+    <div class="section-title">Therapist Roster</div>
+    <div id="therapist-list"></div>
+    <div class="add-therapist-card" onclick="addTherapist()">
+      <span>+</span>
+      <p>Add a new therapist</p>
+    </div>
+  </div>
+</div>
+
+<script>
+let therapists = [];
+let adminPassword = '';
+
+const INSURANCE_OPTIONS = [
+  { value: 'aetna', label: 'Aetna' },
+  { value: 'bcbs', label: 'BCBS' },
+  { value: 'avmed', label: 'AvMed' },
+  { value: 'optum', label: 'Optum' },
+  { value: 'oscar', label: 'Oscar' },
+  { value: 'united', label: 'United' },
+  { value: 'cigna', label: 'Cigna' },
+  { value: 'self', label: 'Self-Pay' },
+];
+
+function doLogin() {
+  const pw = document.getElementById('password-input').value;
+  if (!pw) return;
+  adminPassword = pw;
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('admin-panel').style.display = 'block';
+  loadTherapists();
+}
+
+async function loadTherapists() {
+  try {
+    const res = await fetch('/therapists.json?t=' + Date.now());
+    therapists = await res.json();
+    renderAll();
+  } catch (e) {
+    alert('Could not load therapist data. Please refresh.');
+  }
+}
+
+function renderAll() {
+  const list = document.getElementById('therapist-list');
+  list.innerHTML = therapists.map((t, i) => renderCard(t, i)).join('');
+}
+
+function renderCard(t, i) {
+  const insBadges = t.insurance.map(ins => {
+    const opt = INSURANCE_OPTIONS.find(o => o.value === ins);
+    const cls = ins === 'self' ? 'badge-self' : 'badge-ins';
+    return '<span class="badge ' + cls + '">' + (opt ? opt.label : ins) + '</span>';
+  }).join('');
+  const levelBadge = '<span class="badge badge-' + t.level + '">' + (t.level === 'expert' ? 'Expert' : 'Qualified') + '</span>';
+
+  const insChecks = INSURANCE_OPTIONS.map(opt => {
+    const checked = t.insurance.includes(opt.value);
+    return '<label class="ins-check ' + (checked ? 'checked' : '') + '" onclick="toggleInsCheck(this)">' +
+      '<input type="checkbox" value="' + opt.value + '" ' + (checked ? 'checked' : '') + ' onchange="onCardChange(' + i + ')">' +
+      opt.label + '</label>';
+  }).join('');
+
+  const specTags = t.specializations.map((s, si) =>
+    '<span class="spec-tag">' + s + '<button onclick="removeSpec(' + i + ',' + si + ')" title="Remove">x</button></span>'
+  ).join('');
+
+  const locOptions = [
+    { value: 'telehealth', label: 'Telehealth only' },
+    { value: 'both', label: 'In-Person & Telehealth' },
+    { value: 'in-person', label: 'In-Person only' },
+  ].map(o => '<option value="' + o.value + '" ' + (t.location === o.value ? 'selected' : '') + '>' + o.label + '</option>').join('');
+
+  const langOptions = [
+    { value: 'en', label: 'English' },
+    { value: 'es', label: 'English / Spanish' },
+  ].map(o => '<option value="' + o.value + '" ' + (t.language === o.value ? 'selected' : '') + '>' + o.label + '</option>').join('');
+
+  const levelOptions = [
+    { value: 'expert', label: 'Expert (Licensed)' },
+    { value: 'qualified', label: 'Qualified (Associate)' },
+  ].map(o => '<option value="' + o.value + '" ' + (t.level === o.value ? 'selected' : '') + '>' + o.label + '</option>').join('');
+
+  return '<div class="therapist-card" id="card-' + i + '">' +
+    '<div class="card-header" onclick="toggleCard(' + i + ')">' +
+      '<div class="card-name">' + t.name + '</div>' +
+      '<div class="card-badges">' + levelBadge + insBadges + '</div>' +
+      '<span class="card-toggle" id="toggle-' + i + '">v</span>' +
+    '</div>' +
+    '<div class="card-body" id="body-' + i + '">' +
+      '<div class="field-grid">' +
+        '<div class="field-group"><label>Full Name</label><input type="text" value="' + t.name + '" onchange="updateField(' + i + ',\'name\',this.value)"></div>' +
+        '<div class="field-group"><label>Credentials</label><input type="text" value="' + t.credentials + '" placeholder="e.g. Licensed · PhD" onchange="updateField(' + i + ',\'credentials\',this.value)"></div>' +
+        '<div class="field-group full"><label>Profile URL</label><input type="url" value="' + t.url + '" onchange="updateField(' + i + ',\'url\',this.value)"></div>' +
+        '<div class="field-group"><label>Rate</label><input type="text" value="' + t.rate + '" placeholder="e.g. $150" onchange="updateField(' + i + ',\'rate\',this.value)"></div>' +
+        '<div class="field-group"><label>Level</label><select onchange="updateField(' + i + ',\'level\',this.value)">' + levelOptions + '</select></div>' +
+        '<div class="field-group"><label>Language</label><select onchange="updateField(' + i + ',\'language\',this.value)">' + langOptions + '</select></div>' +
+        '<div class="field-group"><label>Location</label><select onchange="updateField(' + i + ',\'location\',this.value)">' + locOptions + '</select></div>' +
+      '</div>' +
+      '<div class="field-group" style="margin-bottom:16px"><label>Insurance & Payment</label><div class="insurance-grid">' + insChecks + '</div></div>' +
+      '<div class="field-group">' +
+        '<label>Specializations & Modalities</label>' +
+        '<div class="spec-tags" id="specs-' + i + '">' + specTags + '</div>' +
+        '<div class="add-spec">' +
+          '<input type="text" id="new-spec-' + i + '" placeholder="e.g. DBT, Grief, LGBTQ+" onkeydown="if(event.key===\'Enter\'){addSpec(' + i + ');event.preventDefault();}">' +
+          '<button class="btn btn-outline" onclick="addSpec(' + i + ')">+ Add</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="card-footer"><button class="btn btn-danger" onclick="removeTherapist(' + i + ')">Remove Therapist</button></div>' +
+    '</div></div>';
+}
+
+function toggleCard(i) {
+  document.getElementById('body-' + i).classList.toggle('open');
+  document.getElementById('toggle-' + i).classList.toggle('open');
+}
+
+function toggleInsCheck(label) {
+  label.classList.toggle('checked', label.querySelector('input').checked);
+}
+
+function updateField(i, field, value) {
+  therapists[i][field] = value;
+  document.getElementById('card-' + i).classList.add('modified');
+}
+
+function onCardChange(i) {
+  const card = document.getElementById('card-' + i);
+  therapists[i].insurance = Array.from(card.querySelectorAll('input[type="checkbox"]')).filter(c => c.checked).map(c => c.value);
+  card.classList.add('modified');
+}
+
+function addSpec(i) {
+  const input = document.getElementById('new-spec-' + i);
+  const val = input.value.trim();
+  if (!val) return;
+  therapists[i].specializations.push(val);
+  input.value = '';
+  document.getElementById('card-' + i).classList.add('modified');
+  const container = document.getElementById('specs-' + i);
+  const si = therapists[i].specializations.length - 1;
+  const tag = document.createElement('span');
+  tag.className = 'spec-tag';
+  tag.innerHTML = val + '<button onclick="removeSpec(' + i + ',' + si + ')" title="Remove">x</button>';
+  container.appendChild(tag);
+}
+
+function removeSpec(i, si) {
+  therapists[i].specializations.splice(si, 1);
+  document.getElementById('card-' + i).classList.add('modified');
+  renderAll();
+}
+
+function removeTherapist(i) {
+  if (!confirm('Remove ' + therapists[i].name + ' from the roster?')) return;
+  therapists.splice(i, 1);
+  renderAll();
+}
+
+function addTherapist() {
+  therapists.push({
+    id: 'new-therapist-' + Date.now(),
+    name: 'New Therapist',
+    credentials: 'Licensed',
+    url: 'https://www.lovediscovery.org/team/',
+    level: 'qualified',
+    insurance: ['self'],
+    rate: '$150',
+    language: 'en',
+    location: 'telehealth',
+    specializations: ['Individual', 'Anxiety', 'Depression']
+  });
+  renderAll();
+  const i = therapists.length - 1;
+  toggleCard(i);
+  document.getElementById('card-' + i).scrollIntoView({ behavior: 'smooth' });
+}
+
+async function publishChanges() {
+  const status = document.getElementById('save-status');
+  status.className = 'loading';
+  status.textContent = 'Publishing... please wait';
+  status.style.display = 'block';
+
+  try {
+    const res = await fetch('/api/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: adminPassword, therapists })
+    });
+    const data = await res.json();
+
+    if (res.ok) {
+      status.className = 'success';
+      status.textContent = data.message;
+      document.querySelectorAll('.therapist-card').forEach(c => c.classList.remove('modified'));
+    } else {
+      status.className = 'error';
+      status.textContent = data.error || 'Save failed';
+    }
+  } catch (e) {
+    status.className = 'error';
+    status.textContent = 'Network error - check your connection';
+  }
+
+  setTimeout(() => { status.style.display = 'none'; }, 8000);
+}
+</script>
+</body>
+</html>
