@@ -15,13 +15,13 @@ export default async function handler(req, res) {
   monThis.setDate(today.getDate() + diffToMon);
   monThis.setHours(0, 0, 0, 0);
 
-  const monNext = new Date(monThis);
+  const monLast = new Date(monThis); monLast.setDate(monThis.getDate() - 7);  const monNext = new Date(monThis);
   monNext.setDate(monThis.getDate() + 7);
   const friNext = new Date(monNext);
   friNext.setDate(monNext.getDate() + 6);
 
   const fmt = d => d.toISOString().split('T')[0];
-  const startDate = fmt(monThis);
+  const startDate = fmt(monLast);
   const endDate = fmt(friNext);
 
   const DAY_ABBR = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -47,12 +47,12 @@ export default async function handler(req, res) {
       const jsDate = new Date(datePart + 'T12:00:00');
       const dayAbbr = DAY_ABBR[jsDate.getDay()];
       const period = getPeriod(hour);
-      const week = jsDate.getTime() < monNext.getTime() ? 'this' : 'next';
+      const week = jsDate.getTime() < monThis.getTime() ? 'last' : jsDate.getTime() < monNext.getTime() ? 'this' : 'next';
 
-      if (!byEmail[email]) byEmail[email] = { sessions:[], thisWeek:0, nextWeek:0, thisWorkDays:[], nextWorkDays:[], thisWorkPeriods:[], nextWorkPeriods:[] };
+      if (!byEmail[email]) byEmail[email] = { sessions:[], lastWeek:0, thisWeek:0, nextWeek:0, lastWorkDays:[], thisWorkDays:[], nextWorkDays:[], lastWorkPeriods:[], thisWorkPeriods:[], nextWorkPeriods:[] };
       const rec = byEmail[email];
       rec.sessions.push({ date: datePart, dayAbbr, hour, period, week });
-      if (week === 'this') {
+      if (week === 'last') { rec.lastWeek++; if (!rec.lastWorkDays.includes(dayAbbr)) rec.lastWorkDays.push(dayAbbr); if (!rec.lastWorkPeriods.includes(period)) rec.lastWorkPeriods.push(period); } else if (week === 'this') {
         rec.thisWeek++;
         if (!rec.thisWorkDays.includes(dayAbbr)) rec.thisWorkDays.push(dayAbbr);
         if (!rec.thisWorkPeriods.includes(period)) rec.thisWorkPeriods.push(period);

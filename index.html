@@ -238,7 +238,7 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 .spec-tag.identity{background:#ccfbf1;color:#134e4a}
 .spec-tag.anxiety{background:#fef9c3;color:#854d0e}
 .spec-tag.depression{background:#dbeafe;color:#1e3a8a}
-.spec-tag.bilingual{background:#f0fdf4;color:#166534;border:1px solid #86efac}.spec-tag.tag-sess{background:#d1fae5;color:#065f46;border:1px solid #6ee7b7}.spec-tag.tag-approach{background:#ede9fe;color:#5b21b6;border:1px solid #c4b5fd;font-style:italic}
+.spec-tag.bilingual{background:#f0fdf4;color:#166534;border:1px solid #86efac}.spec-tag.tag-sess{background:#d1fae5;color:#065f46;border:1px solid #6ee7b7}.spec-tag.tag-approach{background:#ede9fe;color:#5b21b6;border:1px solid #c4b5fd;font-style:italic}.spec-tag.tag-focus{background:#fff7ed;color:#9a3412;border:1px solid #fdba74}
 
 /* ── Best-For tags ── */
 .bf-tag{display:inline-block;border-radius:3px;padding:1px 5px;font-size:.62rem;
@@ -1822,6 +1822,17 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
     <button class="th-filter-btn" onclick="setAvailFilter('svcType','couples',this)">Couples</button>
     <button class="th-filter-btn" onclick="setAvailFilter('svcType','minors',this)">Minors</button>
     <button class="th-filter-btn" onclick="setAvailFilter('svcType','coaching',this)">Coaching</button>
+  <div style="width:100%;margin-top:4px;display:flex;align-items:center;gap:8px">
+    <span class="th-filter-group">Specialty / Modality:</span>
+    <select id="specialtyFilter" onchange="filterBySpecialty(this)" style="padding:5px 12px;border-radius:20px;border:2px solid #e2e8f0;background:#fff;font-size:.75rem;font-weight:600;color:#64748b;cursor:pointer;outline:none;min-width:200px">
+      <option value="">&#8212; Any &#8212;</option>
+      <optgroup label="Areas of Focus">
+        <option>Anxiety</option><option>Depression</option><option>Trauma/PTSD</option><option>Grief &amp; Loss</option><option>Relationship Issues</option><option>Couples Therapy</option><option>Intimacy</option><option>Self-Esteem</option><option>Life Transitions</option><option>Behavioral Issues</option><option>Family Conflict</option><option>Women&#39;s Issues</option><option>Stress Management</option><option>Anger Management</option><option>Faith &amp; Spirituality</option><option>Communication</option><option>LGBTQ+</option><option>Parenting</option><option>Trust Issues</option><option>Sexual Concerns</option><option>Substance Use</option><option>Eating Concerns</option><option>Sleep Issues</option><option>Emotional Regulation</option><option>ADHD</option>
+      </optgroup>
+      <optgroup label="Therapeutic Approaches">
+        <option>CBT</option><option>EMDR</option><option>Psychodynamic</option><option>Gottman Method</option><option>Mindfulness-Based</option><option>Somatic/Body-Based</option><option>Play Therapy</option><option>DBT</option><option>ACT</option><option>Hypnotherapy</option><option>Faith-Based (Christian)</option><option>Narrative Therapy</option><option>Solution-Focused</option>
+      </optgroup>
+    </select>
   </div>
   </div>
 
