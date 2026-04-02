@@ -324,17 +324,10 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 
 .avail-filter-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid #e2e8f0;align-items:center}
 .avail-filter-sep{color:#cbd5e1;font-size:1.2rem;align-self:center;margin:0 2px}
-.session-strip{width:100%;overflow-x:auto;margin-top:6px;padding-bottom:2px;min-height:20px}
-.session-strip::-webkit-scrollbar{height:4px}
-.session-strip::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:2px}
-.session-day-group{display:inline-flex;align-items:center;gap:4px;margin-right:10px;white-space:nowrap;vertical-align:middle}
-.session-day-label{font-size:.65rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.04em;min-width:56px}
-.session-chip{display:inline-block;padding:2px 6px;border-radius:10px;font-size:.65rem;font-weight:600;background:#e2e8f0;color:#475569;white-space:nowrap}
-.session-chip.am{background:#dbeafe;color:#1e40af}
-.session-chip.mid{background:#d1fae5;color:#065f46}
-.session-chip.aft{background:#fef3c7;color:#92400e}
-.session-chip.eve{background:#ede9fe;color:#5b21b6}
-.session-strip-loading{font-size:.65rem;color:#cbd5e1;font-style:italic}
+.day-badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.day-badge{display:inline-block;padding:2px 7px;border-radius:10px;font-size:.65rem;font-weight:700;background:#dbeafe;color:#1e40af;white-space:nowrap}
+.day-badge-none{font-size:.65rem;color:#cbd5e1;font-style:italic}
+.svc-filter-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center}
 
 .avail-badge{display:inline-block;font-size:.7rem;font-weight:600;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:middle;white-space:nowrap}
 .avail-low{background:#dcfce7;color:#15803d}
@@ -1809,21 +1802,22 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
     <button class="th-filter-btn" onclick="filterTherapists('level','expert',this)">Expert ($400)</button>
     <button class="th-filter-btn" onclick="filterTherapists('level','qualified',this)">Qualified ($150–200)</button>
   <div class="avail-filter-row" id="availFilterRow">
-    <span class="th-filter-group">When:</span>
-    <button class="th-filter-btn active" onclick="setAvailFilter('week','all',this)">Any Week</button>
-    <button class="th-filter-btn" onclick="setAvailFilter('week','this',this)">This Wk</button>
-    <button class="th-filter-btn" onclick="setAvailFilter('week','next',this)">Next Wk</button>
-    <span class="avail-filter-sep">|</span>
+    <span class="th-filter-group">Day:</span>
+    <button class="th-filter-btn active" onclick="setAvailFilter('day',null,this)">Any Day</button>
     <button class="th-filter-btn" onclick="setAvailFilter('day','Mon',this)">Mon</button>
     <button class="th-filter-btn" onclick="setAvailFilter('day','Tue',this)">Tue</button>
     <button class="th-filter-btn" onclick="setAvailFilter('day','Wed',this)">Wed</button>
     <button class="th-filter-btn" onclick="setAvailFilter('day','Thu',this)">Thu</button>
     <button class="th-filter-btn" onclick="setAvailFilter('day','Fri',this)">Fri</button>
-    <span class="avail-filter-sep">|</span>
-    <button class="th-filter-btn" onclick="setAvailFilter('period','am',this)">AM</button>
-    <button class="th-filter-btn" onclick="setAvailFilter('period','mid',this)">Midday</button>
-    <button class="th-filter-btn" onclick="setAvailFilter('period','aft',this)">Afternoon</button>
-    <button class="th-filter-btn" onclick="setAvailFilter('period','eve',this)">Evening</button>
+    <button class="th-filter-btn" onclick="setAvailFilter('day','Sat',this)">Sat</button>
+  </div>
+  <div class="svc-filter-row" id="svcFilterRow">
+    <span class="th-filter-group">Type:</span>
+    <button class="th-filter-btn active" onclick="setAvailFilter('svcType',null,this)">All</button>
+    <button class="th-filter-btn" onclick="setAvailFilter('svcType','individual',this)">Individual</button>
+    <button class="th-filter-btn" onclick="setAvailFilter('svcType','couples',this)">Couples</button>
+    <button class="th-filter-btn" onclick="setAvailFilter('svcType','minors',this)">Minors</button>
+    <button class="th-filter-btn" onclick="setAvailFilter('svcType','coaching',this)">Coaching</button>
   </div>
   </div>
 
@@ -1991,20 +1985,22 @@ function filterTherapists(type, val, btn) {
       (activeFilters.lang  === 'all' || lang  === activeFilters.lang || (activeFilters.lang === 'es' && lang === 'es')) &&
       (activeFilters.loc   === 'all' || loc   === activeFilters.loc  || loc === 'both') &&
       (activeFilters.level === 'all' || level === activeFilters.level);
-    // Availability filters
-    const af = window._availFilters || { week:'all', day:null, period:null };
-    if (show && (af.day || af.period)) {
+    // Availability + service type filters
+    const af = window._availFilters || { day: null, svcType: null };
+    let finalShow = show;
+    if (finalShow && af.day) {
       const email = (row.getAttribute('data-pq-email')||'').toLowerCase();
       const avd = (window._availData||{})[email];
       if (avd) {
-        const wk = af.week;
-        const wd = wk==='next' ? avd.nextWorkDays : wk==='this' ? avd.thisWorkDays : [...(avd.thisWorkDays||[]),...(avd.nextWorkDays||[])];
-        const wp = wk==='next' ? avd.nextWorkPeriods : wk==='this' ? avd.thisWorkPeriods : [...(avd.thisWorkPeriods||[]),...(avd.nextWorkPeriods||[])];
-        if (af.day    && !wd.includes(af.day))    show = false;
-        if (af.period && !wp.includes(af.period)) show = false;
+        const wd = (avd.thisWorkDays||[]).concat(avd.nextWorkDays||[]);
+        if (!wd.includes(af.day)) finalShow = false;
       }
     }
-    row.classList.toggle('hidden', !show);
+    if (finalShow && af.svcType) {
+      const svcTypes = (row.getAttribute('data-service-types')||'').split(',');
+      if (!svcTypes.includes(af.svcType)) finalShow = false;
+    }
+    row.classList.toggle('hidden', !finalShow);
   });
 }
 
@@ -2318,12 +2314,10 @@ document.addEventListener('DOMContentLoaded', function() {
     return '<tr data-plans="' + plans + '" data-lang="' + t.language +
       '" data-loc="' + t.location + '" data-level="' + t.level +
       '" data-sessions="' + sessData + '" data-approaches="' + approachData +
-      '" data-focus="' + focusData + '" data-id="' + pid + '" data-pq-email="' + (t.pqEmail||'') + '">' +
+      '" data-focus="' + focusData + '" data-id="' + pid + '" data-pq-email="' + (t.pqEmail||'') + '" data-service-types="' + ((t.serviceTypes||[]).join(',')) + '">' +
       '<td class="th-name"><a href="' + t.url + '" target="_blank">' + t.name +
         '</a>' + (t.pqEmail ? getAvailBadge(t.pqEmail) : '') + '<br><small>' + t.credentials + '</small>' +
-        '<div class="session-strip" data-email="' + (t.pqEmail||'') + '">' +
-        (window._availData && t.pqEmail ? '' : '<span class="session-strip-loading">Loading…</span>') +
-        '</div></td>' +
+        '<div class="day-badges" data-email="' + (t.pqEmail||'') + '"></div></td>' +
       '<td>' + levelBadge + '</td>' +
       '<td><div class="ins-pills">' + insPills + '</div></td>' +
       '<td>' + (t.rate || '\u2014') + (t.slidingScale ? '<br><small style="color:#888">/' + t.slidingScale + '</small>' : '') + '</td>' +
@@ -2479,7 +2473,7 @@ async function savePageContent() {
 <script>
   window._availData = null;
   window._availLoaded = false;
-  window._availFilters = { week: 'all', day: null, period: null };
+  window._availFilters = { day: null, svcType: null };
 
   function loadAvailability() {
     if (window._availLoaded) return;
@@ -2493,7 +2487,7 @@ async function savePageContent() {
         document.querySelectorAll('tr[data-pq-email]').forEach(function(row) {
           var email = row.getAttribute('data-pq-email');
           updateAvailBadge(row, email);
-          renderSessionStrip(row, email);
+          renderDayBadges(row, email);
         });
       });
   }
@@ -2505,15 +2499,13 @@ async function savePageContent() {
       return '<span class="avail-badge avail-none">\u25cf Loading</span>';
     }
     var d = window._availData[pqEmail.toLowerCase()];
-    var wk = (window._availFilters||{}).week||'all';
-    var count = d ? (wk==='next'?d.nextWeek:wk==='this'?d.thisWeek:(d.thisWeek||0)+(d.nextWeek||0)) : 0;
+    var count = d ? ((d.thisWeek||0) + (d.nextWeek||0)) : 0;
     var label, cls;
-    if (!d)             { label='\u25cf Available'; cls='avail-low'; }
-    else if (count===0) { label='\u25cf Available'; cls='avail-low'; }
-    else if (count<=5)  { label=count+' sessions';  cls='avail-low'; }
-    else if (count<=10) { label=count+' sessions';  cls='avail-mid'; }
-    else                { label=count+' sessions';  cls='avail-high'; }
-    return '<span class="avail-badge '+cls+'">'+label+'</span>';
+    if (!d || count === 0) { label = '\u25cf Available'; cls = 'avail-low'; }
+    else if (count <= 5)   { label = count + ' sessions';  cls = 'avail-low'; }
+    else if (count <= 10)  { label = count + ' sessions';  cls = 'avail-mid'; }
+    else                   { label = count + ' sessions';  cls = 'avail-high'; }
+    return '<span class="avail-badge ' + cls + '">' + label + '</span>';
   }
 
   function updateAvailBadge(row, email) {
@@ -2521,62 +2513,33 @@ async function savePageContent() {
     if (badge) badge.outerHTML = getAvailBadge(email);
   }
 
-  function renderSessionStrip(row, email) {
-    var strip = row.querySelector('.session-strip');
-    if (!strip) return;
+  function renderDayBadges(row, email) {
+    var container = row.querySelector('.day-badges');
+    if (!container) return;
     var d = window._availData && window._availData[(email||'').toLowerCase()];
-    if (!d || !d.sessions || !d.sessions.length) { strip.innerHTML=''; return; }
-    var wkFilter = (window._availFilters||{}).week||'all';
-    var dayFilter = (window._availFilters||{}).day||null;
-    var perFilter = (window._availFilters||{}).period||null;
-    var sessions = d.sessions.filter(function(s){
-      if (wkFilter!=='all' && s.week!==wkFilter) return false;
-      if (dayFilter && s.dayAbbr!==dayFilter) return false;
-      if (perFilter && s.period!==perFilter) return false;
-      return true;
-    });
-    var byDate = {};
-    sessions.forEach(function(s){
-      if (!byDate[s.date]) byDate[s.date]={dayAbbr:s.dayAbbr,slots:[]};
-      byDate[s.date].slots.push(s);
-    });
-    var MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    var html='';
-    Object.keys(byDate).sort().forEach(function(date){
-      var g=byDate[date], d2=new Date(date+'T12:00:00');
-      html+='<span class="session-day-group"><span class="session-day-label">'+g.dayAbbr+' '+MO[d2.getMonth()]+' '+d2.getDate()+'</span>';
-      g.slots.sort(function(a,b){return a.hour-b.hour;}).forEach(function(s){
-        var h=s.hour%12||12,ap=s.hour<12?'am':'pm';
-        html+='<span class="session-chip '+s.period+'">'+h+ap+'</span>';
-      });
-      html+='</span>';
-    });
-    strip.innerHTML=html||'<span class="session-strip-loading">None in range</span>';
+    if (!d) { container.innerHTML = ''; return; }
+    var ORDER = ['Mon','Tue','Wed','Thu','Fri','Sat'];
+    var allDays = (d.thisWorkDays||[]).concat(d.nextWorkDays||[]);
+    var workDays = ORDER.filter(function(day){ return allDays.indexOf(day) >= 0; });
+    var html = workDays.map(function(day){
+      return '<span class="day-badge">' + day + '</span>';
+    }).join('');
+    container.innerHTML = html || '<span class="day-badge-none">-</span>';
   }
 
   function setAvailFilter(type, val, btn) {
-    var af=window._availFilters;
-    if (type==='week') {
-      af.week=val;
-      var fr=document.getElementById('availFilterRow');
-      if(fr) fr.querySelectorAll('.th-filter-btn').forEach(function(b){
-        if((b.getAttribute('onclick')||'').indexOf("'week'")>=0) b.classList.remove('active');
-      });
-      btn.classList.add('active');
-    } else {
-      var prev=af[type];
-      var fr=document.getElementById('availFilterRow');
-      if(fr) fr.querySelectorAll('.th-filter-btn').forEach(function(b){
-        if((b.getAttribute('onclick')||'').indexOf("'"+type+"'")>=0) b.classList.remove('active');
-      });
-      af[type]=(prev===val)?null:val;
-      if(af[type]) btn.classList.add('active');
-    }
-    if(window._availData){
+    var af = window._availFilters;
+    var rowId = (type === 'svcType') ? 'svcFilterRow' : 'availFilterRow';
+    var fr = document.getElementById(rowId);
+    if (fr) fr.querySelectorAll('.th-filter-btn').forEach(function(b){
+      b.classList.remove('active');
+    });
+    af[type] = val;
+    btn.classList.add('active');
+    if (window._availData) {
       document.querySelectorAll('tr[data-pq-email]').forEach(function(row){
-        var email=row.getAttribute('data-pq-email');
-        updateAvailBadge(row,email);
-        renderSessionStrip(row,email);
+        var email = row.getAttribute('data-pq-email');
+        renderDayBadges(row, email);
       });
     }
     filterTherapists();

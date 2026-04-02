@@ -2,7 +2,7 @@
   {
     "id": "carolina-pataky",
     "name": "Dr. Carolina Pataky",
-    "credentials": "Licensed · PhD",
+    "credentials": "Licensed \u00b7 PhD",
     "url": "https://www.lovediscovery.org/team/dr.-carolina-pataky",
     "level": "expert",
     "insurance": [
@@ -30,12 +30,17 @@
       "Self-Esteem"
     ],
     "slidingScale": "",
-    "pqEmail": "carolina@lovediscovery.org"
+    "pqEmail": "carolina@lovediscovery.org",
+    "serviceTypes": [
+      "coaching",
+      "couples",
+      "individual"
+    ]
   },
   {
     "id": "max-riv",
     "name": "Dr. Max Riv",
-    "credentials": "Licensed · PhD · Director",
+    "credentials": "Licensed \u00b7 PhD \u00b7 Director",
     "url": "https://www.lovediscovery.org/team/dr.-max-riv",
     "level": "expert",
     "insurance": [
@@ -61,7 +66,10 @@
       "Relationship Issues"
     ],
     "slidingScale": "",
-    "pqEmail": "max@lovediscovery.org"
+    "pqEmail": "max@lovediscovery.org",
+    "serviceTypes": [
+      "individual"
+    ]
   },
   {
     "id": "clemencia-cartas",
@@ -94,7 +102,11 @@
       "Communication"
     ],
     "slidingScale": "",
-    "pqEmail": "clemencia@lovediscovery.org"
+    "pqEmail": "clemencia@lovediscovery.org",
+    "serviceTypes": [
+      "couples",
+      "individual"
+    ]
   },
   {
     "id": "fabiola-viviano",
@@ -130,7 +142,12 @@
       "Self-Esteem"
     ],
     "slidingScale": "",
-    "pqEmail": "fabiola@lovediscovery.org"
+    "pqEmail": "fabiola@lovediscovery.org",
+    "serviceTypes": [
+      "couples",
+      "individual",
+      "minors"
+    ]
   },
   {
     "id": "nanette-comerio",
@@ -166,12 +183,16 @@
       "Grief & Loss"
     ],
     "slidingScale": "",
-    "pqEmail": "ana@lovediscovery.org"
+    "pqEmail": "ana@lovediscovery.org",
+    "serviceTypes": [
+      "couples",
+      "individual"
+    ]
   },
   {
     "id": "bacheline-joseph",
     "name": "Dr. Bacheline Joseph",
-    "credentials": "Licensed · PhD",
+    "credentials": "Licensed \u00b7 PhD",
     "url": "https://www.lovediscovery.org/team/dr.-bacheline-joseph",
     "level": "qualified",
     "insurance": [
@@ -197,12 +218,16 @@
       "Self-Esteem"
     ],
     "slidingScale": "",
-    "pqEmail": "bacheline@lovediscovery.org"
+    "pqEmail": "bacheline@lovediscovery.org",
+    "serviceTypes": [
+      "couples",
+      "individual"
+    ]
   },
   {
     "id": "beatriz-delgado",
     "name": "Beatriz Delgado",
-    "credentials": "Licensed · LCSW",
+    "credentials": "Licensed \u00b7 LCSW",
     "url": "https://www.lovediscovery.org/team/beatriz-delgado",
     "level": "qualified",
     "insurance": [
@@ -236,7 +261,12 @@
       "Life Transitions"
     ],
     "slidingScale": "",
-    "pqEmail": "beatriz@lovediscovery.org"
+    "pqEmail": "beatriz@lovediscovery.org",
+    "serviceTypes": [
+      "couples",
+      "individual",
+      "minors"
+    ]
   },
   {
     "id": "tiffany-markovitz",
@@ -272,7 +302,11 @@
       "Grief & Loss"
     ],
     "slidingScale": "",
-    "pqEmail": "tiffany@lovediscovery.org"
+    "pqEmail": "tiffany@lovediscovery.org",
+    "serviceTypes": [
+      "individual",
+      "minors"
+    ]
   },
   {
     "id": "anaiz-rodriguez",
@@ -312,7 +346,12 @@
       "Life Transitions"
     ],
     "slidingScale": "",
-    "pqEmail": "anaiz@lovediscovery.org"
+    "pqEmail": "anaiz@lovediscovery.org",
+    "serviceTypes": [
+      "couples",
+      "individual",
+      "minors"
+    ]
   },
   {
     "id": "yamaris-bobe",
@@ -347,7 +386,11 @@
       "Self-Esteem"
     ],
     "slidingScale": "",
-    "pqEmail": "yamaris@lovediscovery.org"
+    "pqEmail": "yamaris@lovediscovery.org",
+    "serviceTypes": [
+      "couples",
+      "individual"
+    ]
   },
   {
     "id": "victoria-wheeler",
@@ -384,7 +427,11 @@
       "Couples Therapy"
     ],
     "slidingScale": "",
-    "pqEmail": "victoria@lovediscovery.org"
+    "pqEmail": "victoria@lovediscovery.org",
+    "serviceTypes": [
+      "couples",
+      "individual"
+    ]
   },
   {
     "id": "katherine-de-leon",
@@ -424,7 +471,10 @@
       "Faith & Spirituality"
     ],
     "slidingScale": "",
-    "pqEmail": "katherine@lovediscovery.org"
+    "pqEmail": "katherine@lovediscovery.org",
+    "serviceTypes": [
+      "individual"
+    ]
   },
   {
     "id": "arleen-patin",
@@ -460,6 +510,9 @@
       "Life Transitions"
     ],
     "slidingScale": "",
-    "pqEmail": "arleen@lovediscovery.org"
+    "pqEmail": "arleen@lovediscovery.org",
+    "serviceTypes": [
+      "individual"
+    ]
   }
 ]
