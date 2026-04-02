@@ -29,7 +29,8 @@
       "Intimacy",
       "Self-Esteem"
     ],
-    "slidingScale": ""
+    "slidingScale": "",
+    "pqEmail": "carolina@lovediscovery.org"
   },
   {
     "id": "max-riv",
@@ -59,7 +60,8 @@
       "Depression",
       "Relationship Issues"
     ],
-    "slidingScale": ""
+    "slidingScale": "",
+    "pqEmail": "max@lovediscovery.org"
   },
   {
     "id": "clemencia-cartas",
@@ -91,7 +93,8 @@
       "Couples Therapy",
       "Communication"
     ],
-    "slidingScale": ""
+    "slidingScale": "",
+    "pqEmail": "clemencia@lovediscovery.org"
   },
   {
     "id": "fabiola-viviano",
@@ -126,7 +129,8 @@
       "Life Transitions",
       "Self-Esteem"
     ],
-    "slidingScale": ""
+    "slidingScale": "",
+    "pqEmail": "fabiola@lovediscovery.org"
   },
   {
     "id": "nanette-comerio",
@@ -161,7 +165,8 @@
       "Depression",
       "Grief & Loss"
     ],
-    "slidingScale": ""
+    "slidingScale": "",
+    "pqEmail": "ana@lovediscovery.org"
   },
   {
     "id": "bacheline-joseph",
@@ -191,7 +196,8 @@
       "Life Transitions",
       "Self-Esteem"
     ],
-    "slidingScale": ""
+    "slidingScale": "",
+    "pqEmail": "bacheline@lovediscovery.org"
   },
   {
     "id": "beatriz-delgado",
@@ -229,7 +235,8 @@
       "Self-Esteem",
       "Life Transitions"
     ],
-    "slidingScale": ""
+    "slidingScale": "",
+    "pqEmail": "beatriz@lovediscovery.org"
   },
   {
     "id": "tiffany-markovitz",
@@ -264,7 +271,8 @@
       "Depression",
       "Grief & Loss"
     ],
-    "slidingScale": ""
+    "slidingScale": "",
+    "pqEmail": "tiffany@lovediscovery.org"
   },
   {
     "id": "anaiz-rodriguez",
@@ -303,7 +311,8 @@
       "Family Conflict",
       "Life Transitions"
     ],
-    "slidingScale": ""
+    "slidingScale": "",
+    "pqEmail": "anaiz@lovediscovery.org"
   },
   {
     "id": "yamaris-bobe",
@@ -337,7 +346,8 @@
       "Life Transitions",
       "Self-Esteem"
     ],
-    "slidingScale": ""
+    "slidingScale": "",
+    "pqEmail": "yamaris@lovediscovery.org"
   },
   {
     "id": "victoria-wheeler",
@@ -373,7 +383,8 @@
       "Communication",
       "Couples Therapy"
     ],
-    "slidingScale": ""
+    "slidingScale": "",
+    "pqEmail": "victoria@lovediscovery.org"
   },
   {
     "id": "katherine-de-leon",
@@ -412,7 +423,8 @@
       "Anger Management",
       "Faith & Spirituality"
     ],
-    "slidingScale": ""
+    "slidingScale": "",
+    "pqEmail": "katherine@lovediscovery.org"
   },
   {
     "id": "arleen-patin",
@@ -447,6 +459,7 @@
       "Grief & Loss",
       "Life Transitions"
     ],
-    "slidingScale": ""
+    "slidingScale": "",
+    "pqEmail": "arleen@lovediscovery.org"
   }
 ]

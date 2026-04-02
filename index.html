@@ -321,6 +321,11 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 .page-edit-btn:hover{background:#f59e0b;color:#fff}
 .page-edit-btn.active{background:#f59e0b;border-color:#f59e0b;color:#fff}
 .page-save-bar{display:none;align-items:center;gap:10px;padding:6px 14px;background:#fef3c7;border-radius:8px;border:1px solid #fbbf24}
+.avail-badge{display:inline-block;font-size:.7rem;font-weight:600;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:middle;white-space:nowrap}
+.avail-low{background:#dcfce7;color:#15803d}
+.avail-mid{background:#fef9c3;color:#a16207}
+.avail-high{background:#fee2e2;color:#b91c1c}
+.avail-none{background:#f1f5f9;color:#94a3b8}
 .page-editing-active{outline:2px dashed #f59e0b!important;outline-offset:-4px!important;min-height:40px}
 .save-edits-bar{display:none;align-items:center;gap:12px;padding:8px 16px;background:#fef9c3;border:1px solid #fde047;border-radius:10px;font-size:.8rem;font-weight:600;color:#713f12}
 .save-edits-bar.visible{display:flex}
@@ -1839,6 +1844,7 @@ function showPage(id, el) {
   if (el) el.classList.add('active');
   window.scrollTo(0,0);
   // Update page-edit section visibility
+  if (id === 'therapists') loadAvailability();
   if (window.EDIT_MODE) {
     var pgSec = document.getElementById('pageEditSection');
     if (pgSec) pgSec.style.display = (id === 'therapists') ? 'none' : 'flex';
@@ -2267,9 +2273,9 @@ document.addEventListener('DOMContentLoaded', function() {
     return '<tr data-plans="' + plans + '" data-lang="' + t.language +
       '" data-loc="' + t.location + '" data-level="' + t.level +
       '" data-sessions="' + sessData + '" data-approaches="' + approachData +
-      '" data-focus="' + focusData + '" data-id="' + pid + '">' +
+      '" data-focus="' + focusData + '" data-id="' + pid + '" data-pq-email="' + (t.pqEmail||'') + '">' +
       '<td class="th-name"><a href="' + t.url + '" target="_blank">' + t.name +
-        '</a><small>' + t.credentials + '</small></td>' +
+        '</a>' + (t.pqEmail ? getAvailBadge(t.pqEmail) : '') + '<small>' + t.credentials + '</small></td>' +
       '<td>' + levelBadge + '</td>' +
       '<td><div class="ins-pills">' + insPills + '</div></td>' +
       '<td>' + (t.rate || '\u2014') + (t.slidingScale ? '<br><small style="color:#888">/' + t.slidingScale + '</small>' : '') + '</td>' +
@@ -2419,6 +2425,66 @@ async function savePageContent() {
       });
     });
 })();
+</script>
+
+
+<script>
+// ── PracticeQ Availability ────────────────────────────────────────────────────
+window._availData = null;
+window._availLoaded = false;
+
+function loadAvailability() {
+  if (window._availLoaded) return;
+  window._availLoaded = true;
+  fetch('/api/availability')
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .catch(function(){ return null; })
+    .then(function(data){
+      if (!data || !data.byEmail) return;
+      window._availData = data.byEmail;
+      // Refresh any rendered rows
+      document.querySelectorAll('tr[data-pq-email]').forEach(function(row) {
+        updateAvailBadge(row, row.getAttribute('data-pq-email'));
+      });
+    });
+}
+
+function getAvailBadge(pqEmail) {
+  if (!pqEmail) return '';
+  if (!window._availData) {
+    loadAvailability();
+    return '<span class="avail-badge avail-none" data-pq="'+pqEmail+'">Loading…</span>';
+  }
+  var d = window._availData[pqEmail.toLowerCase()];
+  var count = d ? d.thisWeek : 0;
+  var label, cls;
+  if (count === 0)       { label = '● Available';   cls = 'avail-low'; }
+  else if (count <= 5)   { label = count+' this wk'; cls = 'avail-low'; }
+  else if (count <= 10)  { label = count+' this wk'; cls = 'avail-mid'; }
+  else                   { label = count+' this wk'; cls = 'avail-high'; }
+  return '<span class="avail-badge '+cls+'">'+label+'</span>';
+}
+
+function updateAvailBadge(row, email) {
+  if (!email || !window._availData) return;
+  var d = window._availData[email.toLowerCase()];
+  var count = d ? d.thisWeek : 0;
+  var label, cls;
+  if (count === 0)       { label = '● Available';   cls = 'avail-low'; }
+  else if (count <= 5)   { label = count+' this wk'; cls = 'avail-low'; }
+  else if (count <= 10)  { label = count+' this wk'; cls = 'avail-mid'; }
+  else                   { label = count+' this wk'; cls = 'avail-high'; }
+  row.querySelectorAll('.avail-badge').forEach(function(b){
+    b.className = 'avail-badge '+cls;
+    b.textContent = label;
+  });
+}
+
+// Kick off load when therapist tab is shown
+document.addEventListener('DOMContentLoaded', function(){
+  var tp = document.getElementById('page-therapists');
+  if (tp && tp.classList.contains('active')) loadAvailability();
+});
 </script>
 
 <script>
