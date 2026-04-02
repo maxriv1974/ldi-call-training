@@ -2280,6 +2280,16 @@ document.addEventListener('DOMContentLoaded', function() {
     var c = MAP[s.toLowerCase()] || '';
     return '<span class="spec-tag' + (c ? ' '+c : '') + '">' + s + '</span>';
   }
+  function getSvcFilterTypes(t) {
+    var st = t.sessionTypes || [];
+    var s = [];
+    if (st.indexOf('Individual') >= 0) s.push('individual');
+    if (st.indexOf('Couples') >= 0) s.push('couples');
+    if (st.some(function(x){ return x==='Children'||x.indexOf('Adolescent')>=0||x.indexOf('Teen')>=0||x==='Family'; })) s.push('minors');
+    if ((t.serviceTypes||[]).indexOf('coaching') >= 0) s.push('coaching');
+    return s.join(',');
+  }
+
   function buildRow(t) {
     var plans       = t.insurance.join(' ');
     var sessData    = (t.sessionTypes  || []).join(' ');
@@ -2315,7 +2325,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return '<tr data-plans="' + plans + '" data-lang="' + t.language +
       '" data-loc="' + t.location + '" data-level="' + t.level +
       '" data-sessions="' + sessData + '" data-approaches="' + approachData +
-      '" data-focus="' + focusData + '" data-id="' + pid + '" data-pq-email="' + (t.pqEmail||'') + '" data-service-types="' + ((t.serviceTypes||[]).join(',')) + '">' +
+      '" data-focus="' + focusData + '" data-id="' + pid + '" data-pq-email="' + (t.pqEmail||'') + '" data-service-types="' + getSvcFilterTypes(t) + '">' +
       '<td class="th-name"><a href="' + t.url + '" target="_blank">' + t.name +
         '</a>' + (t.pqEmail ? getAvailBadge(t.pqEmail) : '') + '<br><small>' + t.credentials + '</small>' +
         '<div class="day-badges" data-email="' + (t.pqEmail||'') + '"></div></td>' +
