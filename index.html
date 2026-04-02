@@ -1823,8 +1823,8 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 
   <!-- Match Criteria Quick Reference -->
   <div class="match-criteria-section">
-    <div class="section-label">🔍 Presenting Concern → Match Guide</div>
-    <table class="match-criteria-mini">
+    <div class="section-label" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'table':'none';this.querySelector('.mcg-arrow').textContent=this.nextElementSibling.style.display==='none'?'►':'▼'" style="cursor:pointer;user-select:none">🔍 Presenting Concern → Match Guide <span class="mcg-arrow" style="font-size:.7rem;margin-left:6px;color:#94a3b8">►</span></div>
+    <table class="match-criteria-mini" style="display:none">
       <thead><tr><th>What They Say</th><th>What It May Indicate</th><th>Therapist Match Notes</th></tr></thead>
       <tbody>
         <tr><td><span class="say-pill">"I've been anxious / can't stop worrying"</span></td><td class="indicate-text">Anxiety disorder, GAD, panic</td><td class="match-note">Any therapist — all specialize in anxiety</td></tr>
