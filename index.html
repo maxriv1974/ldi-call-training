@@ -1,0 +1,2177 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LDI Call Training — Interactive Guide</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f4f8;color:#1a2332;min-height:100vh}
+
+/* ── HEADER ── */
+header{background:linear-gradient(135deg,#004d7f,#006a70);color:#fff;padding:20px 32px;display:flex;align-items:center;justify-content:space-between}
+header h1{font-size:1.4rem;font-weight:700}
+header p{font-size:.8rem;opacity:.8;margin-top:3px}
+.mode-toggle{display:flex;gap:8px}
+.mode-btn{padding:8px 18px;border-radius:20px;border:2px solid rgba(255,255,255,.4);background:transparent;color:#fff;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s}
+.mode-btn.active,.mode-btn:hover{background:rgba(255,255,255,.2);border-color:#fff}
+
+/* ── NAV TABS ── */
+.nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:0 32px;display:flex;gap:0;overflow-x:auto}
+.nav-tab{padding:14px 20px;font-size:.82rem;font-weight:600;color:#64748b;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;user-select:none;-webkit-user-select:none}
+.nav-tab:hover{color:#004d7f}
+.nav-tab.active{color:#004d7f;border-bottom-color:#004d7f}
+
+/* ── LAYOUT ── */
+.page{display:none;padding:28px 32px;max-width:1300px;margin:0 auto}
+.page.active{display:block}
+
+/* ── DUAL-PANE ── */
+.dual{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.dual.triple{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:900px){.dual,.dual.triple{grid-template-columns:1fr}}
+
+.pane{border-radius:10px;padding:18px 20px}
+.pane-say{background:#ebf8ff;border:1px solid #bee3f8}
+.pane-do{background:#f0fff4;border:1px solid #c6f6d5}
+.pane-explore{background:#faf5ff;border:1px solid #e9d8fd}
+.pane-warn{background:#fffaf0;border:1px solid #fbd38d}
+.pane-title{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.pane-say .pane-title{color:#2b6cb0}
+.pane-do .pane-title{color:#276749}
+.pane-explore .pane-title{color:#553c9a}
+.pane-warn .pane-title{color:#b7791f}
+
+.script-line{font-size:.83rem;color:#1a202c;line-height:1.65;padding:8px 12px;background:rgba(255,255,255,.7);border-radius:6px;margin:5px 0;position:relative;cursor:pointer;transition:background .15s}
+.script-line:hover{background:rgba(255,255,255,1)}
+.script-line::before{content:'"';color:#90cdf4;font-size:1.4rem;line-height:1;margin-right:4px;float:left}
+.script-line.alt::before{content:'↳';color:#68d391;font-size:1rem;margin-right:4px}
+.script-line.warn::before{content:'⚠';color:#f6ad55;font-size:.9rem;margin-right:6px}
+
+.do-step{font-size:.81rem;color:#22543d;padding:6px 0 6px 20px;border-bottom:1px solid rgba(0,0,0,.06);position:relative}
+.do-step:last-child{border-bottom:none}
+.do-step::before{content:'→';position:absolute;left:0;color:#38a169;font-weight:700}
+.do-step .sys{font-size:.72rem;background:#c6f6d5;color:#276749;padding:1px 7px;border-radius:10px;margin-left:6px;font-weight:700}
+.do-step .ghl{background:#bee3f8;color:#2b6cb0}
+.do-step .pq{background:#e9d8fd;color:#553c9a}
+
+.explore-q{font-size:.82rem;padding:8px 12px 8px 24px;position:relative;border-bottom:1px solid rgba(0,0,0,.06)}
+.explore-q:last-child{border-bottom:none}
+.explore-q::before{content:'?';position:absolute;left:6px;top:9px;color:#805ad5;font-weight:800;font-size:.9rem}
+.explore-q .why{font-size:.72rem;color:#805ad5;margin-top:3px}
+.explore-q .listen{font-size:.72rem;color:#553c9a;font-style:italic;margin-top:2px}
+
+/* ── THERAPIST TABLE ── */
+.th-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.th-filter-btn{padding:6px 14px;border-radius:20px;border:2px solid #e2e8f0;background:#fff;font-size:.75rem;font-weight:600;cursor:pointer;color:#64748b;transition:all .2s}
+.th-filter-btn:hover,.th-filter-btn.active{background:#004d7f;border-color:#004d7f;color:#fff}
+.th-filter-group{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;align-self:center;margin-left:8px}
+.th-table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.08)}
+.th-table th{background:#004d7f;color:#fff;padding:10px 14px;text-align:left;font-size:.73rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.th-table td{padding:11px 14px;font-size:.8rem;border-bottom:1px solid #f1f5f9;vertical-align:middle}
+.th-table tr:last-child td{border-bottom:none}
+.th-table tr:hover td{background:#f8fafc}
+.th-table tr.hidden{display:none}
+.badge{display:inline-block;padding:3px 9px;border-radius:10px;font-size:.7rem;font-weight:700}
+.badge-ins{background:#c6f6d5;color:#276749}
+.badge-aetna{background:#bee3f8;color:#2b6cb0}
+.badge-self{background:#fed7d7;color:#742a2a}
+.badge-both{background:#e9d8fd;color:#553c9a}
+.badge-tele{background:#e2e8f0;color:#475569}
+.badge-person{background:#fefcbf;color:#744210}
+.badge-en{background:#f0fff4;color:#276749;border:1px solid #c6f6d5}
+.badge-es{background:#fffaf0;color:#b7791f;border:1px solid #fbd38d}
+.badge-exp{background:#2d3748;color:#fff}
+.badge-qual{background:#e2e8f0;color:#475569}
+.th-name a{font-weight:700;color:#004d7f;text-decoration:none}
+.th-name a:hover{text-decoration:underline}
+.th-name small{display:block;font-size:.7rem;color:#94a3b8;margin-top:2px}
+.th-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;padding:14px 18px;background:#fff;border-radius:10px;border:1px solid #e2e8f0}
+.th-legend-item{font-size:.72rem;color:#64748b;display:flex;align-items:center;gap:6px}
+
+/* ── 8-PART CHECKLIST ── */
+.cp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:28px}
+.cp-card{background:#fff;border:2px solid #e2e8f0;border-radius:12px;padding:20px;cursor:pointer;transition:all .2s;position:relative}
+.cp-card:hover,.cp-card.active{border-color:#004d7f;box-shadow:0 4px 14px rgba(0,77,127,.12)}
+.cp-card.active{background:#ebf5fb}
+.cp-num{width:32px;height:32px;background:#004d7f;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;margin-bottom:10px}
+.cp-title{font-size:.9rem;font-weight:700;color:#1a2332;margin-bottom:4px}
+.cp-sub{font-size:.74rem;color:#64748b;line-height:1.5}
+.cp-detail{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:24px;margin-top:4px;display:none}
+.cp-detail.active{display:block;animation:slideIn .2s ease}
+.callout-teal{background:#e6fffa;border-left:4px solid #38b2ac;padding:12px 16px;border-radius:0 8px 8px 0;margin-bottom:18px;font-size:.83rem;color:#234e52}
+
+/* ── SCENARIO CARD ── */
+.scenario-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-bottom:24px}
+.scenario-card{background:#fff;border:2px solid #e2e8f0;border-radius:12px;padding:18px;cursor:pointer;transition:all .2s;user-select:none;-webkit-user-select:none}
+.scenario-card:hover,.scenario-card.active{border-color:#004d7f;box-shadow:0 4px 14px rgba(0,77,127,.12)}
+.scenario-card.active{background:#ebf5fb}
+.sc-icon{font-size:1.6rem;margin-bottom:8px}
+.sc-title{font-size:.88rem;font-weight:700;color:#1a2332;margin-bottom:4px}
+.sc-desc{font-size:.75rem;color:#64748b;line-height:1.5}
+.sc-freq{display:inline-block;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:10px;margin-top:8px}
+.freq-h{background:#c6f6d5;color:#276749}
+.freq-m{background:#fefcbf;color:#744210}
+.freq-l{background:#fed7d7;color:#742a2a}
+
+/* ── SCENARIO DETAIL ── */
+.scenario-detail{background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;display:none}
+.scenario-detail.active{display:block;animation:slideIn .2s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.sd-header{background:linear-gradient(135deg,#004d7f,#0068aa);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:12px}
+.sd-header h2{font-size:1.05rem;font-weight:700}
+.sd-header p{font-size:.78rem;opacity:.85;margin-top:3px}
+.sd-body{padding:20px 24px}
+
+/* ── STEP TRACKER ── */
+.steps-bar{display:flex;gap:0;margin:16px 0 24px;overflow:hidden;border-radius:8px;border:1px solid #e2e8f0}
+.step-pill{flex:1;padding:10px 8px;text-align:center;font-size:.72rem;font-weight:700;color:#64748b;background:#f8fafc;cursor:pointer;border-right:1px solid #e2e8f0;transition:all .2s;position:relative}
+.step-pill:last-child{border-right:none}
+.step-pill.active{background:#004d7f;color:#fff}
+.step-pill.done{background:#e6fffa;color:#276749}
+.step-pill.done::after{content:'✓';position:absolute;top:4px;right:6px;font-size:.65rem}
+
+.step-content{display:none}
+.step-content.active{display:block}
+
+/* ── CALLOUT ── */
+.callout{border-radius:8px;padding:12px 16px;font-size:.81rem;margin:10px 0;line-height:1.6}
+.callout-blue{background:#ebf5fb;border-left:4px solid #0068aa;color:#1a365d}
+.callout-green{background:#f0fff4;border-left:4px solid #38a169;color:#1c4532}
+.callout-yellow{background:#fffaf0;border-left:4px solid #e6a817;color:#5f370e}
+.callout-red{background:#fff5f5;border-left:4px solid #e53e3e;color:#63171b}
+.callout-purple{background:#faf5ff;border-left:4px solid #805ad5;color:#322659}
+.callout strong{font-weight:700}
+
+/* ── SECTION ── */
+.section-label{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+.section-label::after{content:'';flex:1;height:1px;background:#e2e8f0}
+
+/* ── TABLE ── */
+.t{width:100%;border-collapse:collapse;font-size:.79rem;margin:10px 0;border-radius:8px;overflow:hidden;border:1px solid #e2e8f0}
+.t th{background:#004d7f;color:#fff;padding:9px 12px;text-align:left;font-weight:600}
+.t td{padding:8px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top}
+.t tr:last-child td{border-bottom:none}
+.t tr:hover td{background:#f7fafc}
+.t td:first-child{font-weight:600}
+
+/* ── TAG ── */
+.tag{display:inline-block;font-size:.67rem;font-weight:700;padding:2px 8px;border-radius:10px;margin:2px}
+.tag-r{background:#fed7d7;color:#742a2a}
+.tag-o{background:#c6f6d5;color:#276749}
+.tag-b{background:#bee3f8;color:#2a4365}
+.tag-p{background:#e9d8fd;color:#553c9a}
+.tag-y{background:#fefcbf;color:#744210}
+
+/* ── ACCORDION ── */
+.acc-item{border:1px solid #e2e8f0;border-radius:8px;margin:8px 0;overflow:hidden}
+.acc-trigger{padding:13px 16px;background:#f8fafc;cursor:pointer;font-size:.84rem;font-weight:600;display:flex;justify-content:space-between;align-items:center;transition:background .15s}
+.acc-trigger:hover{background:#edf2f7}
+.acc-trigger.open{background:#ebf5fb;color:#004d7f}
+.acc-body{display:none;padding:16px;border-top:1px solid #e2e8f0;background:#fff}
+.acc-body.open{display:block;animation:slideIn .15s ease}
+
+/* ── INSURANCE TABLE COLORS ── */
+.ins-covered{background:#f0fff4}
+.ins-partial{background:#fffaf0}
+.ins-none{background:#fff5f5}
+
+/* ── OBJECTION CARDS ── */
+.obj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin:12px 0}
+.obj-card{border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.obj-head{background:#4a5568;color:#fff;padding:10px 14px;font-size:.8rem;font-weight:700}
+.obj-body{padding:12px 14px;background:#fff}
+.obj-say{font-size:.8rem;color:#1a202c;line-height:1.6}
+.obj-say::before{content:'→ ';color:#004d7f;font-weight:700}
+.obj-note{font-size:.72rem;color:#64748b;margin-top:6px;font-style:italic}
+
+/* ── PROGRESS DOT ── */
+.progress-row{display:flex;align-items:center;gap:6px;margin:10px 0}
+.dot{width:10px;height:10px;border-radius:50%;background:#e2e8f0;flex-shrink:0;transition:background .3s}
+.dot.fill{background:#004d7f}
+.dot.check{background:#38a169}
+.progress-label{font-size:.75rem;color:#64748b}
+
+/* ── QUIZ ── */
+.quiz-q{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px 20px;margin:12px 0}
+.quiz-q .q{font-size:.88rem;font-weight:600;margin-bottom:12px}
+.quiz-opt{padding:9px 14px;border:2px solid #e2e8f0;border-radius:8px;margin:6px 0;cursor:pointer;font-size:.82rem;transition:all .15s}
+.quiz-opt:hover{border-color:#0068aa;background:#ebf5fb}
+.quiz-opt.correct{border-color:#38a169;background:#f0fff4;color:#276749;font-weight:600}
+.quiz-opt.wrong{border-color:#e53e3e;background:#fff5f5;color:#c53030}
+.quiz-feedback{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:.8rem;display:none}
+.quiz-feedback.show{display:block}
+
+/* ── PIPELINE VISUAL ── */
+.pipeline{display:flex;gap:0;margin:16px 0;overflow-x:auto;padding-bottom:8px}
+.pl-stage{flex:1;min-width:110px;padding:12px 8px;text-align:center;border-right:1px solid rgba(255,255,255,.3);position:relative;cursor:pointer;transition:all .2s}
+.pl-stage:last-child{border-right:none}
+.pl-stage:hover{filter:brightness(.92)}
+.pl-stage .pl-num{font-size:.68rem;font-weight:800;opacity:.8}
+.pl-stage .pl-name{font-size:.72rem;font-weight:700;margin-top:3px;line-height:1.3}
+.pl-stage .pl-action{font-size:.65rem;margin-top:5px;opacity:.8;line-height:1.3}
+.pl-stage-detail{display:none;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:14px 18px;margin:8px 0}
+.pl-stage-detail.active{display:block;animation:slideIn .15s ease}
+
+/* ── Sortable table headers ── */
+.th-table th.sortable{cursor:pointer;user-select:none;white-space:nowrap}
+.th-table th.sortable::after{content:' ↕';font-size:.65rem;opacity:.4}
+.th-table th.sort-asc::after{content:' ↑';opacity:1;color:#004d7f}
+.th-table th.sort-desc::after{content:' ↓';opacity:1;color:#004d7f}
+
+/* ── Priority cell ── */
+.th-priority{min-width:90px;max-width:120px}
+.priority-input{
+  width:100%;border:none;background:transparent;font-size:.75rem;
+  font-family:inherit;color:#1a202c;cursor:text;padding:2px 4px;
+  border-radius:4px;outline:none;text-align:center;
+}
+.priority-input:focus{background:#fffbeb;border:1px solid #f6ad55;box-shadow:0 0 0 2px #feebc820}
+.priority-input:not(:placeholder-shown){font-weight:700;color:#92400e}
+.priority-badge-high{background:#fef3c7;color:#92400e;border-radius:4px;padding:2px 6px;font-size:.7rem;font-weight:700}
+.priority-badge-med{background:#e0f2fe;color:#0c4a6e;border-radius:4px;padding:2px 6px;font-size:.7rem;font-weight:700}
+.priority-badge-low{background:#f1f5f9;color:#475569;border-radius:4px;padding:2px 6px;font-size:.7rem;font-weight:700}
+
+/* ── Specialization tags ── */
+.spec-tag{display:inline-block;background:#ede9fe;color:#5b21b6;border-radius:3px;
+  padding:1px 5px;font-size:.65rem;font-weight:600;margin:1px;white-space:nowrap}
+.spec-tag.couples{background:#fce7f3;color:#9d174d}
+.spec-tag.trauma{background:#fee2e2;color:#991b1b}
+.spec-tag.child{background:#d1fae5;color:#065f46}
+.spec-tag.identity{background:#ccfbf1;color:#134e4a}
+.spec-tag.anxiety{background:#fef9c3;color:#854d0e}
+.spec-tag.depression{background:#dbeafe;color:#1e3a8a}
+.spec-tag.bilingual{background:#f0fdf4;color:#166534;border:1px solid #86efac}
+
+/* ── Best-For tags ── */
+.bf-tag{display:inline-block;border-radius:3px;padding:1px 5px;font-size:.62rem;
+  font-weight:700;margin:1px;white-space:nowrap}
+.bf-anxiety{background:#fef9c3;color:#854d0e}
+.bf-depression{background:#dbeafe;color:#1e3a8a}
+.bf-couples{background:#fce7f3;color:#9d174d}
+.bf-trauma{background:#fee2e2;color:#991b1b}
+.bf-identity{background:#ccfbf1;color:#134e4a}
+.bf-divorce{background:#ffedd5;color:#9a3412}
+.bf-child{background:#d1fae5;color:#065f46}
+
+/* ── Match criteria mini-table above therapist grid ── */
+.match-criteria-section{margin:14px 0 18px;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.match-criteria-section .section-label{margin:0;border-radius:0}
+.match-criteria-mini{width:100%;border-collapse:collapse;font-size:.78rem}
+.match-criteria-mini th{background:#f1f5f9;color:#475569;padding:7px 10px;text-align:left;font-weight:700;font-size:.72rem;border-bottom:1px solid #e2e8f0}
+.match-criteria-mini td{padding:6px 10px;border-bottom:1px solid #f1f5f9;vertical-align:top}
+.match-criteria-mini tr:last-child td{border-bottom:none}
+.match-criteria-mini tr:hover td{background:#f8fafc}
+.say-pill{display:inline-block;background:#eff6ff;color:#1e40af;border-radius:4px;
+  padding:2px 7px;font-size:.7rem;font-style:italic}
+.indicate-text{color:#6b7280;font-size:.72rem}
+.match-note{font-size:.7rem;color:#374151}
+
+/* ── Editable note cells ── */
+.editable-note{font-size:.72rem;color:#475569;min-width:80px;cursor:text;
+  border-radius:4px;padding:2px 4px;outline:none}
+.editable-note:focus{background:#f0fdf4;border:1px solid #86efac}
+.editable-note:empty::before{content:attr(data-placeholder);color:#cbd5e1;font-style:italic}
+
+/* ── Save indicator ── */
+#save-indicator{
+  position:fixed;bottom:16px;right:16px;background:#276749;color:#fff;
+  font-size:.75rem;font-weight:700;padding:7px 14px;border-radius:8px;
+  opacity:0;transition:opacity .3s;z-index:9999;pointer-events:none
+}
+#save-indicator.show{opacity:1}
+
+/* ── Reset priority btn ── */
+.th-priority-header{display:flex;align-items:center;gap:6px;justify-content:center}
+.reset-priority-btn{font-size:.6rem;background:#fee2e2;color:#991b1b;border:none;
+  border-radius:3px;padding:1px 5px;cursor:pointer;font-weight:700}
+.reset-priority-btn:hover{background:#fecaca}
+
+/* ── Column width hints ── */
+.th-table th:nth-child(1){min-width:140px}
+.th-table th:nth-child(7){min-width:140px}
+.th-table th:nth-child(8){min-width:100px}
+.th-table th:nth-child(9){min-width:90px}
+
+
+.badge-bcbs{background:#1d4ed8;color:#fff}
+.badge-avmed{background:#0891b2;color:#fff}
+.badge-optum{background:#7c3aed;color:#fff}
+.badge-oscar{background:#ea580c;color:#fff}
+.badge-united{background:#1e3a8a;color:#fff}
+.badge-sliding{background:#d97706;color:#fff}
+.ins-pills{display:flex;flex-wrap:wrap;gap:3px}
+/* Priority dropdown */
+.priority-select{
+  width:100%;border:1px solid #e2e8f0;background:#fff;font-size:.72rem;
+  font-family:inherit;color:#1a202c;padding:3px 4px;border-radius:5px;
+  cursor:pointer;outline:none;text-align:center;
+}
+.priority-select:focus{border-color:#f6ad55;box-shadow:0 0 0 2px #feebc820}
+.priority-select[data-val="High"]{background:#fef3c7;color:#92400e;font-weight:700;border-color:#f6ad55}
+.priority-select[data-val="Medium"]{background:#dbeafe;color:#1e3a8a;font-weight:700;border-color:#93c5fd}
+.priority-select[data-val="Low"]{background:#f1f5f9;color:#475569;border-color:#cbd5e1}
+.priority-select[data-val="Closed"]{background:#fee2e2;color:#991b1b;font-weight:700;border-color:#fca5a5}
+
+</style>
+</head>
+<body>
+
+
+
+<header>
+  <div>
+    <h1>📞 LDI Call Training Center</h1>
+    <p>Interactive guide for new team members — Love Discovery Institute</p>
+  </div>
+  <div class="mode-toggle">
+    <button class="mode-btn active" onclick="setMode('reference')">📖 Reference</button>
+    <button class="mode-btn" onclick="setMode('practice')">🎯 Practice</button>
+  </div>
+</header>
+
+<div class="nav" id="main-nav">
+  <div class="nav-tab active" onclick="showPage('scenarios',this)">Call Scenarios</div>
+  <div class="nav-tab" onclick="showPage('scripts',this)">Script Library</div>
+  <div class="nav-tab" onclick="showPage('explore',this)">Exploration Guide</div>
+  <div class="nav-tab" onclick="showPage('insurance',this)">Insurance Process</div>
+  <div class="nav-tab" onclick="showPage('pipeline',this)">Pipeline &amp; CRM</div>
+  <div class="nav-tab" onclick="showPage('checklist',this)">8-Part Checklist</div>
+  <div class="nav-tab" onclick="showPage('therapists',this)">Therapist Match</div>
+  <div class="nav-tab" onclick="showPage('objections',this)">Objections</div>
+  <div class="nav-tab" onclick="showPage('quiz',this)">Knowledge Check</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 1 — CALL SCENARIOS
+═══════════════════════════════════════════ -->
+<div class="page active" id="page-scenarios">
+
+  <div class="callout callout-blue">
+    <strong>How to use this page:</strong> Click a scenario card to open the full walkthrough — each step shows what to <em>say to the client</em>, what to <em>do in the system</em>, and what to <em>explore/ask</em>. Toggle between <strong>Reference</strong> and <strong>Practice</strong> mode at the top.
+  </div>
+
+  <div class="section-label">Select a Call Scenario</div>
+  <div class="scenario-grid">
+    <div class="scenario-card active" data-scenario="new-client" onclick="showScenario('new-client',this)">
+      <div class="sc-icon">🌱</div>
+      <div class="sc-title">New Client — First Contact</div>
+      <div class="sc-desc">Brand new caller, never been a client. Seeking therapy for themselves, a partner, or family.</div>
+      <span class="sc-freq freq-h">Very Common</span>
+    </div>
+    <div class="scenario-card" data-scenario="insurance-call" onclick="showScenario('insurance-call',this)">
+      <div class="sc-icon">🏥</div>
+      <div class="sc-title">Insurance Question / Verification</div>
+      <div class="sc-desc">Caller asking if LDI takes their plan, what their cost will be, or following up on a verification.</div>
+      <span class="sc-freq freq-h">Very Common</span>
+    </div>
+    <div class="scenario-card" data-scenario="scheduling" onclick="showScenario('scheduling',this)">
+      <div class="sc-icon">📅</div>
+      <div class="sc-title">Scheduling / Rescheduling</div>
+      <div class="sc-desc">Existing or new client wanting to book, move, or cancel an appointment.</div>
+      <span class="sc-freq freq-h">Very Common</span>
+    </div>
+    <div class="scenario-card" data-scenario="noshow" onclick="showScenario('noshow',this)">
+      <div class="sc-icon">⚠️</div>
+      <div class="sc-title">No-Show Recovery (Outbound)</div>
+      <div class="sc-desc">LDI calling a client who missed their session without canceling first.</div>
+      <span class="sc-freq freq-m">Common</span>
+    </div>
+    <div class="scenario-card" data-scenario="followup" onclick="showScenario('followup',this)">
+      <div class="sc-icon">🔁</div>
+      <div class="sc-title">Re-Engagement / Follow-Up</div>
+      <div class="sc-desc">Outbound call to a lead or lapsed client who went quiet after initial contact.</div>
+      <span class="sc-freq freq-m">Common</span>
+    </div>
+    <div class="scenario-card" data-scenario="billing" onclick="showScenario('billing',this)">
+      <div class="sc-icon">💳</div>
+      <div class="sc-title">Billing / Invoice Question</div>
+      <div class="sc-desc">Client questioning a charge, asking about their co-pay, or confused about what they owe.</div>
+      <span class="sc-freq freq-m">Common</span>
+    </div>
+    <div class="scenario-card" data-scenario="couples" onclick="showScenario('couples',this)">
+      <div class="sc-icon">💑</div>
+      <div class="sc-title">Couples Therapy Inquiry</div>
+      <div class="sc-desc">Caller (or couple) looking for couples counseling. Has unique matching and intake needs.</div>
+      <span class="sc-freq freq-h">Very Common</span>
+    </div>
+    <div class="scenario-card" data-scenario="crisis" onclick="showScenario('crisis',this)">
+      <div class="sc-icon">🆘</div>
+      <div class="sc-title">Client in Distress / Crisis</div>
+      <div class="sc-desc">Caller expresses significant emotional distress, safety concern, or urgent mental health need.</div>
+      <span class="sc-freq freq-l">Rare — Critical</span>
+    </div>
+  </div>
+
+  <!-- SCENARIO DETAILS -->
+
+  <!-- NEW CLIENT -->
+  <div class="scenario-detail active" id="sd-new-client">
+    <div class="sd-header">
+      <div style="font-size:2rem">🌱</div>
+      <div><h2>New Client — First Contact</h2><p>Goal: Make them feel heard, gather intake info, send the intake form, start the pipeline</p></div>
+    </div>
+    <div class="sd-body">
+      <div class="steps-bar">
+        <div class="step-pill active" onclick="setStep('nc',0)">1. Answer</div>
+        <div class="step-pill" onclick="setStep('nc',1)">2. Listen</div>
+        <div class="step-pill" onclick="setStep('nc',2)">3. Explore</div>
+        <div class="step-pill" onclick="setStep('nc',3)">4. Insurance</div>
+        <div class="step-pill" onclick="setStep('nc',4)">5. Next Step</div>
+        <div class="step-pill" onclick="setStep('nc',5)">6. Log &amp; Send</div>
+      </div>
+
+      <div class="step-content active" id="nc-step-0">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 What You Say</div>
+            <div class="script-line">"Thank you for calling Love Discovery Institute, this is [Your Name]. How can I help you today?"</div>
+            <div class="script-line alt">"Good [morning/afternoon], you've reached Love Discovery Institute — my name is [Name], how can I assist you?"</div>
+            <div class="callout callout-blue" style="margin-top:10px;font-size:.76rem">
+              <strong>Tone:</strong> Warm, calm, unhurried. Many callers are nervous. Let silence breathe.
+            </div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ What You Do Internally</div>
+            <div class="do-step">GHL auto-logs the inbound call. No action needed yet. <span class="sys ghl">GHL</span></div>
+            <div class="do-step">Pull up the GHL Conversations panel — check if this number is already in the system before the caller finishes their first sentence</div>
+            <div class="do-step">If no contact record found → be ready to create one after the call</div>
+            <div class="do-step">Note: call is being recorded if the number has recording enabled</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-content" id="nc-step-1">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 What You Say — Listen First</div>
+            <div class="script-line">"I'm so glad you reached out. Tell me a little about what's bringing you in."</div>
+            <div class="script-line alt">"Absolutely, I'd love to help. What's going on for you?"</div>
+            <div class="callout callout-purple" style="margin-top:10px;font-size:.76rem">
+              <strong>Key:</strong> Do NOT interrupt. Let them share fully before you ask anything. Clients will tell you almost everything you need if you just listen for 30–60 seconds.
+            </div>
+          </div>
+          <div class="pane pane-explore">
+            <div class="pane-title">🔍 What You're Listening For</div>
+            <div class="explore-q">Who the therapy is for (self, partner, child, family)
+              <div class="listen">Listen: "my husband and I…" / "I've been struggling…" / "my daughter…"</div>
+            </div>
+            <div class="explore-q">Urgency level — is this a slow consideration or an acute need?
+              <div class="listen">Listen: "for a while now" vs. "things just fell apart last week"</div>
+            </div>
+            <div class="explore-q">Prior therapy experience
+              <div class="listen">Listen: "I've tried therapy before but…" or "this is my first time"</div>
+            </div>
+            <div class="explore-q">Insurance hints
+              <div class="listen">Listen: "I'm hoping you take my insurance" or "I'll pay out of pocket"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-content" id="nc-step-2">
+        <div class="dual triple">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 What You Say</div>
+            <div class="script-line">"Thank you for sharing that with me. I want to make sure we connect you with the right person — can I ask a few quick questions?"</div>
+            <div class="script-line alt">"Are you looking for support for yourself, or for you and your partner, or for someone in your family?"</div>
+            <div class="script-line alt">"Have you been in therapy before, or would this be your first time?"</div>
+            <div class="script-line alt">"Do you have a preference for in-person sessions here in Coral Gables, or would telehealth work better for you?"</div>
+          </div>
+          <div class="pane pane-explore">
+            <div class="pane-title">🔍 Exploration Questions</div>
+            <div class="explore-q">Who needs therapy?
+              <div class="why">Routes to correct therapist type</div>
+            </div>
+            <div class="explore-q">What are the main concerns you'd like to work on?
+              <div class="why">Informs therapist matching by specialization</div>
+            </div>
+            <div class="explore-q">Is there any preference for the therapist's gender or background?
+              <div class="why">Important for cultural/comfort fit</div>
+            </div>
+            <div class="explore-q">Do you need a Spanish-speaking therapist?
+              <div class="why">LDI serves a bilingual community</div>
+            </div>
+            <div class="explore-q">Any time-of-day preferences for appointments?
+              <div class="why">Increases show rate when schedule fits their life</div>
+            </div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ Internally — Taking Notes</div>
+            <div class="do-step">Open GHL contact record (or start creating one)</div>
+            <div class="do-step">Note: service type (Individual / Couples / Family) <span class="sys ghl">GHL</span></div>
+            <div class="do-step">Note: presenting concern — anxiety, depression, relationship, trauma, etc.</div>
+            <div class="do-step">Note: language preference, telehealth vs in-person, gender pref</div>
+            <div class="do-step">Do NOT promise a specific therapist yet — check availability first</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-content" id="nc-step-3">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 Insurance Conversation</div>
+            <div class="script-line">"Do you have health insurance you'd like to use for therapy, or are you planning to pay out of pocket?"</div>
+            <div class="script-line alt">If YES: "Great — what insurance plan do you have? And do you happen to have your member ID available?"</div>
+            <div class="script-line alt">If NO / Self-pay: "No problem at all. Our self-pay rate is [rate] per session. Does that work for you?"</div>
+            <div class="script-line warn">"I want to make sure I give you accurate information — our billing team will verify your exact benefits and call you back within 24 to 48 hours. Does that work?"</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ Internally</div>
+            <div class="do-step">Collect: Plan name, Member ID, Group #, Date of Birth <span class="sys tag-r">Required</span></div>
+            <div class="do-step">Enter into GHL contact record <span class="sys ghl">GHL</span></div>
+            <div class="do-step">Do NOT confirm or deny coverage yourself</div>
+            <div class="do-step">After call: submit to Insurance Verification Form in GHL <span class="sys ghl">GHL</span></div>
+            <div class="do-step">Move pipeline to Stage 3: Verify Insurance <span class="sys ghl">GHL</span></div>
+            <div class="do-step">Tag contact with insurance plan name</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-content" id="nc-step-4">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 Setting the Next Step</div>
+            <div class="script-line">"Here's what's going to happen next: I'm going to send you our intake form via text right now — it takes about 5 to 10 minutes to fill out, and once we receive it, we'll move forward with getting you scheduled."</div>
+            <div class="script-line alt">"Our billing team will also verify your insurance and give you a call back, usually within 24 to 48 hours, to go over your benefits before your first session."</div>
+            <div class="script-line alt">"Is there anything else you'd like to know or anything I can answer for you right now?"</div>
+            <div class="script-line">"We're really glad you reached out — this is a great step. Take care, and you'll hear from us soon!"</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ Closing the Call</div>
+            <div class="do-step">Confirm intake form will go out immediately after call <span class="sys pq">PracticeQ</span></div>
+            <div class="do-step">Give your name so they know who they spoke with</div>
+            <div class="do-step">Confirm best phone number and email for follow-up</div>
+            <div class="do-step">After hanging up: send intake form link via GHL SMS <span class="sys ghl">GHL</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-content" id="nc-step-5">
+        <div class="callout callout-green"><strong>Post-Call Checklist — complete within 5 minutes of hanging up</strong></div>
+        <div class="dual">
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ GHL Actions</div>
+            <div class="do-step">Create or update contact record with: name, phone, email, DOB <span class="sys ghl">GHL</span></div>
+            <div class="do-step">Add call note: "Spoke with [Name]. Interested in [service type]. Insurance: [plan]. Sent intake form." <span class="sys ghl">GHL</span></div>
+            <div class="do-step">Move opportunity to Stage 1: New Lead (or Stage 2 if they've been before)</div>
+            <div class="do-step">Add tags: service type, insurance plan, language, therapist preference</div>
+            <div class="do-step">Send intake form SMS via GHL workflow or manually</div>
+            <div class="do-step">Submit insurance info to Insurance Verification Form</div>
+            <div class="do-step">Set follow-up task: "Check if intake form received" — due in 48 hours</div>
+          </div>
+          <div class="pane pane-warn">
+            <div class="pane-title">⚠️ Common Mistakes to Avoid</div>
+            <div class="do-step" style="color:#7b4f00">Confirming insurance coverage on the call — never do this</div>
+            <div class="do-step" style="color:#7b4f00">Promising a specific therapist before checking availability</div>
+            <div class="do-step" style="color:#7b4f00">Forgetting to send the intake form immediately</div>
+            <div class="do-step" style="color:#7b4f00">Not logging a note — other team members will follow up blind</div>
+            <div class="do-step" style="color:#7b4f00">Rushing the call — the first impression sets the tone for the entire therapeutic relationship</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COUPLES INQUIRY -->
+  <div class="scenario-detail" id="sd-couples">
+    <div class="sd-header" style="background:linear-gradient(135deg,#553c9a,#805ad5)">
+      <div style="font-size:2rem">💑</div>
+      <div><h2>Couples Therapy Inquiry</h2><p>Goal: Understand the couple's situation, set appropriate expectations, match to a couples-trained therapist</p></div>
+    </div>
+    <div class="sd-body">
+      <div class="callout callout-purple"><strong>Couples calls require extra care.</strong> One or both partners may be calling. There may be conflict, ambivalence, or one partner dragging the other. Remain neutral and non-judgmental at all times.</div>
+      <div class="steps-bar">
+        <div class="step-pill active" onclick="setStep('cp',0)">1. Open</div>
+        <div class="step-pill" onclick="setStep('cp',1)">2. Explore</div>
+        <div class="step-pill" onclick="setStep('cp',2)">3. Align</div>
+        <div class="step-pill" onclick="setStep('cp',3)">4. Insurance</div>
+        <div class="step-pill" onclick="setStep('cp',4)">5. Next Steps</div>
+      </div>
+
+      <div class="step-content active" id="cp-step-0">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 Opening</div>
+            <div class="script-line">"Thank you for calling Love Discovery Institute. I understand you're interested in couples therapy — is that right?"</div>
+            <div class="script-line alt">"I'm happy to help. Are you calling on behalf of both of you, or just yourself right now?"</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ Internally</div>
+            <div class="do-step">Pull up or create contact in GHL — note "Couples" service type</div>
+            <div class="do-step">Check which therapists are trained in couples work and have availability</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-content" id="cp-step-1">
+        <div class="dual triple">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 Exploration Scripts</div>
+            <div class="script-line">"Can you tell me a little about what's been going on for the two of you?"</div>
+            <div class="script-line alt">"How long have you and your partner been together?"</div>
+            <div class="script-line alt">"Have the two of you been in couples therapy before?"</div>
+            <div class="script-line alt">"Are you both interested in working with a therapist, or is one of you more hesitant?"</div>
+            <div class="script-line alt">"Do you have a preference for in-person sessions, or would telehealth work better for both of you?"</div>
+          </div>
+          <div class="pane pane-explore">
+            <div class="pane-title">🔍 What You're Exploring</div>
+            <div class="explore-q">Is this a crisis (recent affair, separation) or a slow burn (communication issues)?
+              <div class="why">Informs urgency and therapist matching</div>
+            </div>
+            <div class="explore-q">Are both partners bought in?
+              <div class="why">If one is reluctant, normalize it: "It's very common for one partner to feel unsure at first."</div>
+            </div>
+            <div class="explore-q">Prior couples therapy experience?
+              <div class="why">Helps set expectations; if they've tried before, explore what worked/didn't</div>
+            </div>
+            <div class="explore-q">Any specific concerns — affair, communication, intimacy, divorce consideration?
+              <div class="why">Matches to therapist with right specialization</div>
+            </div>
+            <div class="explore-q">Language preference for both partners?
+              <div class="why">Both need to be comfortable with the therapist</div>
+            </div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ Internally</div>
+            <div class="do-step">Note all above in GHL contact record</div>
+            <div class="do-step">Identify 1–2 couples-trained therapists who match their needs</div>
+            <div class="do-step">Note: for couples, BOTH partners need to be on the intake form</div>
+            <div class="do-step">Couples sessions are typically longer (50–60 min) and may have different rates</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-content" id="cp-step-2">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 Aligning on the Process</div>
+            <div class="script-line">"In couples therapy, both partners meet together with the therapist — the focus is on the relationship, not on one person being 'the problem.'"</div>
+            <div class="script-line alt">"Our therapists who specialize in couples work are trained in approaches like the Gottman Method and Emotionally Focused Therapy, which are very research-backed."</div>
+            <div class="script-line alt">"The first session is typically a joint session where the therapist gets to know both of you. From there, the therapist will guide the structure of future sessions."</div>
+          </div>
+          <div class="pane pane-warn">
+            <div class="pane-title">⚠️ Things to Watch For</div>
+            <div class="do-step" style="color:#7b4f00">One partner calling to "report" on the other — redirect gently: "In couples therapy, our therapist stays neutral for both of you."</div>
+            <div class="do-step" style="color:#7b4f00">Questions about confidentiality between partners — explain the therapist's policy upfront</div>
+            <div class="do-step" style="color:#7b4f00">Someone calling to book individual therapy to "fix the relationship" — clarify the difference</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-content" id="cp-step-3">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 Insurance for Couples</div>
+            <div class="script-line">"Just so you know — couples therapy at Love Discovery Institute is self-pay. We don't bill insurance for couples sessions."</div>
+            <div class="script-line alt">"Our couples session rate is [rate]. Would you like me to share more about what's included?"</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ Couples Billing Notes</div>
+            <div class="do-step warn">⚠ LDI does NOT accept insurance for couples therapy — self-pay only</div>
+            <div class="do-step">Quote the self-pay rate for couples sessions upfront</div>
+            <div class="do-step">Do NOT submit a couples case to insurance verification</div>
+            <div class="do-step">Tag contact as "Self-Pay" in GHL regardless of individual insurance status</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-content" id="cp-step-4">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 Setting Next Steps</div>
+            <div class="script-line">"I'm going to send you our intake form right now — there will be a section for each partner to complete. Once we have that, we'll get you scheduled with one of our couples therapists."</div>
+            <div class="script-line alt">"We'll also have our billing team confirm your insurance benefits and follow up within 24 to 48 hours."</div>
+            <div class="script-line">"I think you're going to find this really helpful. We work with a lot of couples and we're really proud of the work our therapists do. You're in good hands."</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ Post-Call</div>
+            <div class="do-step">Send couples intake form link — both partners need to complete</div>
+            <div class="do-step">Add note: presenting concern, urgency, both partner details</div>
+            <div class="do-step">Tag: "Couples", insurance plan(s), language preference</div>
+            <div class="do-step">Move to pipeline Stage 1: New Lead</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSURANCE CALL -->
+  <div class="scenario-detail" id="sd-insurance-call">
+    <div class="sd-header" style="background:linear-gradient(135deg,#276749,#2d6a4f)">
+      <div style="font-size:2rem">🏥</div>
+      <div><h2>Insurance Question / Verification</h2><p>Goal: Collect insurance info, set accurate expectations, escalate to billing team — never confirm coverage yourself</p></div>
+    </div>
+    <div class="sd-body">
+      <div class="callout callout-red"><strong>Rule #1:</strong> Never confirm or deny insurance coverage on the phone. Always say "let us verify and call you back."</div>
+      <div class="steps-bar">
+        <div class="step-pill active" onclick="setStep('ins',0)">1. Open</div>
+        <div class="step-pill" onclick="setStep('ins',1)">2. Collect Info</div>
+        <div class="step-pill" onclick="setStep('ins',2)">3. Set Expectations</div>
+        <div class="step-pill" onclick="setStep('ins',3)">4. Log &amp; Escalate</div>
+      </div>
+
+      <div class="step-content active" id="ins-step-0">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 Opening the Insurance Conversation</div>
+            <div class="script-line">"Absolutely, I'd be happy to look into that for you. Insurance can be a bit complicated, so I want to make sure we give you the most accurate information."</div>
+            <div class="script-line alt">"Just so you know, I'm going to take down your insurance details and have our billing team verify your exact benefits — that way you won't have any surprises."</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ Prepare</div>
+            <div class="do-step">Pull up contact in GHL — check if insurance was already collected</div>
+            <div class="do-step">Have insurance verification form ready to submit after the call</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-content" id="ins-step-1">
+        <div class="dual triple">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 Collecting Insurance Info</div>
+            <div class="script-line">"What insurance plan do you have?"</div>
+            <div class="script-line alt">"Do you have your insurance card available? I'll need your Member ID and Group Number."</div>
+            <div class="script-line alt">"And what's the primary insuredperson's date of birth?"</div>
+            <div class="script-line alt">"Are you the primary on the plan, or is someone else the policyholder?"</div>
+            <div class="script-line alt">"And are you looking specifically for in-network coverage, or are you open to out-of-network benefits as well?"</div>
+          </div>
+          <div class="pane pane-explore">
+            <div class="pane-title">🔍 What to Explore</div>
+            <div class="explore-q">In-network only, or open to OON?
+              <div class="why">Sets expectations before verification is complete</div>
+            </div>
+            <div class="explore-q">Has their deductible been met this year?
+              <div class="why">If not, they'll pay full contracted rate until deductible is met</div>
+            </div>
+            <div class="explore-q">Are they the primary policyholder or a dependent?
+              <div class="why">Billing needs primary's info; dependent has different ID</div>
+            </div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ Required Collection</div>
+            <div class="do-step">Insurance plan / carrier name <span class="sys tag-r">Required</span></div>
+            <div class="do-step">Member ID number <span class="sys tag-r">Required</span></div>
+            <div class="do-step">Group number <span class="sys tag-r">Required</span></div>
+            <div class="do-step">Primary insured's date of birth <span class="sys tag-r">Required</span></div>
+            <div class="do-step">Relationship to policyholder (self, spouse, dependent)</div>
+            <div class="do-step">Enter all into GHL contact record <span class="sys ghl">GHL</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-content" id="ins-step-2">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 Setting Expectations</div>
+            <div class="script-line">"Our billing team will verify your benefits and give you a call back within 24 to 48 business hours. They'll go over exactly what's covered, what your co-pay or deductible looks like, and answer any specific questions."</div>
+            <div class="script-line alt">If they push for an answer now: "I completely understand you want to know right away — I just want to make sure you have accurate numbers rather than a guess. Our billing team will have the real answer for you quickly, I promise."</div>
+            <div class="script-line alt">"In the meantime, I can also send you our intake form so we're ready to book you as soon as insurance is confirmed. Would that be helpful?"</div>
+          </div>
+          <div class="pane pane-warn">
+            <div class="pane-title">⚠️ What NOT to Say</div>
+            <div class="do-step" style="color:#7b4f00">"I think we take that insurance" — never guess</div>
+            <div class="do-step" style="color:#7b4f00">"You should be covered" — not your call to make</div>
+            <div class="do-step" style="color:#7b4f00">"It depends" without a follow-up plan — always close with a concrete next step</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-content" id="ins-step-3">
+        <div class="dual">
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ Post-Call — Insurance</div>
+            <div class="do-step">Log all insurance info in GHL contact record <span class="sys ghl">GHL</span></div>
+            <div class="do-step">Submit Insurance Verification Form in GHL <span class="sys ghl">GHL</span></div>
+            <div class="do-step">Move pipeline to Stage 3: Verify Insurance</div>
+            <div class="do-step">Set follow-up task: "Insurance verification — call client back with results" due in 48 hrs</div>
+            <div class="do-step">Add note with what was discussed and caller's questions</div>
+          </div>
+          <div class="pane pane-say">
+            <div class="pane-title">💬 When Billing Calls Back</div>
+            <div class="script-line">[If covered + co-pay]: "Great news — we verified your benefits and we're in-network with your plan. Your co-pay will be $[X] per session."</div>
+            <div class="script-line alt">[If unmet deductible]: "We're in-network with your plan, but your deductible hasn't been met yet. Until it's met, you'd pay $[X] per session, then your co-pay takes over."</div>
+            <div class="script-line alt">[If not covered]: "We checked and unfortunately your plan doesn't cover mental health with our practice. Our self-pay rate is $[X] — would you like to move forward with that?"</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NO-SHOW -->
+  <div class="scenario-detail" id="sd-noshow">
+    <div class="sd-header" style="background:linear-gradient(135deg,#b7791f,#c05621)">
+      <div style="font-size:2rem">⚠️</div>
+      <div><h2>No-Show Recovery Call</h2><p>Goal: Check in with care, explore what happened, re-engage without pressure</p></div>
+    </div>
+    <div class="sd-body">
+      <div class="callout callout-yellow"><strong>Mindset:</strong> Lead with genuine concern, not accountability. "We missed you" not "you missed your appointment."</div>
+      <div class="steps-bar">
+        <div class="step-pill active" onclick="setStep('ns',0)">1. Open Warmly</div>
+        <div class="step-pill" onclick="setStep('ns',1)">2. Explore Why</div>
+        <div class="step-pill" onclick="setStep('ns',2)">3. Re-engage</div>
+        <div class="step-pill" onclick="setStep('ns',3)">4. Close</div>
+      </div>
+
+      <div class="step-content active" id="ns-step-0">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 Opening the No-Show Call</div>
+            <div class="script-line">"Hi [Name], this is [Your Name] calling from Love Discovery Institute. I just wanted to reach out and check in — we missed you at your appointment today and wanted to make sure everything is okay."</div>
+            <div class="script-line alt">If voicemail: "Hi [Name], this is [Name] from Love Discovery Institute. We missed you today and just want to make sure you're okay. Please give us a call back when you get a chance at [number]. We'd love to hear from you."</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ Before the Call</div>
+            <div class="do-step">Check PracticeQ — confirm it was a no-show, not a reschedule that got missed <span class="sys pq">PracticeQ</span></div>
+            <div class="do-step">Check GHL for any texts, emails, or notes explaining the absence <span class="sys ghl">GHL</span></div>
+            <div class="do-step">Note how many no-shows this client has had previously</div>
+            <div class="do-step">Call within same business day if possible; next morning at the latest</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-content" id="ns-step-1">
+        <div class="dual triple">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 Exploring What Happened</div>
+            <div class="script-line">"Is everything okay on your end? I just want to check in."</div>
+            <div class="script-line alt">"Did something come up that prevented you from making it?"</div>
+            <div class="script-line alt">If cost concern: "I hear you — cost can definitely be a concern. Can I share a few options that might help?"</div>
+            <div class="script-line alt">If ambivalent: "That's completely okay — a lot of people feel unsure at first. There's no pressure at all."</div>
+          </div>
+          <div class="pane pane-explore">
+            <div class="pane-title">🔍 Listen for the Real Reason</div>
+            <div class="explore-q">Scheduling conflict / forgot
+              <div class="listen">Easy re-book — offer to schedule now</div>
+            </div>
+            <div class="explore-q">Cost concern
+              <div class="listen">Revisit insurance or payment options; check if billing was communicated clearly</div>
+            </div>
+            <div class="explore-q">Ambivalence about therapy
+              <div class="listen">Normalize it; don't push. "Totally understandable. What would make you feel more comfortable?"</div>
+            </div>
+            <div class="explore-q">Personal crisis or emergency
+              <div class="listen">Lead with empathy. Ask if they're okay first. Reschedule can wait.</div>
+            </div>
+            <div class="explore-q">Dissatisfied with therapist or prior session
+              <div class="listen">Important feedback. Ask gently. Offer to discuss options with supervisor.</div>
+            </div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ Internally</div>
+            <div class="do-step">Do not mention late cancel fee on the first call — lead with care</div>
+            <div class="do-step">Note the reason in GHL <span class="sys ghl">GHL</span></div>
+            <div class="do-step">If cost is the issue — flag for billing team</div>
+            <div class="do-step">If dissatisfied — flag for clinical supervisor</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-content" id="ns-step-2">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 Re-Engaging</div>
+            <div class="script-line">"Would you like to get rescheduled? I can look at availability right now if you have a moment."</div>
+            <div class="script-line alt">"If now isn't a great time to schedule, I can send you a link so you can pick a time that works best for you."</div>
+            <div class="script-line alt">"There's no pressure at all — whenever you're ready, we're here."</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ If They Want to Reschedule</div>
+            <div class="do-step">Check therapist availability in PracticeQ <span class="sys pq">PracticeQ</span></div>
+            <div class="do-step">Book the new appointment while on the call if possible</div>
+            <div class="do-step">Send confirmation SMS via GHL <span class="sys ghl">GHL</span></div>
+            <div class="do-step">If they prefer self-scheduling: send GHL booking link</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-content" id="ns-step-3">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 Closing the Call</div>
+            <div class="script-line">[If rebooked]: "You're all set for [date/time]. You'll get a confirmation text shortly. We're looking forward to seeing you."</div>
+            <div class="script-line alt">[If not ready]: "No problem at all. I'll send you our scheduling link and whenever you're ready, you can book directly. The door is always open."</div>
+            <div class="script-line alt">[If total drop]: "I completely understand. I'll make a note and if anything changes, please don't hesitate to reach out. Take care of yourself."</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ Post-Call Logging</div>
+            <div class="do-step">Log reason for no-show and outcome of call in GHL <span class="sys ghl">GHL</span></div>
+            <div class="do-step">If 3rd no-show: discuss with supervisor; consider moving to "Recent Drops"</div>
+            <div class="do-step">Update PracticeQ appointment status: No-Show <span class="sys pq">PracticeQ</span></div>
+            <div class="do-step">If billing question raised: log for billing team follow-up</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCHEDULING -->
+  <div class="scenario-detail" id="sd-scheduling">
+    <div class="sd-header" style="background:linear-gradient(135deg,#1a6b5e,#006a70)">
+      <div style="font-size:2rem">📅</div>
+      <div><h2>Scheduling / Rescheduling</h2><p>Goal: Efficiently match the client to the right appointment while confirming all prerequisites are met</p></div>
+    </div>
+    <div class="sd-body">
+      <div class="steps-bar">
+        <div class="step-pill active" onclick="setStep('sc',0)">1. Pull Up Record</div>
+        <div class="step-pill" onclick="setStep('sc',1)">2. New vs. Existing</div>
+        <div class="step-pill" onclick="setStep('sc',2)">3. Book</div>
+        <div class="step-pill" onclick="setStep('sc',3)">4. Confirm</div>
+      </div>
+      <div class="step-content active" id="sc-step-0">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 Opening</div>
+            <div class="script-line">"Of course! Let me pull up your account. Can I get your name and the best phone number on file?"</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ Before Anything Else</div>
+            <div class="do-step">Search GHL by name or phone number <span class="sys ghl">GHL</span></div>
+            <div class="do-step">Open PracticeQ record and check appointment history <span class="sys pq">PracticeQ</span></div>
+            <div class="do-step">Confirm: intake form on file? Insurance verified? Therapist assigned?</div>
+          </div>
+        </div>
+      </div>
+      <div class="step-content" id="sc-step-1">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 Checking Status</div>
+            <div class="script-line">[New client]: "I see you're new with us — before I book you, I just want to confirm we received your intake form. Have you had a chance to fill that out?"</div>
+            <div class="script-line alt">[Existing client]: "I can see you've been working with [Therapist Name]. Are you looking to schedule your next regular session, or is this something different?"</div>
+            <div class="script-line alt">[Reschedule]: "No problem at all. I can move that — when does your schedule open up?"</div>
+            <div class="script-line alt">[Cancel]: "I'm sorry you need to cancel. Can I ask if you'd like to reschedule at the same time, or are you not sure yet?"</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ Checklist Before Booking First Appt</div>
+            <div class="do-step">Intake form received and reviewed <span class="sys pq">PracticeQ</span></div>
+            <div class="do-step">Insurance verified OR self-pay confirmed <span class="sys ghl">GHL</span></div>
+            <div class="do-step">Therapist match confirmed and available</div>
+            <div class="do-step">If any of the above missing → do not book yet; explain next step to client</div>
+          </div>
+        </div>
+      </div>
+      <div class="step-content" id="sc-step-2">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 Booking the Appointment</div>
+            <div class="script-line">"I have [Therapist Name] available on [day] at [time] — does that work for you?"</div>
+            <div class="script-line alt">"Would you prefer mornings, afternoons, or evenings?"</div>
+            <div class="script-line alt">"Will this be in-person at our Coral Gables office, or telehealth?"</div>
+            <div class="script-line alt">[Cancellation notice]: "Just a quick heads up — we do have a 24-hour cancellation policy. If something comes up, please let us know with as much notice as possible."</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ Booking in PracticeQ</div>
+            <div class="do-step">Open therapist's calendar in PracticeQ <span class="sys pq">PracticeQ</span></div>
+            <div class="do-step">Confirm appointment type: individual, couples, telehealth, in-person</div>
+            <div class="do-step">Book the slot; confirm it shows as "Confirmed" not "Pending"</div>
+            <div class="do-step">Move pipeline stage to "First Session Confirmed" if applicable <span class="sys ghl">GHL</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="step-content" id="sc-step-3">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 Confirming</div>
+            <div class="script-line">"You're all set! I've got you booked with [Therapist Name] on [day], [date] at [time]. You'll receive a confirmation text and email shortly."</div>
+            <div class="script-line alt">[Telehealth]: "For your telehealth session, you'll receive a video link in your confirmation email. Please test it a few minutes before your appointment time."</div>
+            <div class="script-line alt">[In-person]: "Our office is at [address] in Coral Gables. There's parking available [details]. Please arrive 5–10 minutes early for your first visit."</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ Post-Booking</div>
+            <div class="do-step">GHL automation fires: confirmation SMS + email <span class="sys ghl">GHL</span></div>
+            <div class="do-step">24-hour reminder will fire automatically — confirm automation is active</div>
+            <div class="do-step">Add note: "Booked [date/time] with [therapist]. Client confirmed." <span class="sys ghl">GHL</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOLLOW-UP -->
+  <div class="scenario-detail" id="sd-followup">
+    <div class="sd-header" style="background:linear-gradient(135deg,#2c5282,#2b6cb0)">
+      <div style="font-size:2rem">🔁</div>
+      <div><h2>Re-Engagement / Follow-Up Call</h2><p>Goal: Reconnect warmly, understand what's holding them back, remove barriers</p></div>
+    </div>
+    <div class="sd-body">
+      <div class="callout callout-blue">Check GHL history before calling — how many attempts have been made? What was the last interaction?</div>
+      <div class="dual">
+        <div class="pane pane-say">
+          <div class="pane-title">💬 Opening Scripts</div>
+          <div class="script-line">"Hi [Name], this is [Your Name] from Love Discovery Institute. I wanted to follow up from when we spoke [last week / a few days ago] — just checking in to see how things are going."</div>
+          <div class="script-line alt">"Hi [Name], I noticed you filled out our form a little while back and I wanted to reach out personally to see if you had any questions or if there's anything I can help with."</div>
+          <div class="script-line alt">Voicemail: "Hi [Name], this is [Name] at Love Discovery Institute — [phone]. We'd love to connect with you when you have a moment. There's no pressure, we just want to make sure you have everything you need. Talk soon!"</div>
+          <div class="pane-title" style="margin-top:16px">🔍 Explore Barriers</div>
+          <div class="script-line alt">"Is there anything that's made it hard to move forward — scheduling, cost, or just feeling uncertain?"</div>
+          <div class="script-line alt">"What would be most helpful for you right now?"</div>
+        </div>
+        <div class="pane pane-do">
+          <div class="pane-title">⚙️ Internally</div>
+          <div class="do-step">Check GHL: note from previous calls, what was promised, what stage they're in <span class="sys ghl">GHL</span></div>
+          <div class="do-step">Check: did they complete the intake form? Was insurance verified?</div>
+          <div class="do-step">Max attempts before soft close: 3 outbound calls + 2 texts with no response</div>
+          <div class="do-step">After 3 unanswered: move to "Recent Drops" in pipeline; add note</div>
+          <div class="do-step">If they re-engage: pick up from where they left off in the pipeline — don't restart from scratch</div>
+          <div class="do-step">Log outcome of every attempt in GHL — even voicemails <span class="sys ghl">GHL</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BILLING -->
+  <div class="scenario-detail" id="sd-billing">
+    <div class="sd-header" style="background:linear-gradient(135deg,#2c5282,#1a365d)">
+      <div style="font-size:2rem">💳</div>
+      <div><h2>Billing / Invoice Question</h2><p>Goal: Answer what you can from GHL tags, escalate anything complex to the billing team</p></div>
+    </div>
+    <div class="sd-body">
+      <div class="dual">
+        <div class="pane pane-say">
+          <div class="pane-title">💬 Scripts by Situation</div>
+          <div class="script-line">[Co-pay question]: "Let me check your account… I see you have a co-pay of $[X] per session. Does that match what you expected?"</div>
+          <div class="script-line alt">[Unexpected bill]: "I'm sorry for the confusion — let me pull up your account and take a look. I want to make sure we get this sorted out for you."</div>
+          <div class="script-line alt">[Deductible]: "It looks like your deductible hasn't been fully met yet, which is why you're seeing a higher amount. Once it's met, your co-pay will kick in."</div>
+          <div class="script-line alt">[Complex / dispute]: "I want to make sure this gets handled correctly — let me have our billing specialist take a closer look and give you a call back within 24 hours. They'll be able to pull the full claim detail."</div>
+        </div>
+        <div class="pane pane-do">
+          <div class="pane-title">⚙️ GHL Billing Tag Reference</div>
+          <div class="do-step">Tag: <strong>co-pay</strong> → Client has active insurance with set co-pay; collect at each session</div>
+          <div class="do-step">Tag: <strong>self-pay</strong> → No insurance; charge full self-pay rate</div>
+          <div class="do-step">Tag: <strong>unmet deductible</strong> → In-network but deductible not met; client pays contracted rate</div>
+          <div class="do-step">Tag: <strong>+2 therapist</strong> → Seeing multiple LDI providers; flag for billing coordination</div>
+          <div class="do-step">If disputing a charge → escalate immediately; do not negotiate yourself</div>
+          <div class="do-step">Log all billing calls with full detail in GHL notes <span class="sys ghl">GHL</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CRISIS -->
+  <div class="scenario-detail" id="sd-crisis">
+    <div class="sd-header" style="background:linear-gradient(135deg,#742a2a,#9b2335)">
+      <div style="font-size:2rem">🆘</div>
+      <div><h2>Client in Distress / Crisis</h2><p>Goal: Stay calm, listen first, connect to the right support — never handle alone</p></div>
+    </div>
+    <div class="sd-body">
+      <div class="callout callout-red"><strong>If there is any immediate safety concern, direct the caller to 988 (Suicide &amp; Crisis Lifeline) or 911. Do not put them on hold. Do not leave them alone on the line.</strong></div>
+      <div class="dual">
+        <div class="pane pane-say">
+          <div class="pane-title">💬 De-escalation Scripts</div>
+          <div class="script-line">"I hear you. I'm right here. Thank you for calling us."</div>
+          <div class="script-line alt">"You did the right thing by reaching out. Can you tell me a little about what's going on?"</div>
+          <div class="script-line alt">[If safety concern]: "I want to make sure you're safe. Are you somewhere safe right now?"</div>
+          <div class="script-line alt">[If immediate danger]: "I want to connect you with someone who can help right now. The crisis line is 988 — they're available 24/7 and are really trained for exactly this. Can I stay on with you for a moment?"</div>
+          <div class="script-line alt">[If urgent but not immediate]: "I hear how hard things are right now. Let me see if one of our therapists is available today or first thing tomorrow. Can you stay on the line with me for just a moment?"</div>
+        </div>
+        <div class="pane pane-do">
+          <div class="pane-title">⚙️ Internally — Crisis Protocol</div>
+          <div class="do-step"><strong>Stay calm. Speak slowly and warmly.</strong></div>
+          <div class="do-step">Do NOT put them on hold or transfer without explanation</div>
+          <div class="do-step">Immediately notify a supervisor or therapist via internal chat — wave someone over if in-office</div>
+          <div class="do-step">If immediate safety risk: do not end the call; provide 988 / 911</div>
+          <div class="do-step">If urgent but stable: check for same-day or next-day availability with a therapist</div>
+          <div class="do-step">Document the call in full detail after — time, what was said, what action was taken <span class="sys ghl">GHL</span></div>
+          <div class="do-step">Debrief with your supervisor after handling a crisis call</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end page-scenarios -->
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE 2 — SCRIPT LIBRARY
+═══════════════════════════════════════════ -->
+<div class="page" id="page-scripts">
+  <div class="callout callout-blue"><strong>Script Library:</strong> These are word-for-word samples. Adapt them to your natural voice — the goal is the meaning, not memorizing every line.</div>
+
+  <div class="section-label">Greetings &amp; Openings</div>
+  <div class="dual triple">
+    <div class="pane pane-say">
+      <div class="pane-title">📲 Inbound — New Caller</div>
+      <div class="script-line">"Thank you for calling Love Discovery Institute, this is [Name]. How can I help you today?"</div>
+      <div class="script-line alt">"Good [morning/afternoon]! You've reached Love Discovery Institute — how can I assist you?"</div>
+    </div>
+    <div class="pane pane-say">
+      <div class="pane-title">📲 Inbound — Existing Client</div>
+      <div class="script-line">"Hi [Name]! Great to hear from you — what can I help you with today?"</div>
+      <div class="script-line alt">"Love Discovery Institute, this is [Name] — how are you doing today?"</div>
+    </div>
+    <div class="pane pane-say">
+      <div class="pane-title">📞 Outbound — Cold/Warm Call</div>
+      <div class="script-line">"Hi [Name], this is [Name] calling from Love Discovery Institute. I wanted to follow up from your recent inquiry — do you have a moment?"</div>
+      <div class="script-line alt">"Hi, I'm calling for [Name]? Hi! This is [Name] from Love Discovery Institute — I'm reaching out because you filled out our form [recently/last week]."</div>
+    </div>
+  </div>
+
+  <div class="section-label">Empathy &amp; Validation Lines</div>
+  <div class="acc-item"><div class="acc-trigger" onclick="toggleAcc(this)">When a caller is emotional or overwhelmed <span>▾</span></div>
+    <div class="acc-body">
+      <div class="script-line">"I really hear you. It takes courage to reach out, and I want you to know you're in the right place."</div>
+      <div class="script-line alt">"That sounds really hard. Thank you for trusting us with that."</div>
+      <div class="script-line alt">"You don't have to have everything figured out to start. That's what the therapist is here for."</div>
+    </div>
+  </div>
+  <div class="acc-item"><div class="acc-trigger" onclick="toggleAcc(this)">When a caller is frustrated or impatient <span>▾</span></div>
+    <div class="acc-body">
+      <div class="script-line">"I completely understand that's frustrating — let me see what I can do to help right now."</div>
+      <div class="script-line alt">"You're right, and I want to get this sorted out for you. Can I take a look at your account?"</div>
+      <div class="script-line alt">"I hear you — let me make sure this gets handled properly so you don't have to deal with it again."</div>
+    </div>
+  </div>
+  <div class="acc-item"><div class="acc-trigger" onclick="toggleAcc(this)">When a caller is uncertain about therapy <span>▾</span></div>
+    <div class="acc-body">
+      <div class="script-line">"It's completely normal to feel unsure. Most people feel that way before their first session — and most people feel really glad they came."</div>
+      <div class="script-line alt">"There's no commitment right away. The first session is really just about getting to know each other and seeing if it's a good fit."</div>
+      <div class="script-line alt">"You don't have to be in crisis to benefit from therapy. A lot of our clients come in wanting to grow or work through something before it becomes a bigger issue."</div>
+    </div>
+  </div>
+
+  <div class="section-label">Transitional Phrases</div>
+  <div class="dual">
+    <div class="pane pane-say">
+      <div class="pane-title">🔄 Moving the Conversation Forward</div>
+      <div class="script-line alt">"Thank you for sharing that — let me ask you a couple of quick questions so I can make sure we get you the right fit."</div>
+      <div class="script-line alt">"That's really helpful to know. Based on what you've shared, here's what I'd recommend…"</div>
+      <div class="script-line alt">"Let me take care of that for you right now."</div>
+      <div class="script-line alt">"I'm going to pull up your account — just one second."</div>
+      <div class="script-line alt">"I don't want to guess and give you the wrong information — let me find out for sure and get back to you."</div>
+    </div>
+    <div class="pane pane-say">
+      <div class="pane-title">🔚 Closing Lines</div>
+      <div class="script-line">"Is there anything else I can help you with today?"</div>
+      <div class="script-line alt">"We're really glad you reached out. You're going to be in great hands."</div>
+      <div class="script-line alt">"Don't hesitate to call or text us if anything comes up. We're here."</div>
+      <div class="script-line alt">"Take care of yourself — we'll be in touch soon!"</div>
+      <div class="script-line alt">[After booking]: "You're all set. Looking forward to seeing you on [date]!"</div>
+    </div>
+  </div>
+
+  <div class="section-label">Voicemail Scripts</div>
+  <div class="acc-item"><div class="acc-trigger" onclick="toggleAcc(this)">First outbound attempt (warm lead) <span>▾</span></div>
+    <div class="acc-body">
+      <div class="script-line">"Hi [Name], this is [Your Name] calling from Love Discovery Institute. I saw that you reached out to us recently and I just wanted to personally follow up. Please give us a call back at [305-605-5683] when you get a chance — I'd love to help you get started. Have a great day!"</div>
+    </div>
+  </div>
+  <div class="acc-item"><div class="acc-trigger" onclick="toggleAcc(this)">Second attempt (no response yet) <span>▾</span></div>
+    <div class="acc-body">
+      <div class="script-line">"Hi [Name], this is [Name] from Love Discovery Institute again — just following up since I haven't been able to reach you. Totally understand you might be busy. You can always text us back at this number or call [305-605-5683]. We're looking forward to connecting whenever you're ready!"</div>
+    </div>
+  </div>
+  <div class="acc-item"><div class="acc-trigger" onclick="toggleAcc(this)">No-show voicemail <span>▾</span></div>
+    <div class="acc-body">
+      <div class="script-line">"Hi [Name], this is [Name] from Love Discovery Institute. We missed you at your appointment today and just wanted to check in and make sure everything is okay. Please give us a call back at [305-605-5683] or reply to this number by text. We'd love to get you rescheduled when you're ready — no pressure at all. Take care!"</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE 3 — EXPLORATION GUIDE
+═══════════════════════════════════════════ -->
+<div class="page" id="page-explore">
+  <div class="callout callout-purple"><strong>The Exploration Guide</strong> covers the questions you ask clients to understand their needs and match them to the right therapist and service. These are not scripts — they're conversation tools. Let the client guide the depth.</div>
+
+  <div class="section-label">By Therapy Type</div>
+  <div class="dual triple">
+    <div class="pane pane-explore">
+      <div class="pane-title">👤 Individual Therapy</div>
+      <div class="explore-q">What brings you to therapy at this point in your life?<div class="why">Open-ended; let them set the frame</div></div>
+      <div class="explore-q">How long have you been feeling this way?<div class="why">Gauges chronicity vs. acute trigger</div></div>
+      <div class="explore-q">Have you been in therapy before? What was helpful or not helpful?<div class="why">Sets realistic expectations; informs matching</div></div>
+      <div class="explore-q">Are there specific goals you'd like to work toward?<div class="why">Helps therapist alignment</div></div>
+      <div class="explore-q">Do you have any preferences for your therapist — gender, background, approach?<div class="why">Comfort and fit drive engagement</div></div>
+    </div>
+    <div class="pane pane-explore">
+      <div class="pane-title">💑 Couples Therapy</div>
+      <div class="explore-q">Are both of you interested in coming to therapy, or is one of you more uncertain?<div class="why">Reluctance is common and okay — normalize it</div></div>
+      <div class="explore-q">Can you tell me a little about what's been going on between the two of you?<div class="why">Starts the narrative; stay neutral</div></div>
+      <div class="explore-q">Have you been in couples therapy before?<div class="why">If yes: what worked? what didn't?</div></div>
+      <div class="explore-q">What would a successful outcome look like for both of you?<div class="why">Helps therapist understand whether they want to repair or process a transition</div></div>
+      <div class="explore-q">Are both partners comfortable with in-person, or does telehealth work better?<div class="why">Scheduling logistics for two people</div></div>
+    </div>
+    <div class="pane pane-explore">
+      <div class="pane-title">👨‍👩‍👧 Family / Child</div>
+      <div class="explore-q">How old is your child, and what's been going on for them?<div class="why">Age guides therapist selection and modality</div></div>
+      <div class="explore-q">Is this something you'd like to address in family sessions, or individual sessions for your child?<div class="why">Clarifies structure before matching</div></div>
+      <div class="explore-q">Have there been any major changes at home recently — school, move, loss, divorce?<div class="why">Context for presenting concerns</div></div>
+      <div class="explore-q">Does your child know they'll be coming to therapy? How are they feeling about it?<div class="why">Helps therapist prepare for a reluctant child</div></div>
+    </div>
+  </div>
+
+  <div class="section-label">Presenting Concerns — What to Listen For</div>
+  <table class="t">
+    <thead><tr><th>What They Say</th><th>What It May Indicate</th><th>Therapist Match Notes</th></tr></thead>
+    <tbody>
+      <tr><td>"I've been anxious / can't stop worrying"</td><td>Anxiety disorder, GAD, panic</td><td>Therapist with CBT, anxiety specialization</td></tr>
+      <tr><td>"I've been really down / depressed"</td><td>Depression, grief, burnout</td><td>Therapist with depression, mood specialization</td></tr>
+      <tr><td>"My relationship is falling apart"</td><td>Communication, conflict, possible infidelity</td><td>Couples-trained therapist; Gottman / EFT</td></tr>
+      <tr><td>"Something happened to me in my past"</td><td>Trauma, PTSD, childhood wounds</td><td>Trauma-informed therapist; EMDR if available</td></tr>
+      <tr><td>"I just feel stuck / don't know who I am"</td><td>Identity, life transitions, existential concerns</td><td>Open to various modalities; discuss with intake coordinator</td></tr>
+      <tr><td>"I'm going through a divorce / separation"</td><td>Grief, co-parenting stress, major life change</td><td>Individual or couples depending on the request</td></tr>
+      <tr><td>"My child is acting out / struggling in school"</td><td>Behavioral, developmental, family system</td><td>Child/adolescent specialist; family therapist</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">Flags to Escalate to Clinical Team</div>
+  <div class="callout callout-red">These are NOT situations for an intake coordinator to manage alone. Loop in a therapist or clinical supervisor immediately.</div>
+  <div class="dual">
+    <div class="pane pane-warn">
+      <div class="pane-title">⚠️ Clinical Flags</div>
+      <div class="do-step" style="color:#7b4f00">Any mention of suicidal thoughts, self-harm, or harming others</div>
+      <div class="do-step" style="color:#7b4f00">Active psychosis or confusion about reality</div>
+      <div class="do-step" style="color:#7b4f00">Active substance use crisis</div>
+      <div class="do-step" style="color:#7b4f00">Domestic violence or immediate safety concerns</div>
+      <div class="do-step" style="color:#7b4f00">A child reporting abuse</div>
+    </div>
+    <div class="pane pane-say">
+      <div class="pane-title">💬 What to Say When Escalating</div>
+      <div class="script-line">"I want to make sure you get the right support right away — can you stay on the line with me for just a moment while I get someone who can help?"</div>
+      <div class="script-line alt">"I really appreciate you telling me that. I'm going to connect you with one of our clinicians directly — they're better equipped to support you with this."</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE 4 — INSURANCE PROCESS
+═══════════════════════════════════════════ -->
+<div class="page" id="page-insurance">
+  <div class="callout callout-red"><strong>Golden Rule:</strong> Never confirm or deny coverage on the phone. Collect → Log → Escalate → Call Back.</div>
+
+  <div class="section-label">Step-by-Step Insurance Process</div>
+  <div style="display:flex;gap:0;border-radius:10px;overflow:hidden;border:1px solid #e2e8f0;margin:12px 0">
+    <div style="flex:1;background:#004d7f;color:#fff;padding:14px 12px;text-align:center;font-size:.75rem;font-weight:700">1<br>ASK &amp;<br>COLLECT</div>
+    <div style="flex:1;background:#0068aa;color:#fff;padding:14px 12px;text-align:center;font-size:.75rem;font-weight:700">2<br>LOG IN<br>GHL</div>
+    <div style="flex:1;background:#276749;color:#fff;padding:14px 12px;text-align:center;font-size:.75rem;font-weight:700">3<br>SUBMIT<br>VERIFICATION</div>
+    <div style="flex:1;background:#b7791f;color:#fff;padding:14px 12px;text-align:center;font-size:.75rem;font-weight:700">4<br>BILLING<br>VERIFIES</div>
+    <div style="flex:1;background:#38a169;color:#fff;padding:14px 12px;text-align:center;font-size:.75rem;font-weight:700">5<br>CALL<br>CLIENT BACK</div>
+    <div style="flex:1;background:#2d3748;color:#fff;padding:14px 12px;text-align:center;font-size:.75rem;font-weight:700">6<br>BOOK<br>SESSION</div>
+  </div>
+
+  <div class="section-label">What to Collect on the Call</div>
+  <table class="t">
+    <thead><tr><th>Field</th><th>Required?</th><th>How to Ask</th></tr></thead>
+    <tbody>
+      <tr><td>Insurance Carrier / Plan Name</td><td><span class="tag tag-r">Required</span></td><td>"What insurance plan do you have?"</td></tr>
+      <tr><td>Member ID</td><td><span class="tag tag-r">Required</span></td><td>"Do you have your insurance card? I'll need the Member ID."</td></tr>
+      <tr><td>Group Number</td><td><span class="tag tag-r">Required</span></td><td>"And the Group Number — that should be on the card as well."</td></tr>
+      <tr><td>Date of Birth (Primary Insured)</td><td><span class="tag tag-r">Required</span></td><td>"What's the date of birth for the primary insured?"</td></tr>
+      <tr><td>Relationship to Policyholder</td><td><span class="tag tag-y">Helpful</span></td><td>"Are you the primary on the plan, or is this under a spouse or parent?"</td></tr>
+      <tr><td>In-network preference</td><td><span class="tag tag-y">Helpful</span></td><td>"Are you looking strictly for in-network, or are you open to out-of-network benefits?"</td></tr>
+      <tr><td>Deductible status</td><td><span class="tag tag-y">Helpful</span></td><td>"Do you know if you've met your deductible for this year?"</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">Coverage Outcomes &amp; Response Scripts</div>
+  <table class="t">
+    <thead><tr><th>Outcome</th><th>What to Tell the Client</th><th>Pipeline Action</th></tr></thead>
+    <tbody>
+      <tr class="ins-covered"><td>✅ In-network, active coverage + co-pay</td><td>"Great news — we verified your benefits and we're in-network with your plan. Your co-pay will be $[X] per session. Shall we get you scheduled?"</td><td>Stage 4 → Ready to Book; tag: co-pay</td></tr>
+      <tr class="ins-partial"><td>⚠️ In-network, deductible not yet met</td><td>"We're in-network, but your deductible hasn't been met yet for this year. Until it is, you'd be responsible for the contracted rate of $[X] per session. Once it's met, your co-pay of $[X] kicks in."</td><td>Stage 4; tag: unmet deductible</td></tr>
+      <tr class="ins-partial"><td>⚠️ Out-of-network</td><td>"We're out-of-network with your plan, but you may still have out-of-network benefits. We can provide a superbill for you to submit to your insurance for reimbursement. Would you like to proceed on that basis?"</td><td>Stage 4 if agreed; tag: OON / self-pay</td></tr>
+      <tr class="ins-none"><td>❌ No mental health coverage</td><td>"Unfortunately your plan doesn't include mental health benefits with our practice. Our self-pay rate is $[rate] per session. Many clients choose this route — would you like to move forward?"</td><td>Stage 4 if self-pay agreed; tag: self-pay</td></tr>
+      <tr class="ins-none"><td>❌ Plan inactive / terminated</td><td>"It looks like this plan may no longer be active. Do you have another insurance plan, or would you like to explore self-pay options?"</td><td>Verify again or self-pay path</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">GHL Billing Tags</div>
+  <table class="t">
+    <thead><tr><th>Tag</th><th>When to Apply</th><th>Billing Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag tag-b">co-pay</span></td><td>Insurance verified; client has a set co-pay</td><td>Collect co-pay at every session; amount confirmed by billing team</td></tr>
+      <tr><td><span class="tag tag-p">self-pay</span></td><td>No insurance, or client paying out of pocket</td><td>Charge full self-pay rate; get payment method on file</td></tr>
+      <tr><td><span class="tag tag-y">unmet deductible</span></td><td>In-network but annual deductible not yet met</td><td>Client pays contracted rate per session until deductible is met</td></tr>
+      <tr><td><span class="tag tag-r">+2 therapist</span></td><td>Client is working with 2+ LDI therapists</td><td>Billing coordination needed across providers; flag for billing team</td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE 5 — PIPELINE & CRM
+═══════════════════════════════════════════ -->
+<div class="page" id="page-pipeline">
+  <div class="callout callout-blue">Every call should end with the contact in the <strong>correct pipeline stage</strong> and a <strong>note logged in GHL</strong>. If it isn't in the system, it didn't happen.</div>
+
+  <div class="section-label">Sales Pipeline — Stage by Stage</div>
+  <div id="pipeline-stages">
+    <div class="acc-item">
+      <div class="acc-trigger" onclick="toggleAcc(this)" style="background:#3182ce10;border-left:4px solid #3182ce">
+        <span style="color:#3182ce;font-weight:800">Stage 1: New Lead</span>
+        <span style="font-size:.75rem;color:#64748b">Make contact; start intake ▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 What to Say</div>
+            <div class="script-line">"Hi [Name], I'm so glad you reached out — let me help you get started."</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ What to Do in GHL/PracticeQ</div>
+            <div class="do-step">Log contact in GHL</div><div class="do-step">Add initial note with presenting concern</div><div class="do-step">Send welcome SMS if first contact</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-trigger" onclick="toggleAcc(this)" style="background:#0068aa10;border-left:4px solid #0068aa">
+        <span style="color:#0068aa;font-weight:800">Stage 2: Intake Form Completed</span>
+        <span style="font-size:.75rem;color:#64748b">Review form; begin insurance ▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 What to Say</div>
+            <div class="script-line">Confirm receipt: "We got your intake form — our team will review it shortly."</div>
+          </div>      <div class="pane pane-do">
+            <div class="pane-title">⚙️ What to Do in GHL/PracticeQ</div>
+            <div class="do-step">Review PracticeQ intake form</div><div class="do-step">Confirm insurance info was included</div><div class="do-step">Begin insurance verification process</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-trigger" onclick="toggleAcc(this)" style="background:#27674910;border-left:4px solid #276749">
+        <span style="color:#276749;font-weight:800">Stage 3: Verify Insurance</span>
+        <span style="font-size:.75rem;color:#64748b">Submit to billing; await result ▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 What to Say</div>
+            <div class="script-line">"Our billing team is verifying your insurance now — you'll hear back within 24–48 hours."</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ What to Do in GHL/PracticeQ</div>
+            <div class="do-step">Submit Insurance Verification Form in GHL</div><div class="do-step">Set follow-up task: call client with result</div><div class="do-step">Note any special billing considerations</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-trigger" onclick="toggleAcc(this)" style="background:#6b46c110;border-left:4px solid #6b46c1">
+        <span style="color:#6b46c1;font-weight:800">Stage 4: Ready to Book</span>
+        <span style="font-size:.75rem;color:#64748b">Match therapist; schedule ▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 What to Say</div>
+            <div class="script-line">"Great news — everything is confirmed. Let's get you scheduled!"</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ What to Do in GHL/PracticeQ</div>
+            <div class="do-step">Check therapist availability in PracticeQ</div><div class="do-step">Match based on: specialty, insurance, language, modality</div><div class="do-step">Book appointment; move to Stage 5</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-trigger" onclick="toggleAcc(this)" style="background:#b7791f10;border-left:4px solid #b7791f">
+        <span style="color:#b7791f;font-weight:800">Stage 5: First Session Confirmed</span>
+        <span style="font-size:.75rem;color:#64748b">Confirm &amp; prepare client ▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 What to Say</div>
+            <div class="script-line">"You're booked! You'll get a confirmation text and reminder before your session."</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ What to Do in GHL/PracticeQ</div>
+            <div class="do-step">GHL automation fires: confirmation SMS + email</div><div class="do-step">24-hr reminder fires automatically</div><div class="do-step">Therapist notified of new booking</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-trigger" onclick="toggleAcc(this)" style="background:#c0562110;border-left:4px solid #c05621">
+        <span style="color:#c05621;font-weight:800">Stage 6: First Session Attended</span>
+        <span style="font-size:.75rem;color:#64748b">Follow up; book next session ▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 What to Say</div>
+            <div class="script-line">"How did your first session go? Would you like to go ahead and schedule your next one?"</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ What to Do in GHL/PracticeQ</div>
+            <div class="do-step">Log outcome in GHL</div><div class="do-step">Schedule recurring appointments if client is ready</div><div class="do-step">Move to Stage 7</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-trigger" onclick="toggleAcc(this)" style="background:#27674910;border-left:4px solid #276749">
+        <span style="color:#276749;font-weight:800">Stage 7: Following Sessions</span>
+        <span style="font-size:.75rem;color:#64748b">Maintain relationship ▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 What to Say</div>
+            <div class="script-line">Check in periodically; answer questions</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ What to Do in GHL/PracticeQ</div>
+            <div class="do-step">Monitor for billing issues, no-shows, gaps in scheduling</div><div class="do-step">Ensure recurring appointments are confirmed</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-trigger" onclick="toggleAcc(this)" style="background:#2d374810;border-left:4px solid #2d3748">
+        <span style="color:#2d3748;font-weight:800">Stage 8: 8th Session Milestone</span>
+        <span style="font-size:.75rem;color:#64748b">Check-in; plan next phase ▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 What to Say</div>
+            <div class="script-line">"You've completed 8 sessions — that's a big milestone. How are you feeling about your progress?"</div>
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ What to Do in GHL/PracticeQ</div>
+            <div class="do-step">Log milestone in GHL</div><div class="do-step">Therapist may recommend continued care, reduced frequency, or graduation</div><div class="do-step">Discuss continued care plan with client</div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+
+  <div class="section-label">Post-Call GHL Checklist</div>
+  <table class="t">
+    <thead><tr><th>Action</th><th>Tool</th><th>Time Limit</th></tr></thead>
+    <tbody>
+      <tr><td>Log call note (who called, what was discussed, what was promised)</td><td><span class="tag tag-b">GHL</span></td><td>5 min after call</td></tr>
+      <tr><td>Create or update contact record</td><td><span class="tag tag-b">GHL</span></td><td>5 min after call</td></tr>
+      <tr><td>Move opportunity to correct pipeline stage</td><td><span class="tag tag-b">GHL</span></td><td>5 min after call</td></tr>
+      <tr><td>Add/update tags (insurance plan, service type, language)</td><td><span class="tag tag-b">GHL</span></td><td>5 min after call</td></tr>
+      <tr><td>Send intake form link via SMS</td><td><span class="tag tag-b">GHL</span></td><td>Immediately after first call</td></tr>
+      <tr><td>Submit insurance info to Insurance Verification Form</td><td><span class="tag tag-b">GHL</span></td><td>Same day</td></tr>
+      <tr><td>Book appointment in PracticeQ (if ready)</td><td><span class="tag tag-p">PracticeQ</span></td><td>During or immediately after call</td></tr>
+      <tr><td>Set follow-up task with due date</td><td><span class="tag tag-b">GHL</span></td><td>Before closing the record</td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE 6 — OBJECTIONS
+═══════════════════════════════════════════ -->
+<div class="page" id="page-objections">
+  <div class="callout callout-blue">Objections are not rejections — they're questions in disguise. Stay curious, stay warm, and don't push.</div>
+
+  <div class="section-label">Common Objections &amp; Responses</div>
+  <div class="obj-grid">
+    <div class="obj-card"><div class="obj-head">"I need to think about it."</div><div class="obj-body"><div class="obj-say">"Absolutely — there's no pressure at all. Can I ask what you're weighing? Sometimes I can help answer a specific question."</div><div class="obj-note">If they won't share: "No worries. I'll send you our info and you can reach out whenever you're ready."</div></div></div>
+    <div class="obj-card"><div class="obj-head">"I'm not sure therapy will help me."</div><div class="obj-body"><div class="obj-say">"That's a really common concern. The first session is really just a conversation — there's no commitment, and our therapists are great at helping you figure out if it's the right fit."</div><div class="obj-note">Normalize ambivalence; don't oversell.</div></div></div>
+    <div class="obj-card"><div class="obj-head">"It's too expensive."</div><div class="obj-body"><div class="obj-say">"I hear you — cost is a real consideration. Have you had a chance to check your insurance benefits? We may be able to work with your plan. And if not, I'm happy to go over our self-pay rate and payment options."</div><div class="obj-note">Explore insurance first; self-pay as backup.</div></div></div>
+    <div class="obj-card"><div class="obj-head">"I tried therapy before and it didn't help."</div><div class="obj-body"><div class="obj-say">"I'm really sorry to hear that. Can I ask what that experience was like? It really does matter who you work with, and we take matching very seriously here."</div><div class="obj-note">Shows you're listening; opens a door to a better match.</div></div></div>
+    <div class="obj-card"><div class="obj-head">"I don't have time."</div><div class="obj-body"><div class="obj-say">"I totally understand — schedules are tough. We do have early morning, evening, and telehealth options that might be easier to fit in. Would any of those work?"</div></div></div>
+    <div class="obj-card"><div class="obj-head">"My partner doesn't want to come."</div><div class="obj-body"><div class="obj-say">"That's really common — a lot of people feel hesitant at first. You could even start with individual sessions and see if that opens the door. Or some couples start with a consultation to just get a feel for it."</div><div class="obj-note">Don't pressure; offer an individual path as an entry point.</div></div></div>
+    <div class="obj-card"><div class="obj-head">"Do you take [Insurance Plan]?"</div><div class="obj-body"><div class="obj-say">"That's a great question — I want to give you accurate information, so let me have our billing team verify your specific benefits. Can I grab your plan info really quickly?"</div><div class="obj-note">Never guess or confirm coverage verbally.</div></div></div>
+    <div class="obj-card"><div class="obj-head">"I'll just look online / find someone else."</div><div class="obj-body"><div class="obj-say">"Of course — finding the right fit is the most important thing. If you'd like, I can tell you a bit more about our therapists and approach, and you can decide from there. No pressure either way."</div><div class="obj-note">Don't chase. Plant a seed; leave the door open.</div></div></div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE 7 — KNOWLEDGE CHECK
+═══════════════════════════════════════════ -->
+<div class="page" id="page-quiz">
+  <div class="callout callout-blue">Test your knowledge. Click an answer — you'll get instant feedback and an explanation.</div>
+
+  <div class="quiz-q">
+    <div class="q">1. A new caller says "Do you take Aetna?" What should you say?</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'wrong','q1')">A. "Yes, we take Aetna!"</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'wrong','q1')">B. "I'm not sure, let me check Google."</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'correct','q1')">C. "Let me take down your plan details and have our billing team verify your exact benefits — I want to give you accurate information."</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'wrong','q1')">D. "It depends on your plan."</div>
+    <div class="quiz-feedback" id="q1-feedback"></div>
+  </div>
+
+  <div class="quiz-q">
+    <div class="q">2. After an intake call, what are the two most time-sensitive things to do?</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'wrong','q2')">A. Call the therapist and send flowers</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'correct','q2')">B. Log a note in GHL and send the intake form link via SMS — both within 5 minutes</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'wrong','q2')">C. Book the appointment immediately before doing anything else</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'wrong','q2')">D. Confirm insurance coverage verbally</div>
+    <div class="quiz-feedback" id="q2-feedback"></div>
+  </div>
+
+  <div class="quiz-q">
+    <div class="q">3. A client has the GHL tag "unmet deductible." What does that mean for billing?</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'wrong','q3')">A. They don't have insurance</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'wrong','q3')">B. Their insurance is expired</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'correct','q3')">C. They're in-network, but their annual deductible isn't met — they pay the full contracted rate until it is</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'wrong','q3')">D. They owe money from a previous session</div>
+    <div class="quiz-feedback" id="q3-feedback"></div>
+  </div>
+
+  <div class="quiz-q">
+    <div class="q">4. A client calls and says "I've been having some really dark thoughts lately." What is your first response?</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'wrong','q4')">A. Book them for the next available appointment and hang up</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'wrong','q4')">B. Tell them to call 988 and end the call</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'correct','q4')">C. Stay calm, listen, ask "Are you somewhere safe right now?" — keep them on the line and immediately notify a supervisor or therapist</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'wrong','q4')">D. Put them on hold to find a supervisor</div>
+    <div class="quiz-feedback" id="q4-feedback"></div>
+  </div>
+
+  <div class="quiz-q">
+    <div class="q">5. How many unanswered outbound call attempts before moving a lead to "Recent Drops"?</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'wrong','q5')">A. 1</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'wrong','q5')">B. 2</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'correct','q5')">C. 3 calls + 2 texts with no response</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'wrong','q5')">D. 10</div>
+    <div class="quiz-feedback" id="q5-feedback"></div>
+  </div>
+
+  <div class="quiz-q">
+    <div class="q">6. A caller says they want couples therapy but their partner is "not really sure about it." What do you say?</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'wrong','q6')">A. "Unfortunately we can only schedule when both partners are committed."</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'correct','q6')">B. "That's really common — a lot of people feel hesitant at first. You could even start with individual sessions, or your partner could come to a consultation just to get a feel for it. No pressure either way."</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'wrong','q6')">C. "Tell your partner they have to come or it won't work."</div>
+    <div class="quiz-opt" onclick="answerQuiz(this,'wrong','q6')">D. "We'll need a commitment from both partners before booking."</div>
+    <div class="quiz-feedback" id="q6-feedback"></div>
+  </div>
+</div>
+
+
+<!-- ════ 8-PART CHECKLIST PAGE ════ -->
+<div class="page" id="page-checklist">
+  <div class="callout callout-teal">The 8-Part Call Checklist is your roadmap for every new client call. Not every call follows this order exactly — clients may enter at different points — but always circle back to ensure nothing is missed.</div>
+
+  <div class="cp-grid">
+    <div class="cp-card" onclick="showCP(this,'cp1')"><div class="cp-num">1</div><div class="cp-title">Greeting &amp; Call ID</div><div class="cp-sub">Warm opening, identify call type</div></div>
+    <div class="cp-card" onclick="showCP(this,'cp2')"><div class="cp-num">2</div><div class="cp-title">Identify Service / Needs</div><div class="cp-sub">Understand what they're looking for</div></div>
+    <div class="cp-card" onclick="showCP(this,'cp3')"><div class="cp-num">3</div><div class="cp-title">Educate on Service</div><div class="cp-sub">Explain how we work, session structure</div></div>
+    <div class="cp-card" onclick="showCP(this,'cp4')"><div class="cp-num">4</div><div class="cp-title">Location &amp; Scheduling Pref</div><div class="cp-sub">Virtual first; get availability</div></div>
+    <div class="cp-card" onclick="showCP(this,'cp5')"><div class="cp-num">5</div><div class="cp-title">Two Levels of Therapists</div><div class="cp-sub">Expert vs. Qualified — assess budget</div></div>
+    <div class="cp-card" onclick="showCP(this,'cp6')"><div class="cp-num">6</div><div class="cp-title">Therapist Match &amp; Pitch</div><div class="cp-sub">Recommend 1–2 therapists by name</div></div>
+    <div class="cp-card" onclick="showCP(this,'cp7')"><div class="cp-num">7</div><div class="cp-title">Call to Action / Booking</div><div class="cp-sub">Secure the appointment + collect $75 deposit</div></div>
+    <div class="cp-card" onclick="showCP(this,'cp8')"><div class="cp-num">8</div><div class="cp-title">Closing &amp; Next Steps</div><div class="cp-sub">Intake form, cancellation policy, send invite</div></div>
+  </div>
+
+  <div class="cp-detail" id="cp-detail-cp1">
+    <h3 style="margin-bottom:14px">CP1 — Greeting &amp; Call Identification</h3>
+    <div class="dual">
+      <div class="pane pane-say">
+        <div class="pane-title">💬 Script</div>
+        <div class="script-line">"Hello, thank you for calling Love Discovery. This is [name] speaking. How can I assist you today?"</div>
+        <div class="script-line alt">Listen immediately for tone and urgency — this tells you the call type before you even ask.</div>
+      </div>
+      <div class="pane pane-do">
+        <div class="pane-title">⚙️ Internal</div>
+        <div class="do-step">Identify call type: New Client / Returning Client / Referral / Other</div>
+        <div class="do-step">If uncertain — ask: "Are you reaching out for yourself or on behalf of someone else?"</div>
+        <div class="do-step warn">⚠ Never assume. Determine intent in the first 30 seconds.</div>
+      </div>
+    </div>
+    <div class="callout callout-blue" style="margin-top:12px;font-size:.8rem"><strong>Lean In:</strong> Assume they are interested and ready unless they say otherwise. Answer with energy and warmth — your tone sets the entire call.</div>
+  </div>
+
+  <div class="cp-detail" id="cp-detail-cp2">
+    <h3 style="margin-bottom:14px">CP2 — Identify Service &amp; Understand Needs</h3>
+    <div class="dual">
+      <div class="pane pane-say">
+        <div class="pane-title">💬 Script</div>
+        <div class="script-line">"Could you tell me a bit more about what you're looking for? Are you seeking support for yourself, or are you looking to bring someone else in — like a partner or a child?"</div>
+        <div class="script-line alt">"What's been going on for you lately that brought you to reach out today?"</div>
+        <div class="script-line alt">If they mention a modality (CBT, EMDR): "That's great — let me tell you how we work with that. First, let me understand a little more about what you're experiencing…"</div>
+      </div>
+      <div class="pane pane-do">
+        <div class="pane-title">⚙️ Internal</div>
+        <div class="do-step">Classify: Individual / Couples / Minors / Family</div>
+        <div class="do-step">Note presenting concerns (anxiety, trauma, relationship issues, etc.)</div>
+        <div class="do-step">Use client's exact words back to them — this builds immediate rapport</div>
+        <div class="do-step">Ask age if minors are involved</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cp-detail" id="cp-detail-cp3">
+    <h3 style="margin-bottom:14px">CP3 — Educate on Service</h3>
+    <div class="dual triple">
+      <div class="pane pane-say">
+        <div class="pane-title">💬 Individual</div>
+        <div class="script-line">"The first session is about 50 minutes. Sessions are typically weekly, but you can discuss the right cadence with your therapist."</div>
+      </div>
+      <div class="pane pane-say">
+        <div class="pane-title">💬 Couples</div>
+        <div class="script-line">"The first couples session is a full two hours — this gives both partners time to share their perspective and discuss goals together with the therapist."</div>
+        <div class="script-line warn">⚠ Couples = self-pay only. Do not mention insurance for couples.</div>
+      </div>
+      <div class="pane pane-say">
+        <div class="pane-title">💬 Minors</div>
+        <div class="script-line">"For younger children, we start with the parents to learn about what's going on. The therapist will then spend time with the child."</div>
+        <div class="script-line alt">"For teens, parents can join the first 15–25 minutes, or the session can be just with your teen — whatever feels most comfortable."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cp-detail" id="cp-detail-cp4">
+    <h3 style="margin-bottom:14px">CP4 — Location &amp; Scheduling Preference</h3>
+    <div class="dual">
+      <div class="pane pane-say">
+        <div class="pane-title">💬 Script — Virtual First (always lead here)</div>
+        <div class="script-line">"Many of our clients prefer virtual sessions from the comfort of their own home for enhanced privacy and convenience. Of course, we also offer in-person sessions at our Coral Gables office. Which option would you prefer?"</div>
+        <div class="script-line alt">If they say in-person: Later in the call — "I do have a therapist in mind who I think would be a great fit for you, and they work virtually. Would you be open to that if the match is right?"</div>
+        <div class="script-line alt">"When would be a good time for you? Morning, afternoon, or evenings?"</div>
+      </div>
+      <div class="pane pane-do">
+        <div class="pane-title">⚙️ Internal</div>
+        <div class="do-step warn">⚠ ALWAYS lead with virtual — this is our priority service</div>
+        <div class="do-step">Note AM / PM / Evening preference for matching</div>
+        <div class="do-step">For couples: "What might work best for both you and your partner?"</div>
+        <div class="do-step">Note flexibility level — some clients are rigid on time, others flexible</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cp-detail" id="cp-detail-cp5">
+    <h3 style="margin-bottom:14px">CP5 — Two Levels of Therapists</h3>
+    <div class="callout callout-teal" style="font-size:.8rem">Think of this like presenting two types of wine — aged (premium expertise) vs. not-as-aged (equally great, more accessible). Always give the caller a choice based on what they can invest.</div>
+    <div class="dual">
+      <div class="pane pane-say">
+        <div class="pane-title">💬 Introduce Both Levels</div>
+        <div class="script-line">"We offer two levels of therapists. Our Experts have extensive experience and specialized training — their rate is $400 per session. Our Qualified therapists provide excellent, research-backed care at a more accessible rate, typically $150–$200 per session, and they also accept insurance."</div>
+        <div class="script-line alt">"Would you prefer exploring our qualified therapists in the $150–$200 range, or are you interested in our expert-level therapists?"</div>
+        <div class="script-line alt">Final affordability check: "Are you comfortable with the $150–$200 range, or do you need to stay closer to the lower end?"</div>
+      </div>
+      <div class="pane pane-do">
+        <div class="pane-title">⚙️ Internal</div>
+        <div class="do-step"><strong>Experts ($400):</strong> Dr. Pataky, Dr. Riv, Dr. Bacheline Joseph</div>
+        <div class="do-step"><strong>Qualified ($150–$200):</strong> All other therapists</div>
+        <div class="do-step warn">⚠ Only qualified therapists accept insurance</div>
+        <div class="do-step">Explore budget depth — don't assume. Ask directly.</div>
+        <div class="do-step">Note: Anaiz Rodriguez is insurance billing only (no self-pay)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cp-detail" id="cp-detail-cp6">
+    <h3 style="margin-bottom:14px">CP6 — Therapist Match &amp; Pitch</h3>
+    <div class="dual">
+      <div class="pane pane-say">
+        <div class="pane-title">💬 Script</div>
+        <div class="script-line">"Based on what you've shared, I have a therapist in mind who I think would be a great fit for you. They specialize in [area] and work with [population]."</div>
+        <div class="script-line alt">"She/He has a really warm approach and a lot of experience with exactly what you're describing."</div>
+        <div class="script-line alt">"What do you say we get you scheduled?"</div>
+      </div>
+      <div class="pane pane-do">
+        <div class="pane-title">⚙️ Internal</div>
+        <div class="do-step">Match based on: presenting issue, language, location preference, insurance/rate, availability</div>
+        <div class="do-step">Recommend 1–2 therapists by name — don't overwhelm with options</div>
+        <div class="do-step">Use the Therapist Match tab to find the right fit</div>
+        <div class="do-step">Always pitch the match with confidence — "I think you're going to really connect with her"</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cp-detail" id="cp-detail-cp7">
+    <h3 style="margin-bottom:14px">CP7 — Call to Action / Booking</h3>
+    <div class="dual">
+      <div class="pane pane-say">
+        <div class="pane-title">💬 Script</div>
+        <div class="script-line">"To secure your appointment, we do collect a $75 deposit at the time of booking. This goes toward your session. I can take that now."</div>
+        <div class="script-line alt">For self-pay clients: "We collect the full session fee at the time of booking to hold your spot."</div>
+        <div class="script-line alt">"If you ever need to cancel, just give us a call at least 24 hours before your appointment to avoid a $75 late cancellation fee."</div>
+      </div>
+      <div class="pane pane-do">
+        <div class="pane-title">⚙️ Internal</div>
+        <div class="do-step warn">⚠ Insurance clients: $75 deposit at booking (applied to session)</div>
+        <div class="do-step warn">⚠ Self-pay clients: Full session fee collected at booking</div>
+        <div class="do-step">$75 late cancellation / no-show fee if cancelled under 24 hrs</div>
+        <div class="do-step">Create appointment in PracticeQ <span class="sys pq">PQ</span></div>
+        <div class="do-step">Move contact to "Ready to Be Booked" in GHL pipeline <span class="sys ghl">GHL</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cp-detail" id="cp-detail-cp8">
+    <h3 style="margin-bottom:14px">CP8 — Closing &amp; Next Steps</h3>
+    <div class="dual">
+      <div class="pane pane-say">
+        <div class="pane-title">💬 Script</div>
+        <div class="script-line">"I'll be sending you the intake form via text and email — please complete it within the next 24 hours, as your therapist will review it before your session."</div>
+        <div class="script-line alt">Virtual: "I'll send you the link to join your virtual session via text and email."</div>
+        <div class="script-line alt">In-person: "I'll send you our address and parking details. Please arrive 5 minutes early — we have a self-check-in process."</div>
+        <div class="script-line">"Is there anything else I can help you with today? We're really looking forward to supporting you."</div>
+      </div>
+      <div class="pane pane-do">
+        <div class="pane-title">⚙️ Internal</div>
+        <div class="do-step">Send intake form link via SMS + email from PracticeQ <span class="sys pq">PQ</span></div>
+        <div class="do-step">Send session invite (Zoom link or address) via SMS + email</div>
+        <div class="do-step">Move pipeline to "First Session Confirmed" <span class="sys ghl">GHL</span></div>
+        <div class="do-step">Log all contact details, notes, and tags in GHL <span class="sys ghl">GHL</span></div>
+        <div class="do-step">If couldn't book: set hot lead follow-up date + note reason in GHL</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-purple" style="margin-top:24px;font-size:.82rem">
+    <strong>Leaning In vs. Leaning Out</strong><br><br>
+    <strong>✅ Lean In:</strong> Listen actively, assume interest, lead with solutions, take action ("Let's get that scheduled right now"), stay warm and direct.<br><br>
+    <strong>❌ Lean Out:</strong> Over-apologizing, hesitating, saying "I'm not sure", introducing doubt with phrases like "It might be hard to find a time", letting silence fill without direction.
+  </div>
+</div>
+
+<!-- ════ THERAPIST MATCH PAGE ════ -->
+<div class="page" id="page-therapists">
+  <div class="callout callout-blue" style="margin-bottom:20px">Use this table to quickly find the right therapist for a caller. Filter by insurance, language, or location. Click a therapist's name to view their full profile on the LDI website.</div>
+
+  <div class="th-filters">
+    <span class="th-filter-group">Payment / Insurance:</span>
+    <button class="th-filter-btn active" onclick="filterTherapists('plan','all',this)">All</button>
+    <button class="th-filter-btn" onclick="filterTherapists('plan','aetna',this)">Aetna</button>
+    <button class="th-filter-btn" onclick="filterTherapists('plan','bcbs',this)">BCBS</button>
+    <button class="th-filter-btn" onclick="filterTherapists('plan','avmed',this)">AvMed</button>
+    <button class="th-filter-btn" onclick="filterTherapists('plan','optum',this)">Optum / United</button>
+    <button class="th-filter-btn" onclick="filterTherapists('plan','oscar',this)">Oscar</button>
+    <button class="th-filter-btn" onclick="filterTherapists('plan','self',this)">Self-Pay</button>
+    <span class="th-filter-group">Language:</span>
+    <button class="th-filter-btn" onclick="filterTherapists('lang','en',this)">English Only</button>
+    <button class="th-filter-btn" onclick="filterTherapists('lang','es',this)">Spanish</button>
+    <span class="th-filter-group">Location:</span>
+    <button class="th-filter-btn" onclick="filterTherapists('loc','telehealth',this)">Telehealth</button>
+    <button class="th-filter-btn" onclick="filterTherapists('loc','inperson',this)">In-Person</button>
+    <span class="th-filter-group">Level:</span>
+    <button class="th-filter-btn" onclick="filterTherapists('level','expert',this)">Expert ($400)</button>
+    <button class="th-filter-btn" onclick="filterTherapists('level','qualified',this)">Qualified ($150–200)</button>
+  </div>
+
+  <!-- Match Criteria Quick Reference -->
+  <div class="match-criteria-section">
+    <div class="section-label">🔍 Presenting Concern → Match Guide</div>
+    <table class="match-criteria-mini">
+      <thead><tr><th>What They Say</th><th>What It May Indicate</th><th>Therapist Match Notes</th></tr></thead>
+      <tbody>
+        <tr><td><span class="say-pill">"I've been anxious / can't stop worrying"</span></td><td class="indicate-text">Anxiety disorder, GAD, panic</td><td class="match-note">Any therapist — all specialize in anxiety</td></tr>
+        <tr><td><span class="say-pill">"I've been really down / depressed"</span></td><td class="indicate-text">Depression, grief, burnout</td><td class="match-note">Any therapist — all specialize in depression</td></tr>
+        <tr><td><span class="say-pill">"My relationship is falling apart"</span></td><td class="indicate-text">Communication, conflict, possible infidelity</td><td class="match-note">Couples-trained: Clemencia (Gottman), Fabiola, Victoria — <strong>self-pay only</strong></td></tr>
+        <tr><td><span class="say-pill">"Something happened to me in my past"</span></td><td class="indicate-text">Trauma, PTSD, childhood wounds</td><td class="match-note">EMDR: Tiffany, Katherine, Maggie · Trauma: Beatriz, Nanette, Arleen</td></tr>
+        <tr><td><span class="say-pill">"I just feel stuck / don't know who I am"</span></td><td class="indicate-text">Identity, life transitions, existential concerns</td><td class="match-note">Open to various modalities; discuss with intake coordinator</td></tr>
+        <tr><td><span class="say-pill">"I'm going through a divorce / separation"</span></td><td class="indicate-text">Grief, co-parenting stress, major life change</td><td class="match-note">Individual or couples depending on the request</td></tr>
+        <tr><td><span class="say-pill">"My child / teen is struggling"</span></td><td class="indicate-text">Behavioral, developmental, family system</td><td class="match-note">Children/Adolescents: Anaiz, Fabiola, Beatriz</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <table class="th-table" id="therapist-table">
+    <thead>
+      <tr>
+        <th class="sortable" onclick="sortTable(0)">Therapist</th>
+        <th class="sortable" onclick="sortTable(1)">Level</th>
+        <th>Payment / Insurance</th>
+        <th class="sortable" onclick="sortTable(3)">Rate</th>
+        <th class="sortable" onclick="sortTable(4)">Language</th>
+        <th class="sortable" onclick="sortTable(5)">Location</th>
+        <th>Specializes In</th>
+        <th class="sortable th-priority" onclick="sortTable(7)">
+          <div class="th-priority-header">Priority <button class="reset-priority-btn" onclick="resetPriorities(event)">Reset</button></div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-plans="self" data-lang="en" data-loc="telehealth" data-level="expert" data-id="carolina-pataky">
+        <td class="th-name"><a href="https://www.lovediscovery.org/team/dr.-carolina-pataky" target="_blank">Dr. Carolina Pataky</a><small>Licensed · PhD</small></td>
+        <td><span class="badge badge-exp">Expert</span></td>
+        <td><div class="ins-pills"><span class="badge badge-self">Self-Pay</span></div></td>
+        <td>$400</td>
+        <td><span class="badge badge-en">English</span></td>
+        <td><span class="badge badge-tele">Telehealth</span></td>
+        <td><span class="spec-tag">Individual</span><span class="spec-tag anxiety">Anxiety</span><span class="spec-tag depression">Depression</span></td>
+        <td class="th-priority"><select class="priority-select" data-id="carolina-pataky" data-val="" onchange="savePriority(this)" title="Set weekly pitch priority"><option value="">—</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option><option value="Closed">Closed</option></select></td>
+      </tr>
+      <tr data-plans="aetna self" data-lang="en" data-loc="telehealth" data-level="expert" data-id="max-riv">
+        <td class="th-name"><a href="https://www.lovediscovery.org/team/dr.-max-riv" target="_blank">Dr. Max Riv</a><small>Licensed · PhD · Director</small></td>
+        <td><span class="badge badge-exp">Expert</span></td>
+        <td><div class="ins-pills"><span class="badge badge-aetna">Aetna</span><span class="badge badge-self">Self-Pay</span></div></td>
+        <td>$400</td>
+        <td><span class="badge badge-en">English</span></td>
+        <td><span class="badge badge-tele">Telehealth</span></td>
+        <td><span class="spec-tag">Individual</span><span class="spec-tag anxiety">Anxiety</span><span class="spec-tag depression">Depression</span></td>
+        <td class="th-priority"><select class="priority-select" data-id="max-riv" data-val="" onchange="savePriority(this)" title="Set weekly pitch priority"><option value="">—</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option><option value="Closed">Closed</option></select></td>
+      </tr>
+      <tr data-plans="self" data-lang="es" data-loc="both" data-level="expert" data-id="clemencia-cartas">
+        <td class="th-name"><a href="https://www.lovediscovery.org/team/clemencia-cartas" target="_blank">Clemencia Cartas</a><small>Licensed</small></td>
+        <td><span class="badge badge-exp">Expert</span></td>
+        <td><div class="ins-pills"><span class="badge badge-self">Self-Pay</span></div></td>
+        <td>$200</td>
+        <td><span class="badge badge-es">English / Spanish</span></td>
+        <td><span class="badge badge-both">In-Person &amp; Telehealth</span></td>
+        <td><span class="spec-tag couples">Couples</span><span class="spec-tag couples">Gottman Method</span><span class="spec-tag">Individual</span><span class="spec-tag bilingual">Bilingual</span><span class="spec-tag anxiety">Anxiety</span><span class="spec-tag depression">Depression</span></td>
+        <td class="th-priority"><select class="priority-select" data-id="clemencia-cartas" data-val="" onchange="savePriority(this)" title="Set weekly pitch priority"><option value="">—</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option><option value="Closed">Closed</option></select></td>
+      </tr>
+      <tr data-plans="self" data-lang="es" data-loc="both" data-level="expert" data-id="fabiola-viviano">
+        <td class="th-name"><a href="https://www.lovediscovery.org/team/fabiola-viviano" target="_blank">Fabiola Viviano</a><small>Licensed</small></td>
+        <td><span class="badge badge-exp">Expert</span></td>
+        <td><div class="ins-pills"><span class="badge badge-self">Self-Pay</span></div></td>
+        <td>Sliding from $150</td>
+        <td><span class="badge badge-es">English / Spanish</span></td>
+        <td><span class="badge badge-both">In-Person &amp; Telehealth</span></td>
+        <td><span class="spec-tag">Individual</span><span class="spec-tag couples">Couples</span><span class="spec-tag child">Adolescents</span><span class="spec-tag child">Teens</span><span class="spec-tag bilingual">Bilingual</span><span class="spec-tag anxiety">Anxiety</span><span class="spec-tag depression">Depression</span></td>
+        <td class="th-priority"><select class="priority-select" data-id="fabiola-viviano" data-val="" onchange="savePriority(this)" title="Set weekly pitch priority"><option value="">—</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option><option value="Closed">Closed</option></select></td>
+      </tr>
+      <tr data-plans="aetna bcbs avmed optum oscar united cigna" data-lang="en" data-loc="both" data-level="expert" data-id="nanette-comerio">
+        <td class="th-name"><a href="https://www.lovediscovery.org/team/ana-comerio" target="_blank">Nanette (Ana) Comerio</a><small>Licensed</small></td>
+        <td><span class="badge badge-exp">Expert</span></td>
+        <td><div class="ins-pills"><span class="badge badge-bcbs">BCBS</span><span class="badge badge-aetna">Aetna</span><span class="badge badge-avmed">AvMed</span><span class="badge badge-optum">Optum</span><span class="badge badge-oscar">Oscar</span><span class="badge badge-united">United</span></div></td>
+        <td>$200</td>
+        <td><span class="badge badge-en">English</span></td>
+        <td><span class="badge badge-both">In-Person &amp; Telehealth</span></td>
+        <td><span class="spec-tag">Individual</span><span class="spec-tag trauma">Trauma</span><span class="spec-tag anxiety">Anxiety</span><span class="spec-tag depression">Depression</span></td>
+        <td class="th-priority"><select class="priority-select" data-id="nanette-comerio" data-val="" onchange="savePriority(this)" title="Set weekly pitch priority"><option value="">—</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option><option value="Closed">Closed</option></select></td>
+      </tr>
+      <tr data-plans="aetna" data-lang="en" data-loc="telehealth" data-level="qualified" data-id="bacheline-joseph">
+        <td class="th-name"><a href="https://www.lovediscovery.org/team/dr.-bacheline-joseph" target="_blank">Dr. Bacheline Joseph</a><small>Licensed · PhD</small></td>
+        <td><span class="badge badge-qual">Qualified</span></td>
+        <td><div class="ins-pills"><span class="badge badge-aetna">Aetna</span></div></td>
+        <td>1st: $400 / ongoing: $250</td>
+        <td><span class="badge badge-en">English</span></td>
+        <td><span class="badge badge-tele">Telehealth</span></td>
+        <td><span class="spec-tag">Individual</span><span class="spec-tag anxiety">Anxiety</span><span class="spec-tag depression">Depression</span></td>
+        <td class="th-priority"><select class="priority-select" data-id="bacheline-joseph" data-val="" onchange="savePriority(this)" title="Set weekly pitch priority"><option value="">—</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option><option value="Closed">Closed</option></select></td>
+      </tr>
+      <tr data-plans="aetna bcbs avmed optum oscar united" data-lang="es" data-loc="both" data-level="qualified" data-id="beatriz-delgado">
+        <td class="th-name"><a href="https://www.lovediscovery.org/team/beatriz-delgado" target="_blank">Beatriz Delgado</a><small>Licensed · LCSW</small></td>
+        <td><span class="badge badge-qual">Qualified</span></td>
+        <td><div class="ins-pills"><span class="badge badge-bcbs">BCBS</span><span class="badge badge-aetna">Aetna</span><span class="badge badge-avmed">AvMed</span><span class="badge badge-optum">Optum</span><span class="badge badge-oscar">Oscar</span></div></td>
+        <td>$150</td>
+        <td><span class="badge badge-es">English / Spanish</span></td>
+        <td><span class="badge badge-both">In-Person &amp; Telehealth</span></td>
+        <td><span class="spec-tag">Individual</span><span class="spec-tag trauma">Trauma</span><span class="spec-tag child">Adolescents</span><span class="spec-tag">Hypnotherapy</span><span class="spec-tag bilingual">Bilingual</span><span class="spec-tag anxiety">Anxiety</span><span class="spec-tag depression">Depression</span></td>
+        <td class="th-priority"><select class="priority-select" data-id="beatriz-delgado" data-val="" onchange="savePriority(this)" title="Set weekly pitch priority"><option value="">—</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option><option value="Closed">Closed</option></select></td>
+      </tr>
+      <tr data-plans="aetna bcbs avmed optum oscar united" data-lang="en" data-loc="telehealth" data-level="qualified" data-id="tiffany-markovitz">
+        <td class="th-name"><a href="https://www.lovediscovery.org/team/tiffany-markovitz" target="_blank">Tiffany Markovitz</a><small>Licensed</small></td>
+        <td><span class="badge badge-qual">Qualified</span></td>
+        <td><div class="ins-pills"><span class="badge badge-bcbs">BCBS</span><span class="badge badge-aetna">Aetna</span><span class="badge badge-avmed">AvMed</span><span class="badge badge-optum">Optum</span><span class="badge badge-oscar">Oscar</span></div></td>
+        <td>Sliding from $125</td>
+        <td><span class="badge badge-en">English</span></td>
+        <td><span class="badge badge-tele">Telehealth</span></td>
+        <td><span class="spec-tag">Individual</span><span class="spec-tag trauma">EMDR</span><span class="spec-tag trauma">Trauma</span><span class="spec-tag anxiety">Anxiety</span><span class="spec-tag depression">Depression</span></td>
+        <td class="th-priority"><select class="priority-select" data-id="tiffany-markovitz" data-val="" onchange="savePriority(this)" title="Set weekly pitch priority"><option value="">—</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option><option value="Closed">Closed</option></select></td>
+      </tr>
+      <tr data-plans="aetna bcbs avmed optum oscar united" data-lang="es" data-loc="telehealth" data-level="qualified" data-id="anaiz-rodriguez">
+        <td class="th-name"><a href="https://www.lovediscovery.org/team/anaiz-rodriguez" target="_blank">Anaiz Rodriguez</a><small>Licensed</small></td>
+        <td><span class="badge badge-qual">Qualified</span></td>
+        <td><div class="ins-pills"><span class="badge badge-bcbs">BCBS</span><span class="badge badge-aetna">Aetna</span><span class="badge badge-avmed">AvMed</span><span class="badge badge-optum">Optum</span><span class="badge badge-oscar">Oscar</span></div></td>
+        <td>$150</td>
+        <td><span class="badge badge-es">English / Spanish</span></td>
+        <td><span class="badge badge-tele">Telehealth</span></td>
+        <td><span class="spec-tag">Individual</span><span class="spec-tag child">Children</span><span class="spec-tag child">Adolescents</span><span class="spec-tag bilingual">Bilingual</span><span class="spec-tag anxiety">Anxiety</span><span class="spec-tag depression">Depression</span></td>
+        <td class="th-priority"><select class="priority-select" data-id="anaiz-rodriguez" data-val="" onchange="savePriority(this)" title="Set weekly pitch priority"><option value="">—</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option><option value="Closed">Closed</option></select></td>
+      </tr>
+      <tr data-plans="aetna bcbs avmed optum oscar united" data-lang="es" data-loc="both" data-level="qualified" data-id="yamaris-bobe">
+        <td class="th-name"><a href="https://www.lovediscovery.org/team/dr.-yamaris-bobe-" target="_blank">Dr. Yamaris Bobe</a><small>Licensed</small></td>
+        <td><span class="badge badge-qual">Qualified</span></td>
+        <td><div class="ins-pills"><span class="badge badge-bcbs">BCBS</span><span class="badge badge-aetna">Aetna</span><span class="badge badge-avmed">AvMed</span><span class="badge badge-optum">Optum</span><span class="badge badge-oscar">Oscar</span></div></td>
+        <td>$175</td>
+        <td><span class="badge badge-es">English / Spanish</span></td>
+        <td><span class="badge badge-both">In-Person &amp; Telehealth</span></td>
+        <td><span class="spec-tag">Individual</span><span class="spec-tag bilingual">Bilingual</span><span class="spec-tag anxiety">Anxiety</span><span class="spec-tag depression">Depression</span></td>
+        <td class="th-priority"><select class="priority-select" data-id="yamaris-bobe" data-val="" onchange="savePriority(this)" title="Set weekly pitch priority"><option value="">—</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option><option value="Closed">Closed</option></select></td>
+      </tr>
+      <tr data-plans="aetna bcbs avmed optum oscar united" data-lang="es" data-loc="both" data-level="qualified" data-id="victoria-wheeler">
+        <td class="th-name"><a href="https://www.lovediscovery.org/team/victoria-wheeler-" target="_blank">Victoria Wheeler</a><small>Licensed</small></td>
+        <td><span class="badge badge-qual">Qualified</span></td>
+        <td><div class="ins-pills"><span class="badge badge-bcbs">BCBS</span><span class="badge badge-aetna">Aetna</span><span class="badge badge-avmed">AvMed</span><span class="badge badge-optum">Optum</span><span class="badge badge-oscar">Oscar</span></div></td>
+        <td>$150</td>
+        <td><span class="badge badge-es">English / Spanish</span></td>
+        <td><span class="badge badge-both">In-Person &amp; Telehealth</span></td>
+        <td><span class="spec-tag">Individual</span><span class="spec-tag couples">Couples</span><span class="spec-tag bilingual">Bilingual</span><span class="spec-tag anxiety">Anxiety</span><span class="spec-tag depression">Depression</span></td>
+        <td class="th-priority"><select class="priority-select" data-id="victoria-wheeler" data-val="" onchange="savePriority(this)" title="Set weekly pitch priority"><option value="">—</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option><option value="Closed">Closed</option></select></td>
+      </tr>
+      <tr data-plans="aetna bcbs avmed optum oscar united" data-lang="en" data-loc="telehealth" data-level="qualified" data-id="katherine-de-leon">
+        <td class="th-name"><a href="https://www.lovediscovery.org/team/katherine-de-leon" target="_blank">Katherine De Leon</a><small>Licensed</small></td>
+        <td><span class="badge badge-qual">Qualified</span></td>
+        <td><div class="ins-pills"><span class="badge badge-bcbs">BCBS</span><span class="badge badge-aetna">Aetna</span><span class="badge badge-avmed">AvMed</span><span class="badge badge-optum">Optum</span><span class="badge badge-oscar">Oscar</span></div></td>
+        <td>$150</td>
+        <td><span class="badge badge-en">English</span></td>
+        <td><span class="badge badge-tele">Telehealth</span></td>
+        <td><span class="spec-tag">Individual</span><span class="spec-tag trauma">EMDR</span><span class="spec-tag anxiety">Anxiety</span><span class="spec-tag depression">Depression</span></td>
+        <td class="th-priority"><select class="priority-select" data-id="katherine-de-leon" data-val="" onchange="savePriority(this)" title="Set weekly pitch priority"><option value="">—</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option><option value="Closed">Closed</option></select></td>
+      </tr>
+      <tr data-plans="aetna bcbs avmed optum oscar united" data-lang="es" data-loc="both" data-level="qualified" data-id="arleen-patin">
+        <td class="th-name"><a href="https://www.lovediscovery.org/team/arleen-patin" target="_blank">Arleen Patin</a><small>Licensed</small></td>
+        <td><span class="badge badge-qual">Qualified</span></td>
+        <td><div class="ins-pills"><span class="badge badge-bcbs">BCBS</span><span class="badge badge-aetna">Aetna</span><span class="badge badge-avmed">AvMed</span><span class="badge badge-optum">Optum</span><span class="badge badge-oscar">Oscar</span></div></td>
+        <td>$175</td>
+        <td><span class="badge badge-es">English / Spanish</span></td>
+        <td><span class="badge badge-both">In-Person &amp; Telehealth</span></td>
+        <td><span class="spec-tag">Individual</span><span class="spec-tag trauma">Trauma</span><span class="spec-tag bilingual">Bilingual</span><span class="spec-tag anxiety">Anxiety</span><span class="spec-tag depression">Depression</span></td>
+        <td class="th-priority"><select class="priority-select" data-id="arleen-patin" data-val="" onchange="savePriority(this)" title="Set weekly pitch priority"><option value="">—</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option><option value="Closed">Closed</option></select></td>
+      </tr>
+      <tr data-plans="aetna bcbs avmed optum oscar united cigna" data-lang="en" data-loc="telehealth" data-level="qualified" data-id="jillian-munson">
+        <td class="th-name"><a href="https://www.lovediscovery.org/team/jillian-munson" target="_blank">Jillian Munson</a><small>Licensed</small></td>
+        <td><span class="badge badge-qual">Qualified</span></td>
+        <td><div class="ins-pills"><span class="badge badge-bcbs">BCBS</span><span class="badge badge-aetna">Aetna</span><span class="badge badge-avmed">AvMed</span><span class="badge badge-optum">Optum</span><span class="badge badge-oscar">Oscar</span></div></td>
+        <td>$150</td>
+        <td><span class="badge badge-en">English</span></td>
+        <td><span class="badge badge-tele">Telehealth</span></td>
+        <td><span class="spec-tag">Individual</span><span class="spec-tag anxiety">Anxiety</span><span class="spec-tag depression">Depression</span></td>
+        <td class="th-priority"><select class="priority-select" data-id="jillian-munson" data-val="" onchange="savePriority(this)" title="Set weekly pitch priority"><option value="">—</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option><option value="Closed">Closed</option></select></td>
+      </tr>
+      <tr data-plans="aetna bcbs avmed optum oscar united" data-lang="en" data-loc="telehealth" data-level="qualified" data-id="maggie-mynatt">
+        <td class="th-name"><a href="https://www.lovediscovery.org/team/maggie-mynatt" target="_blank">Maggie Mynatt</a><small>Licensed</small></td>
+        <td><span class="badge badge-qual">Qualified</span></td>
+        <td><div class="ins-pills"><span class="badge badge-bcbs">BCBS</span><span class="badge badge-aetna">Aetna</span><span class="badge badge-avmed">AvMed</span><span class="badge badge-optum">Optum</span><span class="badge badge-oscar">Oscar</span></div></td>
+        <td>$150</td>
+        <td><span class="badge badge-en">English</span></td>
+        <td><span class="badge badge-tele">Telehealth</span></td>
+        <td><span class="spec-tag">Individual</span><span class="spec-tag trauma">EMDR</span><span class="spec-tag trauma">Trauma</span><span class="spec-tag anxiety">Anxiety</span><span class="spec-tag depression">Depression</span></td>
+        <td class="th-priority"><select class="priority-select" data-id="maggie-mynatt" data-val="" onchange="savePriority(this)" title="Set weekly pitch priority"><option value="">—</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option><option value="Closed">Closed</option></select></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<script>
+// ─── Navigation ───
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  var pg = document.getElementById('page-' + id);
+  if (pg) pg.classList.add('active');
+  if (el) el.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ─── Scenarios ───
+function showScenario(id, el) {
+  document.querySelectorAll('.scenario-card').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.scenario-detail').forEach(d => d.classList.remove('active'));
+  if (el) el.classList.add('active');
+  var det = document.getElementById('sd-' + id);
+  if (det) { det.classList.add('active'); det.scrollIntoView({behavior:'smooth',block:'start'}); }
+}
+
+// Navigation via inline onclick
+
+// ─── Steps ───
+function setStep(prefix, idx) {
+  const pills = document.querySelectorAll(`[onclick^="setStep('${prefix}"]`);
+  const contents = document.querySelectorAll(`[id^="${prefix}-step-"]`);
+  pills.forEach((p,i) => { p.classList.toggle('active', i===idx); if(i<idx) p.classList.add('done'); else p.classList.remove('done'); });
+  contents.forEach((c,i) => c.classList.toggle('active', i===idx));
+}
+
+// ─── Accordion ───
+function toggleAcc(trigger) {
+  const body = trigger.nextElementSibling;
+  trigger.classList.toggle('open');
+  body.classList.toggle('open');
+  const arrow = trigger.querySelector('span');
+  if(arrow) arrow.textContent = body.classList.contains('open') ? '▴' : '▾';
+}
+
+// ─── Mode ───
+function setMode(mode) {
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+// ─── Quiz ───
+const quizFeedback = {
+  q1: { correct: "✅ Correct! Never confirm coverage. Collect the plan details and escalate to billing. 'I want to give you accurate information' is the key phrase.", wrong: "❌ Not quite. You should never confirm or deny coverage on the spot. Always say you'll have billing verify and call back." },
+  q2: { correct: "✅ Correct! Log the note and send the intake form immediately — drop-off increases dramatically after 30 minutes.", wrong: "❌ Almost. The two most critical immediate actions are logging a GHL note (so the team has context) and sending the intake form SMS while the caller still has momentum." },
+  q3: { correct: "✅ Correct! 'Unmet deductible' means they have active in-network insurance but their annual deductible isn't satisfied yet, so they pay the full contracted session rate until it is.", wrong: "❌ Not quite. 'Unmet deductible' means their insurance is active and in-network, but their annual deductible hasn't been reached yet — so they pay the contracted rate, not their co-pay, until it's met." },
+  q4: { correct: "✅ Correct! Stay on the line, listen, check for immediate safety, and loop in a clinical supervisor. Never put a distressed caller on hold or end the call abruptly.", wrong: "❌ Crisis calls require staying present. Don't put them on hold, don't end the call, and don't handle it alone. Stay calm, assess safety, and immediately get a supervisor or therapist involved." },
+  q5: { correct: "✅ Correct! 3 calls + 2 texts with no response is the threshold before moving to 'Recent Drops' — this keeps the pipeline accurate.", wrong: "❌ The standard is 3 unanswered calls + 2 texts. After that, move to 'Recent Drops' to keep the pipeline clean. Always log every attempt." },
+  q6: { correct: "✅ Correct! Normalize ambivalence, offer flexible entry points (individual or consultation), and never pressure. A reluctant partner who feels respected is more likely to come.", wrong: "❌ Requiring full commitment before booking, or pressuring a reluctant partner, often causes both people to disengage. Normalize ambivalence and offer a lower-commitment entry point." }
+};
+
+function answerQuiz(el, result, qid) {
+  const container = el.parentElement;
+  if(container.querySelector('.correct, .wrong')) return; // already answered
+  el.classList.add(result);
+  const fb = document.getElementById(qid + '-feedback');
+  fb.textContent = result === 'correct' ? quizFeedback[qid].correct : quizFeedback[qid].wrong;
+  fb.style.background = result === 'correct' ? '#f0fff4' : '#fff5f5';
+  fb.style.border = result === 'correct' ? '1px solid #68d391' : '1px solid #fc8181';
+  fb.style.borderRadius = '8px';
+  fb.style.padding = '10px 14px';
+  fb.classList.add('show');
+  if(result === 'wrong') {
+    container.querySelectorAll('.quiz-opt').forEach(opt => {
+      if(opt.onclick && opt.getAttribute('onclick').includes("'correct'")) opt.classList.add('correct');
+    });
+  }
+}
+
+// ─── Pipeline ───
+const pipelineData = [
+  { num:'1', name:'New Lead', color:'#3182ce', action:'Make contact; start intake', says:['"Hi [Name], I\'m so glad you reached out — let me help you get started."'], does:['Log contact in GHL','Add initial note with presenting concern','Send welcome SMS if first contact']},
+  { num:'2', name:'Intake Form Completed', color:'#0068aa', action:'Review form; begin insurance', says:['Confirm receipt: "We got your intake form — our team will review it shortly."'], does:['Review PracticeQ intake form','Confirm insurance info was included','Begin insurance verification process']},
+  { num:'3', name:'Verify Insurance', color:'#276749', action:'Submit to billing; await result', says:['"Our billing team is verifying your insurance now — you\'ll hear back within 24–48 hours."'], does:['Submit Insurance Verification Form in GHL','Set follow-up task: call client with result','Note any special billing considerations']},
+  { num:'4', name:'Ready to Book', color:'#6b46c1', action:'Match therapist; schedule', says:['"Great news — everything is confirmed. Let\'s get you scheduled!"'], does:['Check therapist availability in PracticeQ','Match based on: specialty, insurance, language, modality','Book appointment; move to Stage 5']},
+  { num:'5', name:'First Session Confirmed', color:'#b7791f', action:'Confirm & prepare client', says:['"You\'re booked! You\'ll get a confirmation text and reminder before your session."'], does:['GHL automation fires: confirmation SMS + email','24-hr reminder fires automatically','Therapist notified of new booking']},
+  { num:'6', name:'First Session Attended', color:'#c05621', action:'Follow up; book next session', says:['"How did your first session go? Would you like to go ahead and schedule your next one?"'], does:['Log outcome in GHL','Schedule recurring appointments if client is ready','Move to Stage 7']},
+  { num:'7', name:'Following Sessions', color:'#276749', action:'Maintain relationship', says:['Check in periodically; answer questions'], does:['Monitor for billing issues, no-shows, gaps in scheduling','Ensure recurring appointments are confirmed']},
+  { num:'8', name:'8th Session Milestone', color:'#2d3748', action:'Check-in; plan next phase', says:['"You\'ve completed 8 sessions — that\'s a big milestone. How are you feeling about your progress?"'], does:['Log milestone in GHL','Therapist may recommend continued care, reduced frequency, or graduation','Discuss continued care plan with client']}
+];
+
+// ─── 8-Part Checklist ───
+function showCP(card, id) {
+  document.querySelectorAll('.cp-card').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.cp-detail').forEach(d => d.classList.remove('active'));
+  card.classList.add('active');
+  const detail = document.getElementById('cp-detail-' + id);
+  if (detail) detail.classList.add('active');
+}
+
+// ─── Therapist Filter ───
+let activeFilters = { plan: 'all', lang: 'all', loc: 'all', level: 'all' };
+function filterTherapists(type, val, btn) {
+  activeFilters[type] = val;
+  btn.closest('.th-filters').querySelectorAll('.th-filter-btn').forEach(b => {
+    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + type + "'")) {
+      b.classList.remove('active');
+    }
+  });
+  btn.classList.add('active');
+  document.querySelectorAll('#therapist-table tbody tr').forEach(row => {
+    const plans = (row.dataset.plans || '').split(' ');
+    const lang  = row.dataset.lang;
+    const loc   = row.dataset.loc;
+    const level = row.dataset.level;
+    // optum filter also matches united
+    const planMatch = activeFilters.plan === 'all' ||
+      plans.includes(activeFilters.plan) ||
+      (activeFilters.plan === 'optum' && plans.includes('united'));
+    const show = planMatch &&
+      (activeFilters.lang  === 'all' || lang  === activeFilters.lang || (activeFilters.lang === 'es' && lang === 'es')) &&
+      (activeFilters.loc   === 'all' || loc   === activeFilters.loc  || loc === 'both') &&
+      (activeFilters.level === 'all' || level === activeFilters.level);
+    row.classList.toggle('hidden', !show);
+  });
+}
+
+const stagesDiv = document.getElementById('pipeline-stages');
+pipelineData.forEach((s, i) => {
+  stagesDiv.innerHTML += `
+    <div class="acc-item">
+      <div class="acc-trigger" onclick="toggleAcc(this)" style="background:${s.color}10;border-left:4px solid ${s.color}">
+        <span style="color:${s.color};font-weight:800">Stage ${s.num}: ${s.name}</span>
+        <span style="font-size:.75rem;color:#64748b">${s.action} ▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="dual">
+          <div class="pane pane-say">
+            <div class="pane-title">💬 What to Say</div>
+            ${s.says.map(line=>`<div class="script-line">${line}</div>`).join('')}
+          </div>
+          <div class="pane pane-do">
+            <div class="pane-title">⚙️ What to Do in GHL/PracticeQ</div>
+            ${s.does.map(d=>`<div class="do-step">${d}</div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>`;
+});
+
+
+// ─── Sort therapist table ───
+let sortDir = {};
+function sortTable(colIdx) {
+  const table = document.getElementById('therapist-table');
+  const tbody = table.querySelector('tbody');
+  const rows = Array.from(tbody.querySelectorAll('tr'));
+  const th = table.querySelectorAll('th')[colIdx];
+  const asc = sortDir[colIdx] !== 'asc';
+  sortDir = {}; // reset all
+  sortDir[colIdx] = asc ? 'asc' : 'desc';
+  table.querySelectorAll('th.sortable').forEach(h => {
+    h.classList.remove('sort-asc','sort-desc');
+  });
+  if (th.classList.contains('sortable')) {
+    th.classList.add(asc ? 'sort-asc' : 'sort-desc');
+  }
+  // Priority column: sort by input value
+  if (colIdx === 7) {
+    rows.sort((a, b) => {
+      const av = a.querySelector('.priority-input')?.value.toLowerCase() || '';
+      const bv = b.querySelector('.priority-input')?.value.toLowerCase() || '';
+      const aEmpty = av === '' || av === '—';
+      const bEmpty = bv === '' || bv === '—';
+      if (aEmpty && bEmpty) return 0;
+      if (aEmpty) return asc ? 1 : -1;
+      if (bEmpty) return asc ? -1 : 1;
+      return asc ? av.localeCompare(bv) : bv.localeCompare(av);
+    });
+  } else {
+    rows.sort((a, b) => {
+      const ac = a.cells[colIdx]?.textContent.trim() || '';
+      const bc = b.cells[colIdx]?.textContent.trim() || '';
+      return asc ? ac.localeCompare(bc) : bc.localeCompare(ac);
+    });
+  }
+  rows.forEach(r => tbody.appendChild(r));
+}
+
+// ─── Priority localStorage ───
+const PRIORITY_KEY = 'ldi-therapist-priorities';
+
+function loadPriorities() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(PRIORITY_KEY) || '{}');
+    document.querySelectorAll('.priority-select').forEach(sel => {
+      const id = sel.dataset.id;
+      if (saved[id]) {
+        sel.value = saved[id];
+        sel.dataset.val = saved[id];
+      }
+    });
+  } catch(e) {}
+}
+
+function savePriority(sel) {
+  try {
+    const saved = JSON.parse(localStorage.getItem(PRIORITY_KEY) || '{}');
+    const id = sel.dataset.id;
+    sel.dataset.val = sel.value;
+    if (sel.value) {
+      saved[id] = sel.value;
+    } else {
+      delete saved[id];
+    }
+    localStorage.setItem(PRIORITY_KEY, JSON.stringify(saved));
+    showSaveIndicator();
+  } catch(e) {}
+}
+
+function resetPriorities(e) {
+  e.stopPropagation();
+  if (!confirm('Clear all priority values?')) return;
+  try {
+    localStorage.removeItem(PRIORITY_KEY);
+    document.querySelectorAll('.priority-select').forEach(sel => {
+      sel.value = '';
+      sel.dataset.val = '';
+    });
+    showSaveIndicator('Cleared');
+  } catch(e) {}
+}
+
+function showSaveIndicator(msg) {
+  const el = document.getElementById('save-indicator');
+  if (!el) return;
+  el.textContent = msg || '✓ Saved';
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 1800);
+}
+
+// ─── Wire up priority inputs ───
+document.addEventListener('DOMContentLoaded', function() {
+  loadPriorities();
+  // Priority select styling on change
+  document.querySelectorAll('.priority-select').forEach(sel => {
+    sel.addEventListener('change', () => { sel.dataset.val = sel.value; });
+  });
+});
+
+</script>
+</body>
+</html>
