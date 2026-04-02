@@ -310,6 +310,39 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 .priority-select[data-val="Low"]{background:#f1f5f9;color:#475569;border-color:#cbd5e1}
 .priority-select[data-val="Closed"]{background:#fee2e2;color:#991b1b;font-weight:700;border-color:#fca5a5}
 
+
+/* ── Edit Mode ── */
+.edit-mode-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.edit-roster-btn{padding:7px 18px;border-radius:20px;border:2px solid #cbd5e1;background:#f8fafc;font-size:.78rem;font-weight:600;cursor:pointer;color:#475569;transition:all .2s}
+.edit-roster-btn:hover{border-color:#6c63ff;color:#6c63ff}
+.edit-roster-btn.active{background:#6c63ff;border-color:#6c63ff;color:#fff}
+.save-edits-bar{display:none;align-items:center;gap:12px;padding:8px 16px;background:#fef9c3;border:1px solid #fde047;border-radius:10px;font-size:.8rem;font-weight:600;color:#713f12}
+.save-edits-bar.visible{display:flex}
+.save-edits-bar button{padding:5px 14px;border-radius:14px;border:none;cursor:pointer;font-weight:600;font-size:.78rem}
+.save-edits-bar .btn-save{background:#16a34a;color:#fff}
+.save-edits-bar .btn-discard{background:#e2e8f0;color:#475569}
+.edit-row-btn{background:none;border:none;cursor:pointer;font-size:1rem;padding:2px 6px;color:#6c63ff;opacity:.7}
+.edit-row-btn:hover{opacity:1}
+.row-modified{background:#fefce8 !important}
+.edit-overlay{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.35)}
+.edit-overlay.open{display:flex;justify-content:flex-end}
+.edit-drawer{background:#fff;width:480px;max-width:95vw;height:100%;overflow-y:auto;padding:24px;box-shadow:-4px 0 24px rgba(0,0,0,.15);animation:drawerIn .22s ease}
+@keyframes drawerIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.drawer-head h3{margin:0;font-size:1rem;color:#1e293b}
+.drawer-close{background:none;border:none;font-size:1.4rem;cursor:pointer;color:#64748b}
+.drawer-field{margin-bottom:14px}
+.drawer-field label{display:block;font-size:.75rem;font-weight:700;color:#475569;margin-bottom:5px;text-transform:uppercase;letter-spacing:.03em}
+.drawer-field input,.drawer-field select{width:100%;padding:7px 10px;border:1px solid #cbd5e1;border-radius:8px;font-size:.85rem}
+.drawer-check-grid{display:flex;flex-wrap:wrap;gap:6px}
+.drawer-check-grid label{display:flex;align-items:center;gap:5px;font-size:.78rem;background:#f1f5f9;padding:4px 10px;border-radius:14px;cursor:pointer;border:1px solid #e2e8f0}
+.drawer-check-grid label:hover{border-color:#6c63ff}
+.drawer-check-grid input[type=checkbox]{width:14px;height:14px}
+.drawer-section-title{font-size:.75rem;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.03em;margin:14px 0 6px;border-top:1px solid #e2e8f0;padding-top:12px}
+.drawer-actions{margin-top:20px;display:flex;gap:10px}
+.drawer-actions button{flex:1;padding:9px;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:.85rem}
+.btn-drawer-save{background:#6c63ff;color:#fff}
+.btn-drawer-cancel{background:#e2e8f0;color:#475569}
 </style>
 </head>
 <body>
@@ -1720,6 +1753,14 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 <div class="page" id="page-therapists">
   <div class="callout callout-blue" style="margin-bottom:20px">Use this table to quickly find the right therapist for a caller. Filter by insurance, language, or location. Click a therapist's name to view their full profile on the LDI website.</div>
 
+  <div class="edit-mode-toolbar">
+    <button class="edit-roster-btn" id="editRosterBtn" onclick="toggleEditMode()" title="Edit therapist data">&#9998; Edit Roster</button>
+    <div class="save-edits-bar" id="saveEditsBar">
+      <span id="pendingCount">0 unsaved changes</span>
+      <button class="btn-save" onclick="saveAllEdits()">&#10003; Publish Changes</button>
+      <button class="btn-discard" onclick="discardEdits()">Discard</button>
+    </div>
+  </div>
   <div class="th-filters">
     <span class="th-filter-group">Payment / Insurance:</span>
     <button class="th-filter-btn active" onclick="filterTherapists('plan','all',this)">All</button>
@@ -2025,6 +2066,137 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>
+(function() {
+  window.EDIT_MODE = false;
+  window._editPw = '';
+  window._pendingEdits = {};
+  var INS_OPTS = ['aetna','bcbs','avmed','optum','oscar','united','cigna','self'];
+  var INS_LABELS = {aetna:'Aetna',bcbs:'BCBS',avmed:'AvMed',optum:'Optum',oscar:'Oscar',united:'United',cigna:'Cigna','self':'Self-Pay'};
+  var SESS_OPTS = ['Individual','Couples','Children','Adolescents/Teens','Family','Group'];
+  var AGE_OPTS = ['Children (under 12)','Teens (13-17)','Teens (16+)','Young Adults (18-25)','Adults','Seniors'];
+  var APPROACH_OPTS = ['CBT','EMDR','Psychodynamic','Gottman Method','Mindfulness-Based','Somatic/Body-Based','Play Therapy','DBT','ACT','Hypnotherapy','Faith-Based (Christian)','Narrative Therapy','Solution-Focused'];
+  var FOCUS_OPTS = ['Anxiety','Depression','Trauma/PTSD','Grief & Loss','Relationship Issues','Couples Therapy','Intimacy','Self-Esteem','Life Transitions','Behavioral Issues','Family Conflict',"Women's Issues",'Stress Management','Anger Management','Faith & Spirituality','Communication'];
+
+  window.toggleEditMode = function() {
+    if (window.EDIT_MODE) {
+      window.EDIT_MODE = false; window._editPw = '';
+      var btn = document.getElementById('editRosterBtn');
+      if (btn) { btn.classList.remove('active'); btn.textContent = String.fromCharCode(9998)+' Edit Roster'; }
+      if (typeof window.rebuildTable === 'function') window.rebuildTable();
+    } else {
+      var pw = prompt('Enter admin password to edit therapist data:');
+      if (!pw) return;
+      window._editPw = pw; window.EDIT_MODE = true;
+      var btn = document.getElementById('editRosterBtn');
+      if (btn) { btn.classList.add('active'); btn.textContent = String.fromCharCode(9998)+' Editing (click to exit)'; }
+      if (typeof window.rebuildTable === 'function') window.rebuildTable();
+      alert('Edit mode ON. Click the pencil icon on any row to edit that therapist.');
+    }
+  };
+
+  window.openEditor = function(id) {
+    var t = (window._pendingEdits && window._pendingEdits[id])
+      ? window._pendingEdits[id]
+      : (window.THERAPIST_DATA||[]).find(function(x){return x.id===id;});
+    if (!t) return;
+    renderDrawer(JSON.parse(JSON.stringify(t)));
+  };
+
+  function renderDrawer(t) {
+    function checks(opts, selected, field) {
+      return opts.map(function(o) {
+        var chk = selected && selected.indexOf(o) >= 0 ? 'checked' : '';
+        return '<label><input type="checkbox" data-field="'+field+'" value="'+o.replace(/"/g,'&quot;')+'" '+chk+'> '+o+'</label>';
+      }).join('');
+    }
+    var sel = function(id,val,opts) {
+      return '<select id="'+id+'">'+opts.map(function(o){return '<option value="'+o[0]+'"'+(val===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('')+'</select>';
+    };
+    var html =
+      '<div class="drawer-head"><h3>Edit: '+t.name+'</h3><button class="drawer-close" onclick="closeDrawer()">&#x2715;</button></div>'+
+      '<div class="drawer-field"><label>Name</label><input id="d_name" value="'+(t.name||'').replace(/"/g,'&quot;')+'"></div>'+
+      '<div class="drawer-field"><label>Credentials</label><input id="d_creds" value="'+(t.credentials||'').replace(/"/g,'&quot;')+'"></div>'+
+      '<div class="drawer-field"><label>Rate</label><input id="d_rate" value="'+(t.rate||'').replace(/"/g,'&quot;')+'"></div>'+
+      '<div class="drawer-field"><label>Level</label>'+sel('d_level',t.level,[['expert','Expert'],['qualified','Qualified']])+'</div>'+
+      '<div class="drawer-field"><label>Language</label>'+sel('d_lang',t.language,[['en','English'],['es','English / Spanish']])+'</div>'+
+      '<div class="drawer-field"><label>Location</label>'+sel('d_loc',t.location,[['telehealth','Telehealth'],['in-person','In-Person'],['both','In-Person & Telehealth']])+'</div>'+
+      '<div class="drawer-section-title">Insurance</div><div class="drawer-check-grid">'+checks(INS_OPTS,t.insurance,'ins')+'</div>'+
+      '<div class="drawer-section-title">Session Types</div><div class="drawer-check-grid">'+checks(SESS_OPTS,t.sessionTypes,'sess')+'</div>'+
+      '<div class="drawer-section-title">Age Groups</div><div class="drawer-check-grid">'+checks(AGE_OPTS,t.ageGroups,'age')+'</div>'+
+      '<div class="drawer-section-title">Therapeutic Approaches</div><div class="drawer-check-grid">'+checks(APPROACH_OPTS,t.approaches,'approach')+'</div>'+
+      '<div class="drawer-section-title">Areas of Focus</div><div class="drawer-check-grid">'+checks(FOCUS_OPTS,t.areasOfFocus,'focus')+'</div>'+
+      '<div class="drawer-actions"><button class="btn-drawer-save" onclick="saveDrawer(\''+t.id+'\')">Save</button><button class="btn-drawer-cancel" onclick="closeDrawer()">Cancel</button></div>';
+    document.getElementById('editDrawer').innerHTML = html;
+    document.getElementById('editOverlay').classList.add('open');
+  }
+
+  window.saveDrawer = function(id) {
+    function getChecked(field) {
+      return Array.from(document.querySelectorAll('input[data-field="'+field+'"]:checked')).map(function(el){return el.value;});
+    }
+    var base = (window.THERAPIST_DATA||[]).find(function(x){return x.id===id;})||{};
+    var t = Object.assign({}, base, {
+      id: id,
+      name: document.getElementById('d_name').value,
+      credentials: document.getElementById('d_creds').value,
+      rate: document.getElementById('d_rate').value,
+      level: document.getElementById('d_level').value,
+      language: document.getElementById('d_lang').value,
+      location: document.getElementById('d_loc').value,
+      insurance: getChecked('ins'),
+      sessionTypes: getChecked('sess'),
+      ageGroups: getChecked('age'),
+      approaches: getChecked('approach'),
+      areasOfFocus: getChecked('focus')
+    });
+    window._pendingEdits[id] = t;
+    var idx = (window.THERAPIST_DATA||[]).findIndex(function(x){return x.id===id;});
+    if (idx >= 0) window.THERAPIST_DATA[idx] = t;
+    if (typeof window.rebuildRow === 'function') window.rebuildRow(id, t);
+    var bar = document.getElementById('saveEditsBar'), cnt = document.getElementById('pendingCount');
+    if (bar) bar.classList.add('visible');
+    if (cnt) cnt.textContent = Object.keys(window._pendingEdits).length+' unsaved change(s)';
+    closeDrawer();
+  };
+
+  window.closeDrawer = function() { document.getElementById('editOverlay').classList.remove('open'); };
+  window.closeDrawerIfOutside = function(e) { if (e.target===document.getElementById('editOverlay')) closeDrawer(); };
+
+  window.discardEdits = function() {
+    if (!confirm('Discard all unsaved changes?')) return;
+    window._pendingEdits = {};
+    var bar = document.getElementById('saveEditsBar');
+    if (bar) bar.classList.remove('visible');
+    if (typeof window.rebuildTable === 'function') window.rebuildTable();
+  };
+
+  window.saveAllEdits = function() {
+    var data = window.THERAPIST_DATA;
+    if (!data||!data.length) { alert('No data to save.'); return; }
+    var pw = window._editPw;
+    if (!pw) { pw = prompt('Admin password:'); if (!pw) return; }
+    var btn = document.querySelector('#saveEditsBar .btn-save');
+    if (btn) { btn.disabled = true; btn.textContent = 'Saving...'; }
+    fetch('/api/save', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({password:pw, data:data})
+    })
+    .then(function(r){return r.json();})
+    .then(function(res){
+      if (res.ok) {
+        window._pendingEdits = {};
+        var bar = document.getElementById('saveEditsBar');
+        if (bar) bar.classList.remove('visible');
+        alert('Saved! Changes will be live in ~30 seconds.');
+      } else { alert('Error: '+(res.error||'Unknown error')); }
+    })
+    .catch(function(e){ alert('Save failed: '+e.message); })
+    .finally(function(){ if (btn) { btn.disabled=false; btn.textContent=String.fromCharCode(10003)+' Publish Changes'; } });
+  };
+})();
+</script>
+<script>
 (function loadTherapistTable() {
   var INS_LABELS = {aetna:'Aetna',bcbs:'BCBS',avmed:'AvMed',optum:'Optum',oscar:'Oscar',united:'United',cigna:'Cigna','self':'Self-Pay'};
   var INS_BADGE  = {aetna:'badge-aetna',bcbs:'badge-bcbs',avmed:'badge-avmed',optum:'badge-optum',oscar:'badge-oscar',united:'badge-united',cigna:'badge-cigna','self':'badge-self'};
@@ -2115,5 +2287,9 @@ document.addEventListener('DOMContentLoaded', function() {
     .catch(function() { console.warn('Could not load therapists.json'); });
 })();
 </script>
+
+<div class="edit-overlay" id="editOverlay" onclick="closeDrawerIfOutside(event)">
+  <div class="edit-drawer" id="editDrawer"></div>
+</div>
 </body>
 </html><!-- LDI Call Training Tool -->
