@@ -279,7 +279,7 @@
     "name": "Beatriz Delgado",
     "credentials": "Licensed · LCSW",
     "url": "https://www.lovediscovery.org/team/beatriz-delgado",
-    "level": "qualified",
+    "level": "expert",
     "insurance": [
       "aetna",
       "bcbs",
@@ -288,7 +288,7 @@
       "oscar",
       "self"
     ],
-    "rate": "$150",
+    "rate": "$200",
     "language": "es",
     "location": "both",
     "sessionTypes": [
@@ -296,20 +296,30 @@
       "Adolescents/Teens"
     ],
     "ageGroups": [
+      "Children (under 12)",
       "Teens (13-17)",
+      "Teens (16+)",
       "Adults"
     ],
     "approaches": [
+      "CBT",
       "EMDR",
+      "Play Therapy",
+      "DBT",
+      "ACT",
       "Hypnotherapy",
-      "CBT"
+      "Narrative Therapy",
+      "Solution-Focused"
     ],
     "areasOfFocus": [
-      "Trauma/PTSD",
       "Anxiety",
       "Depression",
+      "Trauma/PTSD",
+      "Relationship Issues",
+      "Couples Therapy",
       "Self-Esteem",
       "Life Transitions",
+      "Behavioral Issues",
       "LGBTQ+",
       "Parenting",
       "Substance Use",
@@ -326,6 +336,13 @@
     "languages": [
       "en",
       "es"
+    ],
+    "days": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri"
     ]
   },
   {
