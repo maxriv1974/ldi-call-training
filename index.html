@@ -368,6 +368,7 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 .btn-drawer-cancel{background:#e2e8f0;color:#475569}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){if(window.mermaid){mermaid.initialize({startOnLoad:false});}});</script>
 </head>
 <body>
 
@@ -392,7 +393,7 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
   <div class="nav-tab" onclick="showPage('pipeline',this)">Pipeline &amp; CRM</div>
   <div class="nav-tab" onclick="showPage('checklist',this)">8-Part Checklist</div>
   <div class="nav-tab" onclick="showPage('objections',this)">Objections</div>
-  <div class="nav-tab" onclick="showPage('callflow',this)">Call Flow</div>
+  <div class="nav-tab" onclick="showPage('callflow',this);setTimeout(function(){if(window.mermaid&&document.getElementById('cf-mermaid')&&!document.getElementById('cf-mermaid').querySelector('svg')){mermaid.run({nodes:[document.getElementById('cf-mermaid')]});}},100);">Call Flow</div>
   
 </div>
 
