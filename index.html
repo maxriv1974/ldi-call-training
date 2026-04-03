@@ -1980,13 +1980,20 @@ function showCP(card, id) {
 let activeFilters = { plan: 'all', lang: 'all', loc: 'all', level: 'all', specialty: '' };
 function filterTherapists(type, val, btn) {
   if (type && val && btn) {
-  activeFilters[type] = val;
-  btn.closest('.th-filters').querySelectorAll('.th-filter-btn').forEach(b => {
-    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + type + "'")) {
-      b.classList.remove('active');
-    }
-  });
-  btn.classList.add('active');
+  if (btn.classList.contains('active') && val !== 'all') {
+    activeFilters[type] = 'all';
+    btn.closest('.th-filters').querySelectorAll('.th-filter-btn').forEach(b => {
+      if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + type + "'")) b.classList.remove('active');
+    });
+    var aBtn = Array.from(btn.closest('.th-filters').querySelectorAll('.th-filter-btn')).find(b => (b.getAttribute('onclick')||'').includes("'" + type + "'") && (b.getAttribute('onclick')||'').includes("'all'"));
+    if (aBtn) aBtn.classList.add('active');
+  } else {
+    activeFilters[type] = val;
+    btn.closest('.th-filters').querySelectorAll('.th-filter-btn').forEach(b => {
+      if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + type + "'")) b.classList.remove('active');
+    });
+    btn.classList.add('active');
+  }
   }
   document.querySelectorAll('#therapist-table tbody tr').forEach(row => {
     const plans = (row.dataset.plans || '').split(' ');
@@ -2606,11 +2613,16 @@ async function savePageContent() {
     var af = window._availFilters;
     var rowId = (type === 'svcType') ? 'svcFilterRow' : 'availFilterRow';
     var fr = document.getElementById(rowId);
-    if (fr) fr.querySelectorAll('.th-filter-btn').forEach(function(b){
-      b.classList.remove('active');
-    });
-    af[type] = val;
-    btn.classList.add('active');
+    if (btn.classList.contains('active') && val !== null) {
+      if (fr) fr.querySelectorAll('.th-filter-btn').forEach(function(b){ b.classList.remove('active'); });
+      af[type] = null;
+      var nullBtn = fr ? Array.from(fr.querySelectorAll('.th-filter-btn')).find(function(b){ return (b.getAttribute('onclick')||'').indexOf('null') > -1; }) : null;
+      if (nullBtn) nullBtn.classList.add('active');
+    } else {
+      if (fr) fr.querySelectorAll('.th-filter-btn').forEach(function(b){ b.classList.remove('active'); });
+      af[type] = val;
+      btn.classList.add('active');
+    }
     if (window._availData) {
       document.querySelectorAll('tr[data-pq-email]').forEach(function(row){
         var email = row.getAttribute('data-pq-email');
