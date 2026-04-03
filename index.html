@@ -2313,7 +2313,7 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(function(r){return r.json();})
     .then(function(res){
-      if (res.ok) {
+      if (res.success) {
         window._pendingEdits = {};
         var bar = document.getElementById('saveEditsBar');
         if (bar) bar.classList.remove('visible');
