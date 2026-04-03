@@ -2026,7 +2026,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var LANG_OPTS = {'en':'English','es':'Spanish','pt':'Portuguese','fr':'French','ht':'Haitian Creole'};
   var INS_OPTS = ['aetna','bcbs','avmed','optum','oscar','united','cigna','self'];
   var INS_LABELS = {aetna:'Aetna',bcbs:'BCBS',avmed:'AvMed',optum:'Optum',oscar:'Oscar',united:'United',cigna:'Cigna','self':'Self-Pay'};
-  var SESS_OPTS = ['Individual','Couples','Children','Adolescents/Teens','Family','Group'];
+  var SESS_OPTS = ['Individual','Couples','Children','Adolescents/Teens','Family','Group','Coaching'];
   var AGE_OPTS = ['Children (under 12)','Teens (13-17)','Teens (16+)','Young Adults (18-25)','Adults','Seniors'];
   var APPROACH_OPTS = ['CBT','EMDR','Psychodynamic','Gottman Method','Mindfulness-Based','Somatic/Body-Based','Play Therapy','DBT','ACT','Hypnotherapy','Faith-Based (Christian)','Narrative Therapy','Solution-Focused'];
   var FOCUS_OPTS = ['Anxiety','Depression','Trauma/PTSD','Grief & Loss','Relationship Issues','Couples Therapy','Intimacy','Self-Esteem','Life Transitions','Behavioral Issues','Family Conflict',"Women's Issues",'Stress Management','Anger Management','Faith & Spirituality','Communication','LGBTQ+','Parenting','Trust Issues','Sexual Concerns','Substance Use','Eating Concerns','Sleep Issues','Emotional Regulation','ADHD'];
@@ -2199,7 +2199,7 @@ if (window._pgEditActive) discardPageContentEdit();
     if (st.indexOf('Individual') >= 0) s.push('individual');
     if (st.indexOf('Couples') >= 0) s.push('couples');
     if (st.some(function(x){ return x==='Children'||x.indexOf('Adolescent')>=0||x.indexOf('Teen')>=0||x==='Family'; })) s.push('minors');
-    if ((t.serviceTypes||[]).indexOf('coaching') >= 0) s.push('coaching');
+    if ((t.serviceTypes||[]).indexOf('coaching') >= 0 || st.indexOf('Coaching') >= 0) s.push('coaching');
     return s.join(',');
   }
 
