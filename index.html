@@ -367,6 +367,7 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 .btn-drawer-save{background:#6c63ff;color:#fff}
 .btn-drawer-cancel{background:#e2e8f0;color:#475569}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
 </head>
 <body>
 
@@ -391,6 +392,7 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
   <div class="nav-tab" onclick="showPage('pipeline',this)">Pipeline &amp; CRM</div>
   <div class="nav-tab" onclick="showPage('checklist',this)">8-Part Checklist</div>
   <div class="nav-tab" onclick="showPage('objections',this)">Objections</div>
+  <div class="nav-tab" onclick="showPage('callflow',this)">Call Flow</div>
   
 </div>
 
@@ -2641,5 +2643,126 @@ async function savePageContent() {
 <script>
 (function(){var p=new URLSearchParams(window.location.search);if(p.get('mode')==='match'||p.get('standalone')==='1'){var nav=document.getElementById('main-nav');if(nav){nav.style.display='none';}document.querySelectorAll('.page').forEach(function(pg){pg.classList.remove('active');});var tp=document.getElementById('page-therapists');if(tp){tp.classList.add('active');tp.style.paddingTop='16px';}document.title='Therapist Match — LDI';}})();
 </script>
+
+<div class="page" id="page-callflow">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+    <div>
+      <h2 style="font-size:1.15rem;font-weight:700;color:#004d7f;margin:0">Call Flow</h2>
+      <p style="font-size:.8rem;color:#64748b;margin:4px 0 0">Course 5: Call Mastery &mdash; From First Contact to Booked Session</p>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <button onclick="cfZoom(1.2)" style="padding:6px 14px;border-radius:6px;border:1px solid #cbd5e1;background:#fff;cursor:pointer;font-size:.82rem;font-weight:600">+ Zoom In</button>
+      <button onclick="cfZoom(0.83)" style="padding:6px 14px;border-radius:6px;border:1px solid #cbd5e1;background:#fff;cursor:pointer;font-size:.82rem;font-weight:600">- Zoom Out</button>
+      <button onclick="cfReset()" style="padding:6px 14px;border-radius:6px;border:1px solid #cbd5e1;background:#fff;cursor:pointer;font-size:.82rem;color:#64748b">Reset</button>
+      <span id="cf-zoom-label" style="font-size:.78rem;color:#64748b;min-width:40px">100%</span>
+    </div>
+  </div>
+  <div id="cf-outer" style="width:100%;overflow:hidden;border-radius:12px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.08);cursor:grab;user-select:none;-webkit-user-select:none;min-height:500px">
+    <div id="cf-inner" style="transform-origin:0 0;display:inline-block;min-width:100%;padding:24px">
+      <div class="mermaid" id="cf-mermaid">%%{init: {"theme": "base", "themeVariables": {"primaryColor": "#f3e8ff","primaryTextColor": "#3b0764","primaryBorderColor": "#9333ea","lineColor": "#7c3aed","background": "#ffffff","mainBkg": "#f3e8ff","nodeBorder": "#9333ea","edgeLabelBackground": "#ffffff","fontSize": "13px"}}}%%
+flowchart TD
+    A([INCOMING CALL]) --> B{Identify Call Type}
+    B -->|Misc / Unknown| E[Other Call]
+    E --> E1{Important?}
+    E1 -->|Spam| E2([Block / End Call])
+    E1 -->|Vendor or Partner| E3[Gather info - Pass to CEO / Management]
+    E1 -->|Unsure| E4[Gather more info - Consult management]
+    E3 --> E5([Log and Follow Up])
+    E4 --> E5
+    B -->|Existing Client| D[Established Client - Client Care Call]
+    D --> D2{What does client need?}
+    D2 -->|Reschedule| D3[Reschedule Appointment]
+    D2 -->|Therapist question| D4[Address Inquiry]
+    D2 -->|General concern| D5[Provide Support]
+    D2 -->|Dropped after 1-3 sessions| RR[Retargeting - Understand gap - Rematch or re-engage]
+    D3 --> DEnd([Resolved - End Call])
+    D4 --> DEnd
+    D5 --> DEnd
+    RR --> DEnd
+    B -->|New Potential Client| CP1
+    CP1["CP1 - GREETING - Hello, thank you for calling Love Discovery. This is Name. How can I assist you today?"]
+    CP1 --> CP2
+    CP2["CP2 - UNDERSTAND NEEDS - Could you tell me what you need support with? - Listen, validate, identify service type"]
+    CP2 --> SVC{What service?}
+    SVC -->|Adults 18+| IND["Individual Therapy - 50-min sessions, weekly"]
+    SVC -->|Child 6-12| CH["Minors - Child - Parents meet therapist first"]
+    SVC -->|Teen 13-18| TN["Minors - Teen - Parents join first 15-25 min or teen-only"]
+    SVC -->|Couples| CPL["Couples Therapy - 2-hour first session - Self-pay only"]
+    IND --> CP3
+    CH --> CP3
+    TN --> CP3
+    CPL --> CP3
+    CP3["CP3 - LOCATION - Always lead with virtual first! - Virtual from the comfort of home... or In-Person at Coral Gables office"]
+    CP3 --> LOC{Preference?}
+    LOC -->|Virtual| VIRGO[Virtual confirmed]
+    LOC -->|In-Person| INP[In-Person - Coral Gables - Revisit virtual if cues arise]
+    VIRGO --> CP4
+    INP --> CP4
+    CP4["CP4 - SCHEDULING - When works for you? Morning / Afternoon / Evening? - Couples: what time works for both?"]
+    CP4 --> CP5
+    CP5["CP5 - TWO THERAPIST LEVELS - Experts: extensive experience and specialized training - Qualified Affordable: high-quality care at accessible rates"]
+    CP5 --> FIN{Financial cues?}
+    FIN -->|No concerns| EXP["Expert Therapists - dollar200 to dollar400 per hour"]
+    FIN -->|Budget conscious| QUAL["Qualified Therapists - dollar150 to dollar175 per hour"]
+    FIN -->|Mentions insurance| INS["Insurance Client - Qualified therapists only - Verify eligibility, coverage, co-pay"]
+    EXP --> CP6
+    QUAL --> CP6
+    INS --> CP6
+    CP6["CP6 - RATE DISCUSSION - Full range: dollar150-400/hr - Split: Experts dollar200-400 vs Qualified dollar150-175 - Narrow to final comfort zone"]
+    CP6 --> CP7
+    CP7["CP7 - CALL TO ACTION - I have the perfect therapist for you who specializes in XYZ - What do you say we get you scheduled?"]
+    CP7 --> BOOKS{Does caller book?}
+    BOOKS -->|Yes - Self-Pay| PAY1[Collect full payment at time of booking]
+    BOOKS -->|Yes - Insurance| PAY2[Collect dollar75 Wellness Access Program fee]
+    BOOKS -->|Not yet| WHY["WARM LEAD - Understand WHY - Needs to confirm with partner, comparing, finances? - Schedule specific follow-up - Leave them excited!"]
+    PAY1 --> CP8
+    PAY2 --> CP8
+    CP8["CP8 - FINAL STEPS"]
+    CP8 --> F1["Intake Forms - complete within 24 hours - therapist reviews before session"]
+    CP8 --> F2["Cancellation Policy - Cancel 24 hours in advance to avoid dollar75 fee"]
+    CP8 --> F3["Session Details - Virtual: send Telehealth invite via text and email - In-Person: address plus parking, arrive 5 min early"]
+    F1 --> BOOKED(["CLIENT BOOKED - Care journey begins!"])
+    F2 --> BOOKED
+    F3 --> BOOKED
+    WHY --> LEAD(["WARM LEAD - Follow-up scheduled - Stay top of mind"])
+    classDef start fill:#7c3aed,stroke:#6d28d9,color:#fff,font-weight:bold
+    classDef cp fill:#f3e8ff,stroke:#9333ea,color:#3b0764
+    classDef outcome fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
+    classDef lead fill:#fef9c3,stroke:#ca8a04,color:#713f12,font-weight:bold
+    classDef other fill:#f1f5f9,stroke:#94a3b8,color:#334155
+    classDef dec fill:#fdf4ff,stroke:#a855f7,color:#6b21a8
+    class A start
+    class CP1,CP2,CP3,CP4,CP5,CP6,CP7,CP8,IND,CH,TN,CPL,EXP,QUAL,INS,PAY1,PAY2,VIRGO,INP,F1,F2,F3 cp
+    class BOOKED,DEnd outcome
+    class LEAD,WHY lead
+    class E,E1,E2,E3,E4,E5,D,RR,D2,D3,D4,D5 other
+    class B,SVC,LOC,FIN,BOOKS dec
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var _s=1,_x=0,_y=0,_drag=false,_sx,_sy,_ox,_oy;
+  window.cfZoom=function(f){_s=Math.max(0.25,Math.min(4,_s*f));_apply();};
+  window.cfReset=function(){_s=1;_x=0;_y=0;_apply();};
+  function _apply(){
+    var el=document.getElementById('cf-inner');
+    if(!el)return;
+    el.style.transform='translate('+_x+'px,'+_y+'px) scale('+_s+')';
+    var lb=document.getElementById('cf-zoom-label');
+    if(lb)lb.textContent=Math.round(_s*100)+'%';
+  }
+  document.addEventListener('DOMContentLoaded',function(){
+    var o=document.getElementById('cf-outer');
+    if(!o)return;
+    o.addEventListener('mousedown',function(e){_drag=true;_sx=e.clientX;_sy=e.clientY;_ox=_x;_oy=_y;o.style.cursor='grabbing';e.preventDefault();});
+    document.addEventListener('mousemove',function(e){if(!_drag)return;_x=_ox+(e.clientX-_sx);_y=_oy+(e.clientY-_sy);_apply();});
+    document.addEventListener('mouseup',function(){_drag=false;var o=document.getElementById('cf-outer');if(o)o.style.cursor='grab';});
+    o.addEventListener('wheel',function(e){e.preventDefault();cfZoom(e.deltaY<0?1.1:0.9);},{passive:false});
+  });
+})();
+</script>
+
 </body>
 </html><!-- LDI Call Training Tool -->
