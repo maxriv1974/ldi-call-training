@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Missing pageId or html' });
   }
   // Sanity check pageId
-  const validPages = ['page-scenarios','page-scripts','page-exploration','page-insurance','page-pipeline','page-checklist','page-objections'];
+  const validPages = ['page-scenarios','page-scripts','page-exploration','page-insurance','page-pipeline','page-checklist','page-objections','page-callflow'];
   if (!validPages.includes(pageId)) {
     return res.status(400).json({ error: 'Invalid pageId: ' + pageId });
   }

@@ -396,6 +396,7 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
   <div class="nav-tab" onclick="showPage('callflow',this);setTimeout(function(){if(window.mermaid&&document.getElementById('cf-mermaid')&&!document.getElementById('cf-mermaid').querySelector('svg')){mermaid.run({nodes:[document.getElementById('cf-mermaid')]});}},100);">Call Flow</div>
   
 </div>
+<div id="pageEditSection" style="position:fixed;top:14px;right:210px;z-index:1000;display:none;align-items:center;gap:8px"><button class="page-edit-btn" id="pageEditBtn" onclick="togglePageContentEdit()" style="box-shadow:0 2px 8px rgba(0,0,0,.18)">&#9998; Edit Content</button><div class="page-save-bar" id="pageSaveBar" style="box-shadow:0 2px 8px rgba(0,0,0,.18)"><button class="btn-save" style="background:#f59e0b;border-color:#d97706" onclick="savePageContent()">&#10003; Save</button><button class="btn-discard" onclick="discardPageContentEdit()">Discard</button></div></div>
 
 <!-- ═══════════════════════════════════════════
      PAGE 1 — CALL SCENARIOS
@@ -1782,12 +1783,7 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
       <button class="btn-save" onclick="saveAllEdits()">&#10003; Publish Changes</button>
       <button class="btn-discard" onclick="discardEdits()">Discard</button>
     </div>
-  <div class="page-edit-section" id="pageEditSection">
-    <button class="page-edit-btn" id="pageEditBtn" onclick="togglePageContentEdit()" title="Edit this page's text content">&#9998; Edit Page</button>
-    <div class="page-save-bar" id="pageSaveBar">
-      <button class="btn-save" style="background:#f59e0b;border-color:#d97706" onclick="savePageContent()">&#10003; Save Page</button>
-      <button class="btn-discard" onclick="discardPageContentEdit()">Discard</button>
-    </div>
+
   </div>
 </div>
 <div class="th-filters">
@@ -1888,10 +1884,8 @@ function showPage(id, el) {
   window.scrollTo(0,0);
   // Update page-edit section visibility
   if (id === 'therapists') loadAvailability();
-  if (window.EDIT_MODE) {
-    var pgSec = document.getElementById('pageEditSection');
-    if (pgSec) pgSec.style.display = (id === 'therapists') ? 'none' : 'flex';
-  }
+  var pgSec = document.getElementById('pageEditSection');
+  if (pgSec) pgSec.style.display = (id === 'therapists') ? 'none' : 'flex';
   // Exit page edit mode when switching tabs
   if (window._pgEditActive) discardPageContentEdit();
 }
@@ -2198,9 +2192,7 @@ document.addEventListener('DOMContentLoaded', function() {
       window.EDIT_MODE = false; window._editPw = '';
       var btn = document.getElementById('editRosterBtn');
       if (btn) { btn.classList.remove('active'); btn.textContent = String.fromCharCode(9998)+' Edit Roster'; }
-      var pgSec = document.getElementById('pageEditSection');
-      if (pgSec) pgSec.style.display = 'none';
-      if (window._pgEditActive) discardPageContentEdit();
+if (window._pgEditActive) discardPageContentEdit();
       if (typeof window.rebuildTable === 'function') window.rebuildTable();
     } else {
       window._editPw='LDIadmin2025';window.EDIT_MODE=true;
