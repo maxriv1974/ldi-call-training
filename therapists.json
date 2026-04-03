@@ -2,7 +2,7 @@
   {
     "id": "carolina-pataky",
     "name": "Dr. Carolina Pataky",
-    "credentials": "Licensed · PhD",
+    "credentials": "Licensed \u00b7 PhD",
     "url": "https://www.lovediscovery.org/team/dr.-carolina-pataky",
     "level": "expert",
     "insurance": [
@@ -49,7 +49,7 @@
   {
     "id": "max-riv",
     "name": "Dr. Max Riv",
-    "credentials": "Licensed · PhD · Director",
+    "credentials": "Licensed \u00b7 PhD \u00b7 Director",
     "url": "https://www.lovediscovery.org/team/dr.-max-riv",
     "level": "expert",
     "insurance": [
@@ -240,7 +240,7 @@
   {
     "id": "bacheline-joseph",
     "name": "Dr. Bacheline Joseph",
-    "credentials": "Licensed · PhD",
+    "credentials": "Licensed \u00b7 PhD",
     "url": "https://www.lovediscovery.org/team/dr.-bacheline-joseph",
     "level": "qualified",
     "insurance": [
@@ -282,7 +282,7 @@
   {
     "id": "beatriz-delgado",
     "name": "Beatriz Delgado",
-    "credentials": "Licensed · LCSW",
+    "credentials": "Licensed \u00b7 LCSW",
     "url": "https://www.lovediscovery.org/team/beatriz-delgado",
     "level": "expert",
     "insurance": [
@@ -654,7 +654,7 @@
     "rate": "$150",
     "slidingScale": "",
     "url": "https://www.lovediscovery.org/team/jillian-munson",
-    "pqEmail": "",
+    "pqEmail": "jillian@lovediscovery.org",
     "language": "en",
     "languages": [
       "en"
