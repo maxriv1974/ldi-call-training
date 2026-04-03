@@ -394,9 +394,9 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
   <div class="nav-tab" onclick="showPage('checklist',this)">8-Part Checklist</div>
   <div class="nav-tab" onclick="showPage('objections',this)">Objections</div>
   <div class="nav-tab" onclick="showPage('callflow',this);setTimeout(function(){if(window.mermaid&&document.getElementById('cf-mermaid')&&!document.getElementById('cf-mermaid').querySelector('svg')){mermaid.run({nodes:[document.getElementById('cf-mermaid')]});}},100);">Call Flow</div>
-  
+  <div id="pageEditSection" style="margin-left:auto;align-self:center;padding:0 12px;display:none;align-items:center;gap:8px"><button class="page-edit-btn" id="pageEditBtn" onclick="togglePageContentEdit()" style="box-shadow:0 2px 8px rgba(0,0,0,.15)">&#9998; Edit Content</button><div class="page-save-bar" id="pageSaveBar" style="box-shadow:0 2px 8px rgba(0,0,0,.15)"><button class="btn-save" style="background:#f59e0b;border-color:#d97706" onclick="savePageContent()">&#10003; Save</button><button class="btn-discard" onclick="discardPageContentEdit()">Discard</button></div></div>
 </div>
-<div id="pageEditSection" style="position:fixed;top:14px;right:210px;z-index:1000;display:none;align-items:center;gap:8px"><button class="page-edit-btn" id="pageEditBtn" onclick="togglePageContentEdit()" style="box-shadow:0 2px 8px rgba(0,0,0,.18)">&#9998; Edit Content</button><div class="page-save-bar" id="pageSaveBar" style="box-shadow:0 2px 8px rgba(0,0,0,.18)"><button class="btn-save" style="background:#f59e0b;border-color:#d97706" onclick="savePageContent()">&#10003; Save</button><button class="btn-discard" onclick="discardPageContentEdit()">Discard</button></div></div>
+
 
 <!-- ═══════════════════════════════════════════
      PAGE 1 — CALL SCENARIOS
@@ -1876,7 +1876,7 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 <script>
 // ─── Navigation ───
 function showPage(id, el) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => { p.classList.remove('active'); p.style.display = ''; });
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   var pg = document.getElementById('page-' + id);
   if (pg) pg.classList.add('active');
