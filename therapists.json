@@ -2,7 +2,7 @@
   {
     "id": "carolina-pataky",
     "name": "Dr. Carolina Pataky",
-    "credentials": "Licensed \u00b7 PhD",
+    "credentials": "Licensed · PhD",
     "url": "https://www.lovediscovery.org/team/dr.-carolina-pataky",
     "level": "expert",
     "insurance": [
@@ -13,21 +13,39 @@
     "location": "telehealth",
     "sessionTypes": [
       "Individual",
-      "Couples"
+      "Couples",
+      "Coaching"
     ],
     "ageGroups": [
-      "Adults"
+      "Young Adults (18-25)",
+      "Adults",
+      "Seniors"
     ],
     "approaches": [
+      "CBT",
       "Psychodynamic",
-      "Mindfulness-Based"
+      "Gottman Method",
+      "Mindfulness-Based",
+      "Somatic/Body-Based",
+      "Narrative Therapy",
+      "Solution-Focused",
+      "Imago's",
+      "Imago"
     ],
     "areasOfFocus": [
       "Anxiety",
       "Depression",
+      "Trauma/PTSD",
+      "Grief & Loss",
       "Relationship Issues",
+      "Couples Therapy",
       "Intimacy",
       "Self-Esteem",
+      "Life Transitions",
+      "Family Conflict",
+      "Women's Issues",
+      "Stress Management",
+      "Communication",
       "LGBTQ+",
       "Trust Issues",
       "Sexual Concerns",
@@ -44,12 +62,17 @@
     ],
     "languages": [
       "en"
+    ],
+    "days": [
+      "Tue",
+      "Wed",
+      "Thu"
     ]
   },
   {
     "id": "max-riv",
     "name": "Dr. Max Riv",
-    "credentials": "Licensed \u00b7 PhD \u00b7 Director",
+    "credentials": "Licensed · PhD · Director",
     "url": "https://www.lovediscovery.org/team/dr.-max-riv",
     "level": "expert",
     "insurance": [
@@ -240,7 +263,7 @@
   {
     "id": "bacheline-joseph",
     "name": "Dr. Bacheline Joseph",
-    "credentials": "Licensed \u00b7 PhD",
+    "credentials": "Licensed · PhD",
     "url": "https://www.lovediscovery.org/team/dr.-bacheline-joseph",
     "level": "qualified",
     "insurance": [
@@ -282,7 +305,7 @@
   {
     "id": "beatriz-delgado",
     "name": "Beatriz Delgado",
-    "credentials": "Licensed \u00b7 LCSW",
+    "credentials": "Licensed · LCSW",
     "url": "https://www.lovediscovery.org/team/beatriz-delgado",
     "level": "expert",
     "insurance": [
