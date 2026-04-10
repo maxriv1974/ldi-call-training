@@ -13,39 +13,21 @@
     "location": "telehealth",
     "sessionTypes": [
       "Individual",
-      "Couples",
-      "Coaching"
+      "Couples"
     ],
     "ageGroups": [
-      "Young Adults (18-25)",
-      "Adults",
-      "Seniors"
+      "Adults"
     ],
     "approaches": [
-      "CBT",
       "Psychodynamic",
-      "Gottman Method",
-      "Mindfulness-Based",
-      "Somatic/Body-Based",
-      "Narrative Therapy",
-      "Solution-Focused",
-      "Imago's",
-      "Imago"
+      "Mindfulness-Based"
     ],
     "areasOfFocus": [
       "Anxiety",
       "Depression",
-      "Trauma/PTSD",
-      "Grief & Loss",
       "Relationship Issues",
-      "Couples Therapy",
       "Intimacy",
       "Self-Esteem",
-      "Life Transitions",
-      "Family Conflict",
-      "Women's Issues",
-      "Stress Management",
-      "Communication",
       "LGBTQ+",
       "Trust Issues",
       "Sexual Concerns",
@@ -63,11 +45,9 @@
     "languages": [
       "en"
     ],
-    "days": [
-      "Tue",
-      "Wed",
-      "Thu"
-    ]
+    "days": [],
+    "notes": "",
+    "billingMethods": {}
   },
   {
     "id": "max-riv",
@@ -84,18 +64,32 @@
     "location": "telehealth",
     "sessionTypes": [
       "Individual",
-      "Couples"
+      "Couples",
+      "Coaching"
     ],
     "ageGroups": [
-      "Adults"
+      "Adults",
+      "Seniors"
     ],
     "approaches": [
-      "Psychodynamic"
+      "CBT",
+      "Psychodynamic",
+      "Gottman Method",
+      "ACT",
+      "Narrative Therapy",
+      "Solution-Focused"
     ],
     "areasOfFocus": [
       "Anxiety",
       "Depression",
+      "Trauma/PTSD",
+      "Grief & Loss",
       "Relationship Issues",
+      "Couples Therapy",
+      "Intimacy",
+      "Self-Esteem",
+      "Life Transitions",
+      "Family Conflict",
       "LGBTQ+",
       "Trust Issues",
       "Sexual Concerns",
@@ -104,7 +98,7 @@
       "Emotional Regulation",
       "ADHD"
     ],
-    "slidingScale": "",
+    "slidingScale": "$300",
     "pqEmail": "max@lovediscovery.org",
     "serviceTypes": [
       "individual"
@@ -116,7 +110,11 @@
       "Tue",
       "Wed",
       "Thu"
-    ]
+    ],
+    "notes": "Clinical Director",
+    "billingMethods": {
+      "aetna": "T"
+    }
   },
   {
     "id": "clemencia-cartas",
