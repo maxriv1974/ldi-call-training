@@ -2,7 +2,7 @@
   {
     "id": "carolina-pataky",
     "name": "Dr. Carolina Pataky",
-    "credentials": "Licensed · PhD",
+    "credentials": "LMFT - Certified Sex Therapist - Sexologist - Gottman III",
     "url": "https://www.lovediscovery.org/team/dr.-carolina-pataky",
     "level": "expert",
     "insurance": [
@@ -13,21 +13,38 @@
     "location": "telehealth",
     "sessionTypes": [
       "Individual",
-      "Couples"
+      "Couples",
+      "Family"
     ],
     "ageGroups": [
-      "Adults"
+      "Young Adults (18-25)",
+      "Adults",
+      "Seniors"
     ],
     "approaches": [
+      "CBT",
       "Psychodynamic",
-      "Mindfulness-Based"
+      "Gottman Method",
+      "Mindfulness-Based",
+      "Somatic/Body-Based",
+      "Narrative Therapy",
+      "Solution-Focused"
     ],
     "areasOfFocus": [
       "Anxiety",
       "Depression",
+      "Trauma/PTSD",
+      "Grief & Loss",
       "Relationship Issues",
+      "Couples Therapy",
       "Intimacy",
       "Self-Esteem",
+      "Life Transitions",
+      "Family Conflict",
+      "Women's Issues",
+      "Stress Management",
+      "Anger Management",
+      "Communication",
       "LGBTQ+",
       "Trust Issues",
       "Sexual Concerns",
@@ -44,7 +61,14 @@
     ],
     "languages": [
       "en"
-    ]
+    ],
+    "days": [
+      "Tue",
+      "Wed",
+      "Thu"
+    ],
+    "notes": "Additional possible M-F.",
+    "billingMethods": {}
   },
   {
     "id": "max-riv",
@@ -260,7 +284,7 @@
       "Thu",
       "Fri"
     ],
-    "notes": "",
+    "notes": "Only takes LIGHTER couples.",
     "billingMethods": {
       "aetna": "H",
       "bcbs": "T",
