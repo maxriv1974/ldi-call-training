@@ -28,7 +28,9 @@
       "Mindfulness-Based",
       "Somatic/Body-Based",
       "Narrative Therapy",
-      "Solution-Focused"
+      "Solution-Focused",
+      "Integration Therapy",
+      "Existencial"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -85,25 +87,48 @@
     "location": "telehealth",
     "sessionTypes": [
       "Individual",
-      "Couples"
+      "Couples",
+      "Family",
+      "Coaching"
     ],
     "ageGroups": [
-      "Adults"
+      "Young Adults (18-25)",
+      "Adults",
+      "Seniors"
     ],
     "approaches": [
-      "Psychodynamic"
+      "CBT",
+      "Psychodynamic",
+      "Gottman Method",
+      "DBT",
+      "ACT",
+      "Narrative Therapy",
+      "Solution-Focused",
+      "Psychological Testing",
+      "Existencial",
+      "Integration Therapy"
     ],
     "areasOfFocus": [
       "Anxiety",
       "Depression",
+      "Trauma/PTSD",
+      "Grief & Loss",
       "Relationship Issues",
+      "Couples Therapy",
+      "Intimacy",
+      "Self-Esteem",
+      "Life Transitions",
+      "Family Conflict",
+      "Stress Management",
+      "Anger Management",
+      "Communication",
       "LGBTQ+",
+      "Parenting",
       "Trust Issues",
       "Sexual Concerns",
       "Substance Use",
       "Sleep Issues",
-      "Emotional Regulation",
-      "ADHD"
+      "Emotional Regulation"
     ],
     "slidingScale": "",
     "pqEmail": "max@lovediscovery.org",
@@ -117,7 +142,11 @@
       "Tue",
       "Wed",
       "Thu"
-    ]
+    ],
+    "notes": "Additional posssible M-F.\nPsy Testing: Personality, Social, Emotional, Relational.\n\nNO ADHD, AUTISM, CHILDREN / ONLY 18+",
+    "billingMethods": {
+      "aetna": "H"
+    }
   },
   {
     "id": "clemencia-cartas",
