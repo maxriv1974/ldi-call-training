@@ -44,10 +44,7 @@
     ],
     "languages": [
       "en"
-    ],
-    "days": [],
-    "notes": "",
-    "billingMethods": {}
+    ]
   },
   {
     "id": "max-riv",
@@ -64,32 +61,18 @@
     "location": "telehealth",
     "sessionTypes": [
       "Individual",
-      "Couples",
-      "Coaching"
+      "Couples"
     ],
     "ageGroups": [
-      "Adults",
-      "Seniors"
+      "Adults"
     ],
     "approaches": [
-      "CBT",
-      "Psychodynamic",
-      "Gottman Method",
-      "ACT",
-      "Narrative Therapy",
-      "Solution-Focused"
+      "Psychodynamic"
     ],
     "areasOfFocus": [
       "Anxiety",
       "Depression",
-      "Trauma/PTSD",
-      "Grief & Loss",
       "Relationship Issues",
-      "Couples Therapy",
-      "Intimacy",
-      "Self-Esteem",
-      "Life Transitions",
-      "Family Conflict",
       "LGBTQ+",
       "Trust Issues",
       "Sexual Concerns",
@@ -98,7 +81,7 @@
       "Emotional Regulation",
       "ADHD"
     ],
-    "slidingScale": "$300",
+    "slidingScale": "",
     "pqEmail": "max@lovediscovery.org",
     "serviceTypes": [
       "individual"
@@ -110,11 +93,7 @@
       "Tue",
       "Wed",
       "Thu"
-    ],
-    "notes": "Clinical Director",
-    "billingMethods": {
-      "aetna": "T"
-    }
+    ]
   },
   {
     "id": "clemencia-cartas",
@@ -213,8 +192,8 @@
   },
   {
     "id": "nanette-comerio",
-    "name": "Nanette (Ana) Comerio",
-    "credentials": "Licensed",
+    "name": "Ana (Nanet) Comerio",
+    "credentials": "LMFT",
     "url": "https://www.lovediscovery.org/team/ana-comerio",
     "level": "expert",
     "insurance": [
@@ -230,24 +209,41 @@
     "language": "en",
     "location": "both",
     "sessionTypes": [
-      "Individual"
+      "Individual",
+      "Couples"
     ],
     "ageGroups": [
-      "Adults"
+      "Young Adults (18-25)",
+      "Adults",
+      "Seniors"
     ],
     "approaches": [
       "CBT",
-      "Somatic/Body-Based"
+      "Gottman Method",
+      "Mindfulness-Based",
+      "Somatic/Body-Based",
+      "Narrative Therapy",
+      "Solution-Focused"
     ],
     "areasOfFocus": [
-      "Trauma/PTSD",
       "Anxiety",
       "Depression",
+      "Trauma/PTSD",
       "Grief & Loss",
+      "Relationship Issues",
+      "Couples Therapy",
+      "Self-Esteem",
+      "Life Transitions",
+      "Family Conflict",
+      "Women's Issues",
+      "Stress Management",
+      "Anger Management",
+      "Communication",
       "LGBTQ+",
       "Substance Use",
       "Eating Concerns",
-      "Sleep Issues"
+      "Sleep Issues",
+      "Emotional Regulation"
     ],
     "slidingScale": "",
     "pqEmail": "ana@lovediscovery.org",
@@ -256,7 +252,23 @@
     ],
     "languages": [
       "en"
-    ]
+    ],
+    "days": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri"
+    ],
+    "notes": "",
+    "billingMethods": {
+      "aetna": "H",
+      "bcbs": "T",
+      "avmed": "H",
+      "optum": "H",
+      "oscar": "H",
+      "united": "H"
+    }
   },
   {
     "id": "bacheline-joseph",
