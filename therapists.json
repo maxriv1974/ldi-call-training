@@ -30,7 +30,8 @@
       "Narrative Therapy",
       "Solution-Focused",
       "Integration Therapy",
-      "Existencial"
+      "Existencial",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -106,7 +107,8 @@
       "Solution-Focused",
       "Psychological Testing",
       "Existencial",
-      "Integration Therapy"
+      "Integration Therapy",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -173,7 +175,8 @@
       "Psychodynamic",
       "Gottman Method",
       "Narrative Therapy",
-      "Solution-Focused"
+      "Solution-Focused",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -230,7 +233,8 @@
     ],
     "approaches": [
       "CBT",
-      "Mindfulness-Based"
+      "Mindfulness-Based",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -291,7 +295,8 @@
       "Mindfulness-Based",
       "Somatic/Body-Based",
       "Narrative Therapy",
-      "Solution-Focused"
+      "Solution-Focused",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -359,7 +364,8 @@
     ],
     "approaches": [
       "Psychodynamic",
-      "CBT"
+      "CBT",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -415,7 +421,8 @@
       "ACT",
       "Hypnotherapy",
       "Narrative Therapy",
-      "Solution-Focused"
+      "Solution-Focused",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -477,7 +484,8 @@
     "approaches": [
       "EMDR",
       "CBT",
-      "Mindfulness-Based"
+      "Mindfulness-Based",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Trauma/PTSD",
@@ -526,7 +534,8 @@
     ],
     "approaches": [
       "CBT",
-      "Play Therapy"
+      "Play Therapy",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -577,7 +586,8 @@
     ],
     "approaches": [
       "CBT",
-      "Psychodynamic"
+      "Psychodynamic",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -625,7 +635,8 @@
     ],
     "approaches": [
       "CBT",
-      "Gottman Method"
+      "Gottman Method",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -674,7 +685,8 @@
     "approaches": [
       "EMDR",
       "Faith-Based (Christian)",
-      "CBT"
+      "CBT",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Trauma/PTSD",
@@ -721,7 +733,8 @@
     ],
     "approaches": [
       "CBT",
-      "Somatic/Body-Based"
+      "Somatic/Body-Based",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Trauma/PTSD",
@@ -784,7 +797,8 @@
       "Somatic/Body-Based",
       "ACT",
       "Narrative Therapy",
-      "Solution-Focused"
+      "Solution-Focused",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Anxiety",
