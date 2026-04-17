@@ -151,7 +151,7 @@
   {
     "id": "clemencia-cartas",
     "name": "Clemencia Cartas",
-    "credentials": "Licensed",
+    "credentials": "LMHC - Gottman ",
     "url": "https://www.lovediscovery.org/team/clemencia-cartas",
     "level": "expert",
     "insurance": [
@@ -162,23 +162,32 @@
     "location": "both",
     "sessionTypes": [
       "Individual",
-      "Couples"
+      "Couples",
+      "Family"
     ],
     "ageGroups": [
       "Adults"
     ],
     "approaches": [
+      "CBT",
+      "Psychodynamic",
       "Gottman Method",
-      "Psychodynamic"
+      "Narrative Therapy",
+      "Solution-Focused"
     ],
     "areasOfFocus": [
       "Anxiety",
       "Depression",
       "Relationship Issues",
       "Couples Therapy",
+      "Intimacy",
+      "Self-Esteem",
+      "Family Conflict",
+      "Stress Management",
+      "Anger Management",
       "Communication",
-      "Substance Use",
-      "Sleep Issues"
+      "LGBTQ+",
+      "Sexual Concerns"
     ],
     "slidingScale": "",
     "pqEmail": "clemencia@lovediscovery.org",
@@ -189,6 +198,12 @@
     "languages": [
       "en",
       "es"
+    ],
+    "days": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu"
     ]
   },
   {
