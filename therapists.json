@@ -676,7 +676,7 @@
   {
     "id": "yamaris-bobe",
     "name": "Dr. Yamaris Bobe",
-    "credentials": "Licensed",
+    "credentials": "Psychologist",
     "url": "https://www.lovediscovery.org/team/dr.-yamaris-bobe-",
     "level": "qualified",
     "insurance": [
@@ -689,27 +689,48 @@
     ],
     "rate": "$175",
     "language": "es",
-    "location": "both",
+    "location": "telehealth",
     "sessionTypes": [
-      "Individual"
+      "Individual",
+      "Couples",
+      "Adolescents/Teens"
     ],
     "ageGroups": [
+      "Teens (16+)",
+      "Young Adults (18-25)",
       "Adults"
     ],
     "approaches": [
       "CBT",
       "Psychodynamic",
+      "Mindfulness-Based",
+      "Narrative Therapy",
+      "Solution-Focused",
       "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Anxiety",
       "Depression",
-      "Life Transitions",
+      "Trauma/PTSD",
+      "Grief & Loss",
+      "Relationship Issues",
+      "Couples Therapy",
+      "Intimacy",
       "Self-Esteem",
+      "Life Transitions",
+      "Family Conflict",
+      "Women's Issues",
+      "Stress Management",
+      "Anger Management",
+      "Communication",
       "LGBTQ+",
       "Parenting",
+      "Trust Issues",
+      "Sexual Concerns",
       "Substance Use",
-      "Sleep Issues"
+      "Sleep Issues",
+      "Emotional Regulation",
+      "ADHD"
     ],
     "slidingScale": "",
     "pqEmail": "yamaris@lovediscovery.org",
@@ -717,8 +738,13 @@
       "individual"
     ],
     "languages": [
-      "en",
       "es"
+    ],
+    "days": [
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri"
     ]
   },
   {
