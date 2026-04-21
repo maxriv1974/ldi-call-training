@@ -237,9 +237,9 @@
       "CBT",
       "Gottman Method",
       "Mindfulness-Based",
-      "Humanistic/Person-Centered",
       "Narrative Therapy",
-      "Solution-Focused"
+      "Solution-Focused",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -687,7 +687,7 @@
       "oscar",
       "self"
     ],
-    "rate": "$175",
+    "rate": "$175/hr",
     "language": "es",
     "location": "telehealth",
     "sessionTypes": [
@@ -750,7 +750,7 @@
   {
     "id": "victoria-wheeler",
     "name": "Victoria Wheeler",
-    "credentials": "Licensed",
+    "credentials": "LMHC",
     "url": "https://www.lovediscovery.org/team/victoria-wheeler-",
     "level": "qualified",
     "insurance": [
@@ -761,7 +761,7 @@
       "oscar",
       "self"
     ],
-    "rate": "$150",
+    "rate": "$150/hr",
     "language": "es",
     "location": "both",
     "sessionTypes": [
@@ -769,21 +769,41 @@
       "Couples"
     ],
     "ageGroups": [
-      "Adults"
+      "Young Adults (18-25)",
+      "Adults",
+      "Seniors"
     ],
     "approaches": [
       "CBT",
       "Gottman Method",
+      "Mindfulness-Based",
+      "Somatic/Body-Based",
+      "DBT",
+      "Narrative Therapy",
+      "Solution-Focused",
       "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Anxiety",
       "Depression",
+      "Grief & Loss",
       "Relationship Issues",
-      "Communication",
       "Couples Therapy",
+      "Intimacy",
+      "Self-Esteem",
+      "Life Transitions",
+      "Family Conflict",
+      "Women's Issues",
+      "Stress Management",
+      "Anger Management",
+      "Communication",
+      "LGBTQ+",
+      "Parenting",
+      "Trust Issues",
+      "Sexual Concerns",
       "Substance Use",
-      "Sleep Issues"
+      "Sleep Issues",
+      "Emotional Regulation"
     ],
     "slidingScale": "",
     "pqEmail": "victoria@lovediscovery.org",
@@ -794,12 +814,19 @@
     "languages": [
       "en",
       "es"
+    ],
+    "days": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri"
     ]
   },
   {
     "id": "katherine-de-leon",
     "name": "Katherine De Leon",
-    "credentials": "Licensed Psychotherapist",
+    "credentials": "LMHC",
     "url": "https://www.lovediscovery.org/team/katherine-de-leon",
     "level": "qualified",
     "insurance": [
@@ -810,32 +837,44 @@
       "oscar",
       "self"
     ],
-    "rate": "$150",
+    "rate": "$150/hr",
     "language": "en",
     "location": "telehealth",
     "sessionTypes": [
       "Individual"
     ],
     "ageGroups": [
-      "Teens (16+)",
-      "Adults"
+      "Young Adults (18-25)",
+      "Adults",
+      "Seniors"
     ],
     "approaches": [
-      "EMDR",
-      "Faith-Based (Christian)",
       "CBT",
+      "EMDR",
+      "Mindfulness-Based",
+      "Faith-Based (Christian)",
+      "Narrative Therapy",
+      "Solution-Focused",
       "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
-      "Trauma/PTSD",
       "Anxiety",
+      "Depression",
+      "Trauma/PTSD",
       "Grief & Loss",
+      "Relationship Issues",
+      "Intimacy",
+      "Self-Esteem",
+      "Life Transitions",
       "Women's Issues",
       "Stress Management",
       "Anger Management",
       "Faith & Spirituality",
+      "Communication",
+      "Sexual Concerns",
       "Substance Use",
-      "Sleep Issues"
+      "Sleep Issues",
+      "Emotional Regulation"
     ],
     "slidingScale": "",
     "pqEmail": "katherine@lovediscovery.org",
@@ -844,6 +883,12 @@
     ],
     "languages": [
       "en"
+    ],
+    "days": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu"
     ]
   },
   {
