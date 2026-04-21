@@ -6,7 +6,7 @@
 <title>LDI Call Training — Interactive Guide</title>
 <script>
 // Auto-update: check for new version every 2 minutes and reload if found
-var _PAGE_BUILT = "2026-04-21T16:09:25Z";
+var _PAGE_BUILT = "2026-04-21T16:21:08Z";
 (function() {
   function checkVersion() {
     fetch('/version.json?t=' + Date.now(), {cache:'no-store'})
@@ -1986,48 +1986,59 @@ function sortTable(colIdx) {
   rows.forEach(r => tbody.appendChild(r));
 }
 
-// ─── Priority localStorage ───
-const PRIORITY_KEY = 'ldi-therapist-priorities';
+// ─── Priority (shared via GitHub, synced every 30s) ───
+var _priorities = {};
+
+function applyPriorities(data) {
+  _priorities = data || {};
+  document.querySelectorAll('.priority-select').forEach(sel => {
+    const id = sel.dataset.id;
+    const val = _priorities[id] || '';
+    sel.value = val;
+    sel.dataset.val = val;
+  });
+}
 
 function loadPriorities() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(PRIORITY_KEY) || '{}');
-    document.querySelectorAll('.priority-select').forEach(sel => {
-      const id = sel.dataset.id;
-      if (saved[id]) {
-        sel.value = saved[id];
-        sel.dataset.val = saved[id];
-      }
-    });
-  } catch(e) {}
+  fetch('/api/priorities?t=' + Date.now(), {cache:'no-store'})
+    .then(r => r.json())
+    .then(data => applyPriorities(data))
+    .catch(() => {});
 }
 
 function savePriority(sel) {
-  try {
-    const saved = JSON.parse(localStorage.getItem(PRIORITY_KEY) || '{}');
-    const id = sel.dataset.id;
-    sel.dataset.val = sel.value;
-    if (sel.value) {
-      saved[id] = sel.value;
-    } else {
-      delete saved[id];
-    }
-    localStorage.setItem(PRIORITY_KEY, JSON.stringify(saved));
-    showSaveIndicator();
-  } catch(e) {}
+  const id = sel.dataset.id;
+  sel.dataset.val = sel.value;
+  if (sel.value) {
+    _priorities[id] = sel.value;
+  } else {
+    delete _priorities[id];
+  }
+  fetch('/api/save-priorities', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({priorities: _priorities})
+  })
+  .then(r => r.json())
+  .then(res => { if (res.success) showSaveIndicator(); })
+  .catch(() => showSaveIndicator('⚠ Save failed'));
 }
 
 function resetPriorities(e) {
   e.stopPropagation();
-  if (!confirm('Clear all priority values?')) return;
-  try {
-    localStorage.removeItem(PRIORITY_KEY);
-    document.querySelectorAll('.priority-select').forEach(sel => {
-      sel.value = '';
-      sel.dataset.val = '';
-    });
-    showSaveIndicator('Cleared');
-  } catch(e) {}
+  if (!confirm('Clear all priority values for everyone?')) return;
+  _priorities = {};
+  document.querySelectorAll('.priority-select').forEach(sel => {
+    sel.value = '';
+    sel.dataset.val = '';
+  });
+  fetch('/api/save-priorities', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({priorities: {}})
+  })
+  .then(() => showSaveIndicator('Cleared'))
+  .catch(() => {});
 }
 
 function showSaveIndicator(msg) {
@@ -2038,13 +2049,10 @@ function showSaveIndicator(msg) {
   setTimeout(() => el.classList.remove('show'), 1800);
 }
 
-// ─── Wire up priority inputs ───
+// ─── Load priorities on startup, then re-sync every 30 seconds ───
 document.addEventListener('DOMContentLoaded', function() {
   loadPriorities();
-  // Priority select styling on change
-  document.querySelectorAll('.priority-select').forEach(sel => {
-    sel.addEventListener('change', () => { sel.dataset.val = sel.value; });
-  });
+  setInterval(loadPriorities, 30000);
 });
 
 </script>
