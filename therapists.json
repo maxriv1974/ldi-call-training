@@ -685,6 +685,7 @@
       "avmed",
       "optum",
       "oscar",
+      "united",
       "self"
     ],
     "rate": "$175/hr",
@@ -704,9 +705,9 @@
       "CBT",
       "Psychodynamic",
       "Mindfulness-Based",
+      "Humanistic/Person-Centered",
       "Narrative Therapy",
-      "Solution-Focused",
-      "Humanistic/Person-Centered"
+      "Solution-Focused"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -745,7 +746,16 @@
       "Wed",
       "Thu",
       "Fri"
-    ]
+    ],
+    "notes": "UHC insurances billed through Trizetto only.",
+    "billingMethods": {
+      "aetna": "H",
+      "bcbs": "T",
+      "avmed": "T",
+      "optum": "T",
+      "oscar": "T",
+      "united": "T"
+    }
   },
   {
     "id": "victoria-wheeler",
@@ -759,7 +769,6 @@
       "avmed",
       "optum",
       "oscar",
-      "united",
       "self"
     ],
     "rate": "$150/hr",
@@ -778,11 +787,11 @@
       "CBT",
       "Gottman Method",
       "Mindfulness-Based",
-      "Humanistic/Person-Centered",
       "Somatic/Body-Based",
       "DBT",
       "Narrative Therapy",
-      "Solution-Focused"
+      "Solution-Focused",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -822,16 +831,7 @@
       "Wed",
       "Thu",
       "Fri"
-    ],
-    "notes": "",
-    "billingMethods": {
-      "aetna": "H",
-      "bcbs": "T",
-      "avmed": "H",
-      "optum": "H",
-      "oscar": "H",
-      "united": "H"
-    }
+    ]
   },
   {
     "id": "katherine-de-leon",
@@ -845,7 +845,6 @@
       "avmed",
       "optum",
       "oscar",
-      "united",
       "self"
     ],
     "rate": "$150/hr",
@@ -863,10 +862,10 @@
       "CBT",
       "EMDR",
       "Mindfulness-Based",
-      "Humanistic/Person-Centered",
       "Faith-Based (Christian)",
       "Narrative Therapy",
-      "Solution-Focused"
+      "Solution-Focused",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -882,7 +881,6 @@
       "Anger Management",
       "Faith & Spirituality",
       "Communication",
-      "LGBTQ+",
       "Sexual Concerns",
       "Substance Use",
       "Sleep Issues",
@@ -901,16 +899,7 @@
       "Tue",
       "Wed",
       "Thu"
-    ],
-    "notes": "",
-    "billingMethods": {
-      "aetna": "H",
-      "bcbs": "T",
-      "avmed": "H",
-      "optum": "H",
-      "oscar": "H",
-      "united": "H"
-    }
+    ]
   },
   {
     "id": "arleen-patin",
@@ -923,8 +912,7 @@
       "bcbs",
       "avmed",
       "optum",
-      "oscar",
-      "united"
+      "oscar"
     ],
     "rate": "$175/hr",
     "language": "es",
@@ -940,10 +928,10 @@
       "CBT",
       "EMDR",
       "Mindfulness-Based",
-      "Humanistic/Person-Centered",
       "Somatic/Body-Based",
       "Narrative Therapy",
-      "Solution-Focused"
+      "Solution-Focused",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -979,16 +967,7 @@
       "Wed",
       "Thu",
       "Fri"
-    ],
-    "notes": "",
-    "billingMethods": {
-      "aetna": "H",
-      "bcbs": "T",
-      "avmed": "H",
-      "optum": "H",
-      "oscar": "H",
-      "united": "H"
-    }
+    ]
   },
   {
     "id": "jillian",
@@ -1026,11 +1005,11 @@
       "CBT",
       "EMDR",
       "Mindfulness-Based",
-      "Humanistic/Person-Centered",
       "Somatic/Body-Based",
       "ACT",
       "Narrative Therapy",
-      "Solution-Focused"
+      "Solution-Focused",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -1066,101 +1045,6 @@
       "Wed",
       "Thu",
       "Fri"
-    ],
-    "notes": "",
-    "billingMethods": {
-      "aetna": "H",
-      "bcbs": "T",
-      "avmed": "H",
-      "optum": "H",
-      "oscar": "H",
-      "united": "H"
-    }
-  },
-  {
-    "id": "new-1776786389330",
-    "name": "Maggie Mynatt",
-    "credentials": "LMHC - Gottman",
-    "url": "https://www.lovediscovery.org/team/",
-    "level": "qualified",
-    "rate": "$150/hr",
-    "slidingScale": "",
-    "location": "both",
-    "language": "en",
-    "languages": [
-      "en"
-    ],
-    "insurance": [
-      "aetna",
-      "bcbs",
-      "avmed",
-      "optum",
-      "oscar",
-      "united",
-      "self"
-    ],
-    "billingMethods": {
-      "aetna": "H",
-      "bcbs": "T",
-      "avmed": "T",
-      "optum": "T",
-      "oscar": "T",
-      "united": "T"
-    },
-    "sessionTypes": [
-      "Individual",
-      "Couples",
-      "Adolescents/Teens",
-      "Coaching"
-    ],
-    "ageGroups": [
-      "Teens (13-17)",
-      "Teens (16+)",
-      "Young Adults (18-25)",
-      "Adults",
-      "Seniors"
-    ],
-    "approaches": [
-      "CBT",
-      "EMDR",
-      "Psychodynamic",
-      "Gottman Method",
-      "Mindfulness-Based",
-      "Humanistic/Person-Centered",
-      "Somatic/Body-Based",
-      "Narrative Therapy",
-      "Solution-Focused"
-    ],
-    "areasOfFocus": [
-      "Anxiety",
-      "Depression",
-      "Trauma/PTSD",
-      "Grief & Loss",
-      "Relationship Issues",
-      "Couples Therapy",
-      "Intimacy",
-      "Self-Esteem",
-      "Life Transitions",
-      "Behavioral Issues",
-      "Family Conflict",
-      "Women's Issues",
-      "Stress Management",
-      "Communication",
-      "LGBTQ+",
-      "Parenting",
-      "Trust Issues",
-      "Sexual Concerns",
-      "Emotional Regulation",
-      "ADHD"
-    ],
-    "notes": "",
-    "days": [
-      "Mon",
-      "Tue",
-      "Wed",
-      "Thu"
-    ],
-    "serviceTypes": [],
-    "pqEmail": ""
+    ]
   }
 ]
