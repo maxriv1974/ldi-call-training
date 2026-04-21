@@ -6,7 +6,7 @@
 <title>LDI Call Training — Interactive Guide</title>
 <script>
 // Auto-update: check for new version every 2 minutes and reload if found
-var _PAGE_BUILT = "2026-04-21T16:21:08Z";
+var _PAGE_BUILT = "2026-04-21T16:58:04Z";
 (function() {
   function checkVersion() {
     fetch('/version.json?t=' + Date.now(), {cache:'no-store'})
@@ -1964,17 +1964,15 @@ function sortTable(colIdx) {
   if (th.classList.contains('sortable')) {
     th.classList.add(asc ? 'sort-asc' : 'sort-desc');
   }
-  // Priority column: sort by input value
+  // Priority column: sort by defined order (High > Medium > Low > Closed > blank)
+  const PRIORITY_ORDER = {High: 0, Medium: 1, Low: 2, Closed: 3, '': 4};
   if (colIdx === 7) {
     rows.sort((a, b) => {
-      const av = a.querySelector('.priority-input')?.value.toLowerCase() || '';
-      const bv = b.querySelector('.priority-input')?.value.toLowerCase() || '';
-      const aEmpty = av === '' || av === '—';
-      const bEmpty = bv === '' || bv === '—';
-      if (aEmpty && bEmpty) return 0;
-      if (aEmpty) return asc ? 1 : -1;
-      if (bEmpty) return asc ? -1 : 1;
-      return asc ? av.localeCompare(bv) : bv.localeCompare(av);
+      const av = a.querySelector('.priority-select')?.value || '';
+      const bv = b.querySelector('.priority-select')?.value || '';
+      const ar = PRIORITY_ORDER[av] ?? 4;
+      const br = PRIORITY_ORDER[bv] ?? 4;
+      return asc ? ar - br : br - ar;
     });
   } else {
     rows.sort((a, b) => {
@@ -1997,6 +1995,8 @@ function applyPriorities(data) {
     sel.value = val;
     sel.dataset.val = val;
   });
+  // Auto-sort by priority order after applying
+  sortTable(7);
 }
 
 function loadPriorities() {
