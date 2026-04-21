@@ -685,6 +685,7 @@
       "avmed",
       "optum",
       "oscar",
+      "united",
       "self"
     ],
     "rate": "$175/hr",
@@ -704,9 +705,9 @@
       "CBT",
       "Psychodynamic",
       "Mindfulness-Based",
+      "Humanistic/Person-Centered",
       "Narrative Therapy",
-      "Solution-Focused",
-      "Humanistic/Person-Centered"
+      "Solution-Focused"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -745,7 +746,16 @@
       "Wed",
       "Thu",
       "Fri"
-    ]
+    ],
+    "notes": "UHC insurances billed through Trizetto only.",
+    "billingMethods": {
+      "aetna": "H",
+      "bcbs": "T",
+      "avmed": "T",
+      "optum": "T",
+      "oscar": "T",
+      "united": "T"
+    }
   },
   {
     "id": "victoria-wheeler",
@@ -841,7 +851,8 @@
     "language": "en",
     "location": "telehealth",
     "sessionTypes": [
-      "Individual"
+      "Individual",
+      "Coaching"
     ],
     "ageGroups": [
       "Young Adults (18-25)",
@@ -852,10 +863,10 @@
       "CBT",
       "EMDR",
       "Mindfulness-Based",
+      "Humanistic/Person-Centered",
       "Faith-Based (Christian)",
       "Narrative Therapy",
-      "Solution-Focused",
-      "Humanistic/Person-Centered"
+      "Solution-Focused"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -889,7 +900,9 @@
       "Tue",
       "Wed",
       "Thu"
-    ]
+    ],
+    "notes": "",
+    "billingMethods": {}
   },
   {
     "id": "arleen-patin",
@@ -1036,91 +1049,5 @@
       "Thu",
       "Fri"
     ]
-  },
-  {
-    "id": "new-1776786389330",
-    "name": "Maggie Mynatt",
-    "credentials": "LMHC - Gottman",
-    "url": "https://www.lovediscovery.org/team/",
-    "level": "qualified",
-    "rate": "$150/hr",
-    "slidingScale": "",
-    "location": "both",
-    "language": "en",
-    "languages": [
-      "en"
-    ],
-    "insurance": [
-      "aetna",
-      "bcbs",
-      "avmed",
-      "optum",
-      "oscar",
-      "united",
-      "self"
-    ],
-    "billingMethods": {
-      "aetna": "H",
-      "bcbs": "T",
-      "avmed": "T",
-      "optum": "T",
-      "oscar": "T",
-      "united": "T"
-    },
-    "sessionTypes": [
-      "Individual",
-      "Couples",
-      "Adolescents/Teens",
-      "Coaching"
-    ],
-    "ageGroups": [
-      "Teens (13-17)",
-      "Teens (16+)",
-      "Young Adults (18-25)",
-      "Adults",
-      "Seniors"
-    ],
-    "approaches": [
-      "CBT",
-      "EMDR",
-      "Psychodynamic",
-      "Gottman Method",
-      "Mindfulness-Based",
-      "Humanistic/Person-Centered",
-      "Somatic/Body-Based",
-      "Narrative Therapy",
-      "Solution-Focused"
-    ],
-    "areasOfFocus": [
-      "Anxiety",
-      "Depression",
-      "Trauma/PTSD",
-      "Grief & Loss",
-      "Relationship Issues",
-      "Couples Therapy",
-      "Intimacy",
-      "Self-Esteem",
-      "Life Transitions",
-      "Behavioral Issues",
-      "Family Conflict",
-      "Women's Issues",
-      "Stress Management",
-      "Communication",
-      "LGBTQ+",
-      "Parenting",
-      "Trust Issues",
-      "Sexual Concerns",
-      "Emotional Regulation",
-      "ADHD"
-    ],
-    "notes": "",
-    "days": [
-      "Mon",
-      "Tue",
-      "Wed",
-      "Thu"
-    ],
-    "serviceTypes": [],
-    "pqEmail": ""
   }
 ]
