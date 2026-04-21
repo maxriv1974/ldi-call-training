@@ -768,6 +768,7 @@
       "avmed",
       "optum",
       "oscar",
+      "united",
       "self"
     ],
     "rate": "$150/hr",
@@ -786,11 +787,11 @@
       "CBT",
       "Gottman Method",
       "Mindfulness-Based",
+      "Humanistic/Person-Centered",
       "Somatic/Body-Based",
       "DBT",
       "Narrative Therapy",
-      "Solution-Focused",
-      "Humanistic/Person-Centered"
+      "Solution-Focused"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -830,7 +831,16 @@
       "Wed",
       "Thu",
       "Fri"
-    ]
+    ],
+    "notes": "",
+    "billingMethods": {
+      "aetna": "H",
+      "bcbs": "T",
+      "avmed": "H",
+      "optum": "H",
+      "oscar": "H",
+      "united": "H"
+    }
   },
   {
     "id": "katherine-de-leon",
