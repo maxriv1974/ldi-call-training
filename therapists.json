@@ -601,7 +601,7 @@
     ],
     "rate": "$150/hr",
     "language": "es",
-    "location": "telehealth",
+    "location": "both",
     "sessionTypes": [
       "Individual",
       "Children",
@@ -619,11 +619,11 @@
       "CBT",
       "EMDR",
       "Mindfulness-Based",
-      "Humanistic/Person-Centered",
       "Somatic/Body-Based",
       "Play Therapy",
       "Narrative Therapy",
-      "Solution-Focused"
+      "Solution-Focused",
+      "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
       "Anxiety",
