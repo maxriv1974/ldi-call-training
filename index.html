@@ -4,6 +4,26 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <title>LDI Call Training — Interactive Guide</title>
+<script>
+// Auto-update: check for new version every 2 minutes and reload if found
+var _PAGE_BUILT = "2026-04-21T15:47:28Z";
+(function() {
+  function checkVersion() {
+    fetch('https://raw.githubusercontent.com/maxriv1974/ldi-call-training/main/version.json?t=' + Date.now(), {cache:'no-store'})
+      .then(function(r){ return r.json(); })
+      .then(function(v){
+        if (v && v.built && v.built !== _PAGE_BUILT) {
+          console.log('[LDI] New version detected, reloading...');
+          location.reload(true);
+        }
+      }).catch(function(){});
+  }
+  // First check after 30s (catches users who have old cached page open),
+  // then every 2 minutes after that
+  setTimeout(checkVersion, 30000);
+  setInterval(checkVersion, 120000);
+})();
+</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f4f8;color:#1a2332;min-height:100vh}
