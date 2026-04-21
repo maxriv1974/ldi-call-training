@@ -704,9 +704,9 @@
       "CBT",
       "Psychodynamic",
       "Mindfulness-Based",
+      "Humanistic/Person-Centered",
       "Narrative Therapy",
-      "Solution-Focused",
-      "Humanistic/Person-Centered"
+      "Solution-Focused"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -745,7 +745,16 @@
       "Wed",
       "Thu",
       "Fri"
-    ]
+    ],
+    "notes": "UHC insurances billed through TZ ONLY.",
+    "billingMethods": {
+      "aetna": "H",
+      "bcbs": "T",
+      "avmed": "T",
+      "optum": "T",
+      "oscar": "T",
+      "united": "T"
+    }
   },
   {
     "id": "victoria-wheeler",
