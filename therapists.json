@@ -894,7 +894,7 @@
   {
     "id": "arleen-patin",
     "name": "Arleen Patin",
-    "credentials": "Licensed",
+    "credentials": "LMHC",
     "url": "https://www.lovediscovery.org/team/arleen-patin",
     "level": "qualified",
     "insurance": [
@@ -902,29 +902,40 @@
       "bcbs",
       "avmed",
       "optum",
-      "oscar",
-      "self"
+      "oscar"
     ],
-    "rate": "$175",
+    "rate": "$175/hr",
     "language": "es",
     "location": "both",
     "sessionTypes": [
       "Individual"
     ],
     "ageGroups": [
-      "Adults"
+      "Adults",
+      "Seniors"
     ],
     "approaches": [
       "CBT",
+      "EMDR",
+      "Mindfulness-Based",
       "Somatic/Body-Based",
+      "Narrative Therapy",
+      "Solution-Focused",
       "Humanistic/Person-Centered"
     ],
     "areasOfFocus": [
-      "Trauma/PTSD",
       "Anxiety",
       "Depression",
+      "Trauma/PTSD",
       "Grief & Loss",
+      "Relationship Issues",
+      "Intimacy",
+      "Self-Esteem",
       "Life Transitions",
+      "Women's Issues",
+      "Stress Management",
+      "Anger Management",
+      "Communication",
       "LGBTQ+",
       "Trust Issues",
       "Sexual Concerns",
@@ -940,6 +951,12 @@
     "languages": [
       "en",
       "es"
+    ],
+    "days": [
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri"
     ]
   },
   {
