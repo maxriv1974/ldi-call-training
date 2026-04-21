@@ -1,5 +1,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>LDI Call Training — Interactive Guide</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -366,6 +369,14 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 .drawer-actions button{flex:1;padding:9px;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:.85rem}
 .btn-drawer-save{background:#6c63ff;color:#fff}
 .btn-drawer-cancel{background:#e2e8f0;color:#475569}
+.del-opt-btn{background:none;border:none;color:#94a3b8;cursor:pointer;font-size:.85rem;padding:0 0 0 2px;line-height:1;flex-shrink:0;vertical-align:middle}
+.del-opt-btn:hover{color:#ef4444}
+.ins-billing-sel{font-size:.68rem;border:1px solid #cbd5e1;border-radius:6px;padding:1px 3px;background:#fff;color:#374151;cursor:pointer;margin-left:4px;outline:none;vertical-align:middle}
+.billing-badge{font-size:.6rem;font-weight:700;padding:1px 4px;border-radius:3px;margin-left:2px;vertical-align:middle;display:inline-block}
+.billing-T{background:#dbeafe;color:#1e40af}
+.billing-H{background:#dcfce7;color:#166534}
+.drawer-field textarea{width:100%;padding:7px 10px;border:1px solid #cbd5e1;border-radius:8px;font-size:.85rem;min-height:60px;resize:vertical;font-family:inherit}
+.notes-display{font-size:.68rem;color:#dc2626;font-weight:700;margin-top:3px;line-height:1.4}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
 <script>document.addEventListener("DOMContentLoaded",function(){if(window.mermaid){mermaid.initialize({startOnLoad:false});}});</script>
@@ -1635,6 +1646,7 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 
   <div class="edit-mode-toolbar">
     <button class="edit-roster-btn" id="editRosterBtn" onclick="toggleEditMode()" title="Edit therapist data">&#9998; Edit Roster</button>
+    <button class="edit-roster-btn" id="addClinicianBtn" onclick="addNewClinician()" title="Add a new clinician" style="display:none">&#43; Add Clinician</button>
     <div class="save-edits-bar" id="saveEditsBar">
       <span id="pendingCount">0 unsaved changes</span>
       <button class="btn-save" onclick="saveAllEdits()">&#10003; Publish Changes</button>
@@ -2024,11 +2036,11 @@ document.addEventListener('DOMContentLoaded', function() {
   window._pendingEdits = {};
   var DAY_OPTS = ['Mon','Tue','Wed','Thu','Fri','Sat'];
   var LANG_OPTS = {'en':'English','es':'Spanish','pt':'Portuguese','fr':'French','ht':'Haitian Creole'};
-  var INS_OPTS = ['aetna','bcbs','avmed','optum','oscar','united','cigna','self'];
-  var INS_LABELS = {aetna:'Aetna',bcbs:'BCBS',avmed:'AvMed',optum:'Optum',oscar:'Oscar',united:'United',cigna:'Cigna','self':'Self-Pay'};
+  var INS_OPTS = ['aetna','bcbs','avmed','optum','oscar','united','self'];
+  var INS_LABELS = {aetna:'Aetna',bcbs:'BCBS',avmed:'AvMed',optum:'Optum',oscar:'Oscar',united:'United','self':'Self-Pay'};
   var SESS_OPTS = ['Individual','Couples','Children','Adolescents/Teens','Family','Group','Coaching'];
   var AGE_OPTS = ['Children (under 12)','Teens (13-17)','Teens (16+)','Young Adults (18-25)','Adults','Seniors'];
-  var APPROACH_OPTS = ['CBT','EMDR','Psychodynamic','Gottman Method','Mindfulness-Based','Somatic/Body-Based','Play Therapy','DBT','ACT','Hypnotherapy','Faith-Based (Christian)','Narrative Therapy','Solution-Focused'];
+  var APPROACH_OPTS = ['CBT','EMDR','Psychodynamic','Gottman Method','Mindfulness-Based','Humanistic/Person-Centered','Somatic/Body-Based','Play Therapy','DBT','ACT','Hypnotherapy','Faith-Based (Christian)','Narrative Therapy','Solution-Focused'];
   var FOCUS_OPTS = ['Anxiety','Depression','Trauma/PTSD','Grief & Loss','Relationship Issues','Couples Therapy','Intimacy','Self-Esteem','Life Transitions','Behavioral Issues','Family Conflict',"Women's Issues",'Stress Management','Anger Management','Faith & Spirituality','Communication','LGBTQ+','Parenting','Trust Issues','Sexual Concerns','Substance Use','Eating Concerns','Sleep Issues','Emotional Regulation','ADHD'];
 
   window.addCustomOpt = function(btn) {
@@ -2039,28 +2051,87 @@ document.addEventListener('DOMContentLoaded', function() {
     var sampleCb = grid.querySelector('input[type="checkbox"]');
     var field = sampleCb ? sampleCb.getAttribute('data-field') : 'custom';
     var lbl = document.createElement('label');
-    lbl.innerHTML = '<input type="checkbox" data-field="'+field+'" value="'+val.replace(/"/g,'&quot;')+'" checked> '+val;
+    lbl.innerHTML = '<input type="checkbox" data-field="'+field+'" value="'+val.replace(/"/g,'&quot;')+'" checked> '+val+' <button type="button" class="del-opt-btn" onclick="deleteCheckOpt(this)" title="Remove">\u00d7</button>';
     grid.insertBefore(lbl, btn.closest('.add-opt-row'));
     input.value = '';
   };
 
+  window.deleteCheckOpt = function(btn) { btn.closest('label').remove(); };
+
+  window.checksIns = function(selected, billing) {
+    var sel = selected || [];
+    var bm = billing || {};
+    var customs = sel.filter(function(v){ return INS_OPTS.indexOf(v) < 0; });
+    var allOpts = INS_OPTS.concat(customs);
+    function insLabel(o) { return INS_LABELS[o] || (o.charAt(0).toUpperCase()+o.slice(1)); }
+    function billingSelHtml(o) {
+      var bVal = bm[o] || '';
+      return '<select class="ins-billing-sel" data-ins-billing="'+o+'" title="Billing: T=Trizetto H=Headway">'+
+        '<option value="">\u2014</option>'+
+        '<option value="T"'+(bVal==='T'?' selected':'')+'>T</option>'+
+        '<option value="H"'+(bVal==='H'?' selected':'')+'>H</option>'+
+        '</select>';
+    }
+    var rows = allOpts.map(function(o) {
+      var chk = sel.indexOf(o) >= 0 ? 'checked' : '';
+      var isCustom = INS_OPTS.indexOf(o) < 0;
+      var delBtn = isCustom ? '<button type="button" class="del-opt-btn" onclick="deleteInsOpt(this)" title="Remove">&#x2715;</button>' : '';
+      return '<label><input type="checkbox" data-field="ins" value="'+o+'" '+chk+'> '+insLabel(o)+billingSelHtml(o)+delBtn+'</label>';
+    }).join('');
+    return rows + '<div class="add-opt-row"><input type="text" class="add-opt-input" placeholder="Add insurance..."><button type="button" class="add-opt-btn" onclick="addInsOpt(this)">+</button></div>';
+  };
+  window.addInsOpt = function(btn) {
+    var input = btn.previousElementSibling;
+    var val = input.value.trim().toLowerCase().replace(/\s+/g,'-');
+    if (!val) return;
+    var existing = document.querySelectorAll('[data-field="ins"]');
+    for (var i=0;i<existing.length;i++){if(existing[i].value===val){input.value='';return;}}
+    var grid = btn.closest('.drawer-check-grid');
+    var addRow = btn.closest('.add-opt-row');
+    var label = document.createElement('label');
+    var displayName = val.charAt(0).toUpperCase()+val.slice(1).replace(/-/g,' ');
+    label.innerHTML = '<input type="checkbox" data-field="ins" value="'+val+'" checked> '+displayName+
+      '<select class="ins-billing-sel" data-ins-billing="'+val+'"><option value="">\u2014</option><option value="T">T</option><option value="H">H</option></select>'+
+      '<button type="button" class="del-opt-btn" onclick="deleteInsOpt(this)" title="Remove">&#x2715;</button>';
+    grid.insertBefore(label, addRow);
+    input.value = '';
+  };
+  window.deleteInsOpt = function(btn) { btn.closest('label').remove(); };
+
   window.toggleEditMode = function() {
+    var addBtn = document.getElementById('addClinicianBtn');
     if (window.EDIT_MODE) {
       window.EDIT_MODE = false; window._editPw = '';
       var btn = document.getElementById('editRosterBtn');
       if (btn) { btn.classList.remove('active'); btn.textContent = String.fromCharCode(9998)+' Edit Roster'; }
-if (window._pgEditActive) discardPageContentEdit();
+      if (addBtn) addBtn.style.display = 'none';
+      if (window._pgEditActive) discardPageContentEdit();
       if (typeof window.rebuildTable === 'function') window.rebuildTable();
     } else {
       window._editPw='LDIadmin2025';window.EDIT_MODE=true;
       var btn = document.getElementById('editRosterBtn');
       if (btn) { btn.classList.add('active'); btn.textContent = String.fromCharCode(9998)+' Editing (click to exit)'; }
+      if (addBtn) addBtn.style.display = '';
       var activePg = document.querySelector('.page.active');
       var pgSec = document.getElementById('pageEditSection');
       if (pgSec && activePg && activePg.id !== 'page-therapists') pgSec.style.display = 'flex';
       if (typeof window.rebuildTable === 'function') window.rebuildTable();
       
     }
+  };
+
+  window.addNewClinician = function() {
+    var id = 'new-' + Date.now();
+    var blank = {id:id,name:'New Clinician',credentials:'',url:'https://www.lovediscovery.org/team/',level:'qualified',rate:'',slidingScale:'',location:'telehealth',language:'en',languages:['en'],insurance:[],billingMethods:{},sessionTypes:[],ageGroups:[],approaches:[],areasOfFocus:[],notes:'',days:[],serviceTypes:[],pqEmail:''};
+    if (!window.THERAPIST_DATA) window.THERAPIST_DATA = [];
+    window.THERAPIST_DATA.push(blank);
+    if (!window._pendingEdits) window._pendingEdits = {};
+    window._pendingEdits[id] = blank;
+    if (typeof window.rebuildTable === 'function') window.rebuildTable();
+    setTimeout(function(){ window.openEditor(id); }, 80);
+    var bar = document.getElementById('saveEditsBar'), cnt = document.getElementById('pendingCount');
+    if (bar) bar.classList.add('visible');
+    if (cnt) cnt.textContent = Object.keys(window._pendingEdits).length+' unsaved change(s)';
   };
 
   window.openEditor = function(id) {
@@ -2105,7 +2176,8 @@ if (window._pgEditActive) discardPageContentEdit();
       '<div class="drawer-section-title">Working Days</div><div class="drawer-check-grid">'+checks(DAY_OPTS,t.days||[],'days')+'</div>'+
       '<div class="drawer-section-title">Languages</div><div class="drawer-check-grid">'+checksLang(t.languages||(t.language==='es'?['en','es']:['en']))+'</div>'+
       '<div class="drawer-field"><label>Location</label>'+sel('d_loc',t.location,[['telehealth','Telehealth'],['in-person','In-Person'],['both','In-Person & Telehealth']])+'</div>'+
-      '<div class="drawer-section-title">Insurance</div><div class="drawer-check-grid">'+checks(INS_OPTS,t.insurance,'ins')+'</div>'+
+      '<div class="drawer-field"><label>Special Notes</label><textarea id="d_notes" placeholder="Internal notes about this clinician...">'+(t.notes||'')+'</textarea></div>'+
+      '<div class="drawer-section-title">Insurance &amp; Billing <span style="font-size:.65rem;color:#94a3b8;font-weight:400;text-transform:none;letter-spacing:0">(T = Trizetto &nbsp; H = Headway)</span></div><div class="drawer-check-grid">'+checksIns(t.insurance,t.billingMethods)+'</div>'+
       '<div class="drawer-section-title">Session Types</div><div class="drawer-check-grid">'+checks(SESS_OPTS,t.sessionTypes,'sess')+'</div>'+
       '<div class="drawer-section-title">Age Groups</div><div class="drawer-check-grid">'+checks(AGE_OPTS,t.ageGroups,'age')+'</div>'+
       '<div class="drawer-section-title">Therapeutic Approaches</div><div class="drawer-check-grid">'+checks(APPROACH_OPTS,t.approaches,'approach')+'</div>'+
@@ -2135,7 +2207,15 @@ if (window._pgEditActive) discardPageContentEdit();
       sessionTypes: getChecked('sess'),
       ageGroups: getChecked('age'),
       approaches: getChecked('approach'),
-      areasOfFocus: getChecked('focus')
+      areasOfFocus: getChecked('focus'),
+      notes: (document.getElementById('d_notes')||{value:''}).value.trim(),
+      billingMethods: (function(){
+        var bm = {};
+        document.querySelectorAll('select[data-ins-billing]').forEach(function(el){
+          if (el.value) bm[el.getAttribute('data-ins-billing')] = el.value;
+        });
+        return bm;
+      })()
     });
     window._pendingEdits[id] = t;
     var idx = (window.THERAPIST_DATA||[]).findIndex(function(x){return x.id===id;});
@@ -2186,8 +2266,8 @@ if (window._pgEditActive) discardPageContentEdit();
 </script>
 <script>
 (function loadTherapistTable() {
-  var INS_LABELS = {aetna:'Aetna',bcbs:'BCBS',avmed:'AvMed',optum:'Optum',oscar:'Oscar',united:'United',cigna:'Cigna','self':'Self-Pay'};
-  var INS_BADGE  = {aetna:'badge-aetna',bcbs:'badge-bcbs',avmed:'badge-avmed',optum:'badge-optum',oscar:'badge-oscar',united:'badge-united',cigna:'badge-cigna','self':'badge-self'};
+  var INS_LABELS = {aetna:'Aetna',bcbs:'BCBS',avmed:'AvMed',optum:'Optum',oscar:'Oscar',united:'United','self':'Self-Pay'};
+  var INS_BADGE  = {aetna:'badge-aetna',bcbs:'badge-bcbs',avmed:'badge-avmed',optum:'badge-optum',oscar:'badge-oscar',united:'badge-united','self':'badge-self'};
   function sessionTag(s) { return '<span class="spec-tag tag-sess">' + s + '</span>'; }
   function approachTag(s) { return '<span class="spec-tag tag-approach">' + s + '</span>'; }
   function focusTag(s) {
@@ -2212,7 +2292,9 @@ if (window._pgEditActive) discardPageContentEdit();
       ? '<span class="badge badge-exp">Expert</span>'
       : '<span class="badge badge-qual">Qualified</span>';
     var insPills = t.insurance.map(function(i) {
-      return '<span class="badge ' + (INS_BADGE[i]||'badge-self') + '">' + (INS_LABELS[i]||i) + '</span>';
+      var bm = t.billingMethods && t.billingMethods[i];
+      var bmTag = bm ? '<span class="billing-badge billing-'+bm+'">'+bm+'</span>' : '';
+      return '<span class="badge ' + (INS_BADGE[i]||'badge-self') + '">' + (INS_LABELS[i]||i) + bmTag + '</span>';
     }).join('');
     var langs = t.languages || [t.language||'en'];
     var langBadge = langs.length > 1 || langs.indexOf('es') >= 0
@@ -2243,7 +2325,8 @@ if (window._pgEditActive) discardPageContentEdit();
       '" data-sessions="' + sessData + '" data-approaches="' + approachData +
       '" data-focus="' + focusData + '" data-id="' + pid + '" data-pq-email="' + (t.pqEmail||'') + '" data-service-types="' + getSvcFilterTypes(t) + '">' +
       '<td class="th-name"><a href="' + t.url + '" target="_blank">' + t.name +
-        '</a>' + (t.pqEmail ? getAvailBadge(t.pqEmail) : '') + '<br><small>' + t.credentials + '</small>' +
+        '</a><br><small>' + t.credentials + '</small>' +
+        (t.notes ? '<div class="notes-display">' + t.notes + '</div>' : '') +
         '<div class="day-badges" data-email="' + (t.pqEmail||'') + '"></div></td>' +
       '<td>' + levelBadge + '</td>' +
       '<td><div class="ins-pills">' + insPills + '</div></td>' +
@@ -2274,7 +2357,7 @@ if (window._pgEditActive) discardPageContentEdit();
     if (updated) updated.classList.add('row-modified');
     if (typeof loadPriorities === 'function') loadPriorities();
   };
-  fetch('/therapists.json?t=' + Date.now())
+  fetch('https://raw.githubusercontent.com/maxriv1974/ldi-call-training/main/therapists.json?t=' + Date.now())
     .then(function(r) { return r.json(); })
     .then(function(data) {
       window.THERAPIST_DATA = data;

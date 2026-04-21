@@ -1,1 +1,32 @@
-{"version":2,"rewrites":[{"source":"/admin","destination":"/admin.html"}]}
+{
+  "version": 2,
+  "rewrites": [
+    {"source": "/admin", "destination": "/admin.html"}
+  ],
+  "headers": [
+    {
+      "source": "/",
+      "headers": [
+        {"key": "Cache-Control", "value": "no-cache, no-store, must-revalidate"},
+        {"key": "Pragma", "value": "no-cache"},
+        {"key": "Expires", "value": "0"}
+      ]
+    },
+    {
+      "source": "/index.html",
+      "headers": [
+        {"key": "Cache-Control", "value": "no-cache, no-store, must-revalidate"},
+        {"key": "Pragma", "value": "no-cache"},
+        {"key": "Expires", "value": "0"}
+      ]
+    },
+    {
+      "source": "/admin.html",
+      "headers": [
+        {"key": "Cache-Control", "value": "no-cache, no-store, must-revalidate"},
+        {"key": "Pragma", "value": "no-cache"},
+        {"key": "Expires", "value": "0"}
+      ]
+    }
+  ]
+}
