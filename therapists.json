@@ -932,7 +932,8 @@
       "bcbs",
       "avmed",
       "optum",
-      "oscar"
+      "oscar",
+      "united"
     ],
     "rate": "$175/hr",
     "language": "es",
@@ -948,10 +949,10 @@
       "CBT",
       "EMDR",
       "Mindfulness-Based",
+      "Humanistic/Person-Centered",
       "Somatic/Body-Based",
       "Narrative Therapy",
-      "Solution-Focused",
-      "Humanistic/Person-Centered"
+      "Solution-Focused"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -987,7 +988,16 @@
       "Wed",
       "Thu",
       "Fri"
-    ]
+    ],
+    "notes": "",
+    "billingMethods": {
+      "aetna": "H",
+      "bcbs": "T",
+      "avmed": "H",
+      "optum": "H",
+      "oscar": "H",
+      "united": "H"
+    }
   },
   {
     "id": "jillian",
