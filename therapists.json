@@ -8,7 +8,7 @@
     "insurance": [
       "self"
     ],
-    "rate": "$400",
+    "rate": "$400/hr",
     "language": "en",
     "location": "telehealth",
     "sessionTypes": [
@@ -26,12 +26,12 @@
       "Psychodynamic",
       "Gottman Method",
       "Mindfulness-Based",
+      "Humanistic/Person-Centered",
       "Somatic/Body-Based",
       "Narrative Therapy",
       "Solution-Focused",
       "Integration Therapy",
-      "Existencial",
-      "Humanistic/Person-Centered"
+      "Existencial"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -70,7 +70,7 @@
       "Wed",
       "Thu"
     ],
-    "notes": "Additional possible M-F.",
+    "notes": "Additional possible M-F.\n\nCURRENTLY ONLY TAKING SELF-PAY.",
     "billingMethods": {}
   },
   {
@@ -83,7 +83,7 @@
       "aetna",
       "self"
     ],
-    "rate": "$400",
+    "rate": "$400/hr",
     "language": "en",
     "location": "telehealth",
     "sessionTypes": [
@@ -101,14 +101,14 @@
       "CBT",
       "Psychodynamic",
       "Gottman Method",
+      "Humanistic/Person-Centered",
       "DBT",
       "ACT",
       "Narrative Therapy",
       "Solution-Focused",
       "Psychological Testing",
       "Existencial",
-      "Integration Therapy",
-      "Humanistic/Person-Centered"
+      "Integration Therapy"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -159,7 +159,7 @@
     "insurance": [
       "self"
     ],
-    "rate": "$200",
+    "rate": "$200/hr",
     "language": "es",
     "location": "both",
     "sessionTypes": [
@@ -174,9 +174,9 @@
       "CBT",
       "Psychodynamic",
       "Gottman Method",
+      "Humanistic/Person-Centered",
       "Narrative Therapy",
-      "Solution-Focused",
-      "Humanistic/Person-Centered"
+      "Solution-Focused"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -190,7 +190,9 @@
       "Anger Management",
       "Communication",
       "LGBTQ+",
-      "Sexual Concerns"
+      "Trust Issues",
+      "Sexual Concerns",
+      "Emotional Regulation"
     ],
     "slidingScale": "",
     "pqEmail": "clemencia@lovediscovery.org",
@@ -207,44 +209,57 @@
       "Tue",
       "Wed",
       "Thu"
-    ]
+    ],
+    "notes": "Only couples, not individuals.",
+    "billingMethods": {}
   },
   {
     "id": "fabiola-viviano",
     "name": "Fabiola Viviano",
-    "credentials": "Licensed",
+    "credentials": "LMFT - Gottman",
     "url": "https://www.lovediscovery.org/team/fabiola-viviano",
     "level": "expert",
     "insurance": [
       "self"
     ],
-    "rate": "Sliding from $150",
+    "rate": "$200/hr",
     "language": "es",
     "location": "both",
     "sessionTypes": [
       "Individual",
-      "Couples",
-      "Adolescents/Teens"
+      "Couples"
     ],
     "ageGroups": [
-      "Teens (13-17)",
       "Young Adults (18-25)",
       "Adults"
     ],
     "approaches": [
       "CBT",
+      "Gottman Method",
       "Mindfulness-Based",
-      "Humanistic/Person-Centered"
+      "Humanistic/Person-Centered",
+      "Narrative Therapy",
+      "Solution-Focused"
     ],
     "areasOfFocus": [
       "Anxiety",
       "Depression",
+      "Trauma/PTSD",
+      "Grief & Loss",
       "Relationship Issues",
-      "Life Transitions",
+      "Couples Therapy",
+      "Intimacy",
       "Self-Esteem",
+      "Life Transitions",
+      "Family Conflict",
+      "Women's Issues",
+      "Stress Management",
+      "Anger Management",
+      "Communication",
       "LGBTQ+",
       "Parenting",
       "Trust Issues",
+      "Sexual Concerns",
       "Substance Use",
       "Eating Concerns",
       "Sleep Issues",
@@ -260,7 +275,14 @@
     "languages": [
       "en",
       "es"
-    ]
+    ],
+    "days": [
+      "Mon",
+      "Wed",
+      "Thu"
+    ],
+    "notes": "Flexible additional availability.",
+    "billingMethods": {}
   },
   {
     "id": "nanette-comerio",
@@ -277,7 +299,7 @@
       "united",
       "self"
     ],
-    "rate": "$200",
+    "rate": "$200/hr",
     "language": "en",
     "location": "both",
     "sessionTypes": [
@@ -347,37 +369,28 @@
   {
     "id": "bacheline-joseph",
     "name": "Dr. Bacheline Joseph",
-    "credentials": "Licensed · PhD",
+    "credentials": "MD - Psychiatrist",
     "url": "https://www.lovediscovery.org/team/dr.-bacheline-joseph",
-    "level": "qualified",
+    "level": "expert",
     "insurance": [
       "aetna",
       "self"
     ],
-    "rate": "1st: $400 / ongoing: $250",
+    "rate": "1st: $400/hr / ongoing: $250 30 min. - $400 50 min.",
     "language": "en",
     "location": "telehealth",
     "sessionTypes": [
-      "Individual"
+      "Individual",
+      "Adolescents/Teens"
     ],
     "ageGroups": [
-      "Adults"
+      "Teens (16+)",
+      "Young Adults (18-25)",
+      "Adults",
+      "Seniors"
     ],
-    "approaches": [
-      "Psychodynamic",
-      "CBT",
-      "Humanistic/Person-Centered"
-    ],
-    "areasOfFocus": [
-      "Anxiety",
-      "Depression",
-      "Life Transitions",
-      "Self-Esteem",
-      "LGBTQ+",
-      "Substance Use",
-      "Sleep Issues",
-      "ADHD"
-    ],
+    "approaches": [],
+    "areasOfFocus": [],
     "slidingScale": "",
     "pqEmail": "bacheline@lovediscovery.org",
     "serviceTypes": [
@@ -385,12 +398,23 @@
     ],
     "languages": [
       "en"
-    ]
+    ],
+    "days": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri"
+    ],
+    "notes": "Text her (GHL) after scheduling to confirm.",
+    "billingMethods": {
+      "aetna": "T"
+    }
   },
   {
     "id": "beatriz-delgado",
     "name": "Beatriz Delgado",
-    "credentials": "Licensed · LCSW",
+    "credentials": "LCSW - Gottman",
     "url": "https://www.lovediscovery.org/team/beatriz-delgado",
     "level": "expert",
     "insurance": [
@@ -399,47 +423,64 @@
       "avmed",
       "optum",
       "oscar",
+      "united",
       "self"
     ],
-    "rate": "$200",
+    "rate": "$200/hr",
     "language": "es",
     "location": "both",
     "sessionTypes": [
       "Individual",
-      "Adolescents/Teens"
+      "Couples",
+      "Children",
+      "Adolescents/Teens",
+      "Family"
     ],
     "ageGroups": [
       "Children (under 12)",
       "Teens (13-17)",
       "Teens (16+)",
-      "Adults"
+      "Young Adults (18-25)",
+      "Adults",
+      "Seniors"
     ],
     "approaches": [
       "CBT",
-      "EMDR",
+      "Gottman Method",
+      "Mindfulness-Based",
+      "Humanistic/Person-Centered",
       "Play Therapy",
       "DBT",
       "ACT",
       "Hypnotherapy",
       "Narrative Therapy",
-      "Solution-Focused",
-      "Humanistic/Person-Centered"
+      "Solution-Focused"
     ],
     "areasOfFocus": [
       "Anxiety",
       "Depression",
       "Trauma/PTSD",
+      "Grief & Loss",
       "Relationship Issues",
       "Couples Therapy",
+      "Intimacy",
       "Self-Esteem",
       "Life Transitions",
       "Behavioral Issues",
+      "Family Conflict",
+      "Women's Issues",
+      "Stress Management",
+      "Anger Management",
+      "Communication",
       "LGBTQ+",
       "Parenting",
+      "Trust Issues",
+      "Sexual Concerns",
       "Substance Use",
       "Eating Concerns",
       "Sleep Issues",
-      "Emotional Regulation"
+      "Emotional Regulation",
+      "ADHD"
     ],
     "slidingScale": "",
     "pqEmail": "beatriz@lovediscovery.org",
@@ -457,44 +498,71 @@
       "Wed",
       "Thu",
       "Fri"
-    ]
+    ],
+    "notes": "Offers 2hr Hypnosis - specialty service (SELF-PAY ONLY)",
+    "billingMethods": {
+      "aetna": "H",
+      "bcbs": "T",
+      "avmed": "H",
+      "optum": "H",
+      "oscar": "H",
+      "united": "H"
+    }
   },
   {
     "id": "tiffany-markovitz",
     "name": "Tiffany Markovitz",
-    "credentials": "Licensed",
+    "credentials": "Mental Health Registered Intern",
     "url": "https://www.lovediscovery.org/team/tiffany-markovitz",
     "level": "qualified",
     "insurance": [
       "aetna",
       "bcbs",
-      "avmed",
-      "optum",
-      "oscar",
       "self"
     ],
-    "rate": "Sliding from $125",
+    "rate": "$150/hr",
     "language": "en",
     "location": "telehealth",
     "sessionTypes": [
-      "Individual"
+      "Individual",
+      "Adolescents/Teens"
     ],
     "ageGroups": [
-      "Adults"
+      "Teens (13-17)",
+      "Teens (16+)",
+      "Young Adults (18-25)",
+      "Adults",
+      "Seniors"
     ],
     "approaches": [
-      "EMDR",
       "CBT",
+      "EMDR",
       "Mindfulness-Based",
-      "Humanistic/Person-Centered"
+      "Humanistic/Person-Centered",
+      "Narrative Therapy",
+      "Solution-Focused"
     ],
     "areasOfFocus": [
-      "Trauma/PTSD",
       "Anxiety",
       "Depression",
+      "Trauma/PTSD",
       "Grief & Loss",
+      "Relationship Issues",
+      "Intimacy",
+      "Self-Esteem",
+      "Life Transitions",
+      "Behavioral Issues",
+      "Women's Issues",
+      "Stress Management",
+      "Anger Management",
+      "Communication",
+      "Trust Issues",
+      "Sexual Concerns",
       "Substance Use",
-      "Sleep Issues"
+      "Eating Concerns",
+      "Sleep Issues",
+      "Emotional Regulation",
+      "ADHD"
     ],
     "slidingScale": "",
     "pqEmail": "tiffany@lovediscovery.org",
@@ -504,12 +572,22 @@
     ],
     "languages": [
       "en"
-    ]
+    ],
+    "days": [
+      "Tue",
+      "Wed",
+      "Thu"
+    ],
+    "notes": "",
+    "billingMethods": {
+      "aetna": "T",
+      "bcbs": "T"
+    }
   },
   {
     "id": "anaiz-rodriguez",
     "name": "Anaiz Rodriguez",
-    "credentials": "Licensed",
+    "credentials": "LMHC",
     "url": "https://www.lovediscovery.org/team/anaiz-rodriguez",
     "level": "qualified",
     "insurance": [
@@ -518,34 +596,51 @@
       "avmed",
       "optum",
       "oscar",
+      "united",
       "self"
     ],
-    "rate": "$150",
+    "rate": "$150/hr",
     "language": "es",
     "location": "telehealth",
     "sessionTypes": [
       "Individual",
       "Children",
-      "Adolescents/Teens"
+      "Adolescents/Teens",
+      "Family"
     ],
     "ageGroups": [
       "Children (under 12)",
       "Teens (13-17)",
+      "Teens (16+)",
+      "Young Adults (18-25)",
       "Adults"
     ],
     "approaches": [
       "CBT",
+      "EMDR",
+      "Mindfulness-Based",
+      "Humanistic/Person-Centered",
+      "Somatic/Body-Based",
       "Play Therapy",
-      "Humanistic/Person-Centered"
+      "Narrative Therapy",
+      "Solution-Focused"
     ],
     "areasOfFocus": [
       "Anxiety",
       "Depression",
+      "Trauma/PTSD",
+      "Relationship Issues",
+      "Self-Esteem",
+      "Life Transitions",
       "Behavioral Issues",
       "Family Conflict",
-      "Life Transitions",
+      "Women's Issues",
+      "Stress Management",
+      "Anger Management",
+      "Communication",
       "LGBTQ+",
       "Parenting",
+      "Trust Issues",
       "Substance Use",
       "Eating Concerns",
       "Sleep Issues",
@@ -560,7 +655,23 @@
     "languages": [
       "en",
       "es"
-    ]
+    ],
+    "days": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri"
+    ],
+    "notes": "",
+    "billingMethods": {
+      "aetna": "H",
+      "bcbs": "T",
+      "avmed": "H",
+      "optum": "H",
+      "oscar": "H",
+      "united": "H"
+    }
   },
   {
     "id": "yamaris-bobe",
