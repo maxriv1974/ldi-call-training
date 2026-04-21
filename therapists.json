@@ -962,10 +962,10 @@
   {
     "id": "jillian",
     "name": "Jillian Munson",
-    "credentials": "",
+    "credentials": "LMHC",
     "level": "qualified",
     "location": "telehealth",
-    "rate": "$150",
+    "rate": "$150/hr",
     "slidingScale": "",
     "url": "https://www.lovediscovery.org/team/jillian-munson",
     "pqEmail": "jillian@lovediscovery.org",
@@ -993,6 +993,7 @@
     ],
     "approaches": [
       "CBT",
+      "EMDR",
       "Mindfulness-Based",
       "Somatic/Body-Based",
       "ACT",
@@ -1005,6 +1006,9 @@
       "Depression",
       "Trauma/PTSD",
       "Grief & Loss",
+      "Relationship Issues",
+      "Couples Therapy",
+      "Intimacy",
       "Self-Esteem",
       "Life Transitions",
       "Family Conflict",
@@ -1014,7 +1018,9 @@
       "Communication",
       "LGBTQ+",
       "Parenting",
+      "Trust Issues",
       "Sexual Concerns",
+      "Sleep Issues",
       "Emotional Regulation"
     ],
     "serviceTypes": [
