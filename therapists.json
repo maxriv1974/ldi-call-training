@@ -704,9 +704,9 @@
       "CBT",
       "Psychodynamic",
       "Mindfulness-Based",
+      "Humanistic/Person-Centered",
       "Narrative Therapy",
-      "Solution-Focused",
-      "Humanistic/Person-Centered"
+      "Solution-Focused"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -745,7 +745,16 @@
       "Wed",
       "Thu",
       "Fri"
-    ]
+    ],
+    "notes": "UHC insurances billed through TZ ONLY.",
+    "billingMethods": {
+      "aetna": "H",
+      "bcbs": "T",
+      "avmed": "T",
+      "optum": "T",
+      "oscar": "T",
+      "united": "T"
+    }
   },
   {
     "id": "victoria-wheeler",
@@ -759,6 +768,7 @@
       "avmed",
       "optum",
       "oscar",
+      "united",
       "self"
     ],
     "rate": "$150/hr",
@@ -777,11 +787,11 @@
       "CBT",
       "Gottman Method",
       "Mindfulness-Based",
+      "Humanistic/Person-Centered",
       "Somatic/Body-Based",
       "DBT",
       "Narrative Therapy",
-      "Solution-Focused",
-      "Humanistic/Person-Centered"
+      "Solution-Focused"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -821,7 +831,16 @@
       "Wed",
       "Thu",
       "Fri"
-    ]
+    ],
+    "notes": "",
+    "billingMethods": {
+      "aetna": "H",
+      "bcbs": "T",
+      "avmed": "H",
+      "optum": "H",
+      "oscar": "H",
+      "united": "H"
+    }
   },
   {
     "id": "katherine-de-leon",
@@ -835,6 +854,7 @@
       "avmed",
       "optum",
       "oscar",
+      "united",
       "self"
     ],
     "rate": "$150/hr",
@@ -892,7 +912,14 @@
       "Thu"
     ],
     "notes": "",
-    "billingMethods": {}
+    "billingMethods": {
+      "aetna": "H",
+      "bcbs": "T",
+      "avmed": "H",
+      "optum": "H",
+      "oscar": "H",
+      "united": "H"
+    }
   },
   {
     "id": "arleen-patin",
@@ -905,7 +932,8 @@
       "bcbs",
       "avmed",
       "optum",
-      "oscar"
+      "oscar",
+      "united"
     ],
     "rate": "$175/hr",
     "language": "es",
@@ -921,10 +949,10 @@
       "CBT",
       "EMDR",
       "Mindfulness-Based",
+      "Humanistic/Person-Centered",
       "Somatic/Body-Based",
       "Narrative Therapy",
-      "Solution-Focused",
-      "Humanistic/Person-Centered"
+      "Solution-Focused"
     ],
     "areasOfFocus": [
       "Anxiety",
@@ -960,7 +988,16 @@
       "Wed",
       "Thu",
       "Fri"
-    ]
+    ],
+    "notes": "",
+    "billingMethods": {
+      "aetna": "H",
+      "bcbs": "T",
+      "avmed": "H",
+      "optum": "H",
+      "oscar": "H",
+      "united": "H"
+    }
   },
   {
     "id": "jillian",
