@@ -6,10 +6,10 @@
 <title>LDI Call Training — Interactive Guide</title>
 <script>
 // Auto-update: check for new version every 2 minutes and reload if found
-var _PAGE_BUILT = "2026-04-21T15:47:28Z";
+var _PAGE_BUILT = "2026-04-21T16:09:25Z";
 (function() {
   function checkVersion() {
-    fetch('https://raw.githubusercontent.com/maxriv1974/ldi-call-training/main/version.json?t=' + Date.now(), {cache:'no-store'})
+    fetch('/version.json?t=' + Date.now(), {cache:'no-store'})
       .then(function(r){ return r.json(); })
       .then(function(v){
         if (v && v.built && v.built !== _PAGE_BUILT) {
