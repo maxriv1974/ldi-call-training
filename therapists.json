@@ -854,6 +854,7 @@
       "avmed",
       "optum",
       "oscar",
+      "united",
       "self"
     ],
     "rate": "$150/hr",
@@ -911,7 +912,14 @@
       "Thu"
     ],
     "notes": "",
-    "billingMethods": {}
+    "billingMethods": {
+      "aetna": "H",
+      "bcbs": "T",
+      "avmed": "H",
+      "optum": "H",
+      "oscar": "H",
+      "united": "H"
+    }
   },
   {
     "id": "arleen-patin",
