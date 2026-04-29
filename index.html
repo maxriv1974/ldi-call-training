@@ -6,7 +6,7 @@
 <title>LDI Call Training — Interactive Guide</title>
 <script>
 // Auto-update: check for new version every 2 minutes and reload if found
-var _PAGE_BUILT = "2026-04-21T16:58:04Z";
+var _PAGE_BUILT = "2026-04-29T11:46:09Z";
 (function() {
   function checkVersion() {
     fetch('/version.json?t=' + Date.now(), {cache:'no-store'})
@@ -2303,11 +2303,13 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   function getSvcFilterTypes(t) {
     var st = t.sessionTypes || [];
+    var svcT = t.serviceTypes || [];
     var s = [];
     if (st.indexOf('Individual') >= 0) s.push('individual');
     if (st.indexOf('Couples') >= 0) s.push('couples');
-    if (st.some(function(x){ return x==='Children'||x.indexOf('Adolescent')>=0||x.indexOf('Teen')>=0||x==='Family'; })) s.push('minors');
-    if ((t.serviceTypes||[]).indexOf('coaching') >= 0 || st.indexOf('Coaching') >= 0) s.push('coaching');
+    // Minors ONLY if explicitly set in serviceTypes — do not infer from sessionTypes
+    if (svcT.indexOf('minors') >= 0) s.push('minors');
+    if (svcT.indexOf('coaching') >= 0 || st.indexOf('Coaching') >= 0) s.push('coaching');
     return s.join(',');
   }
 
@@ -2364,10 +2366,16 @@ document.addEventListener('DOMContentLoaded', function() {
       '<td>' + allTags + '</td>' +
       priority + editBtn + '</tr>';
   }
+  function renderAllDayBadges() {
+    document.querySelectorAll('tr[data-pq-email]').forEach(function(row) {
+      renderDayBadges(row, row.getAttribute('data-pq-email'));
+    });
+  }
   window.rebuildTable = function() {
     var tbody = document.getElementById('therapist-tbody');
     if (!tbody) return;
     tbody.innerHTML = window.THERAPIST_DATA.map(buildRow).join('');
+    renderAllDayBadges();
     if (typeof loadPriorities === 'function') loadPriorities();
     if (typeof filterTherapists === 'function') filterTherapists();
     Object.keys(window._pendingEdits || {}).forEach(function(id) {
@@ -2382,7 +2390,10 @@ document.addEventListener('DOMContentLoaded', function() {
     tmp.innerHTML = buildRow(t);
     row.replaceWith(tmp.firstChild);
     var updated = document.querySelector('tr[data-id="' + id + '"]');
-    if (updated) updated.classList.add('row-modified');
+    if (updated) {
+      updated.classList.add('row-modified');
+      renderDayBadges(updated, updated.getAttribute('data-pq-email'));
+    }
     if (typeof loadPriorities === 'function') loadPriorities();
   };
   fetch('https://raw.githubusercontent.com/maxriv1974/ldi-call-training/main/therapists.json?t=' + Date.now())
@@ -2392,6 +2403,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var tbody = document.getElementById('therapist-tbody');
       if (!tbody) return;
       tbody.innerHTML = data.map(buildRow).join('');
+      renderAllDayBadges();
       if (typeof loadPriorities === 'function') loadPriorities();
       if (typeof filterTherapists === 'function') filterTherapists();
     })
@@ -2559,17 +2571,14 @@ async function savePageContent() {
   function renderDayBadges(row, email) {
     var container = row.querySelector('.day-badges');
     if (!container) return;
-    var ORDER = ['Mon','Tue','Wed','Thu','Fri','Sat'];
+    // Always use the configured days from therapists.json (data-days attribute)
+    // Never override with PracticeQ live session history — that data reflects
+    // when sessions happened, not what days the clinician is configured to work
     var storedDays = (row.getAttribute('data-days')||'').split(' ').filter(Boolean);
-    var d = window._availData && window._availData[(email||'').toLowerCase()];
-    var sourceDays = d ? ORDER.filter(function(day){
-      return (d.thisWorkDays||[]).concat(d.nextWorkDays||[]).indexOf(day) >= 0;
-    }) : storedDays;
-    if (sourceDays.length === 0 && storedDays.length > 0) sourceDays = storedDays;
-    var html = sourceDays.map(function(day){
+    var html = storedDays.map(function(day){
       return '<span class="day-badge">' + day + '</span>';
     }).join('');
-    container.innerHTML = html || (storedDays.length === 0 ? '<span class="day-badge-none">-</span>' : '');
+    container.innerHTML = html || '';
   }
 
   function setAvailFilter(type, val, btn) {
