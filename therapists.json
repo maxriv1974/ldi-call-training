@@ -910,7 +910,7 @@
       "Wed",
       "Thu"
     ],
-    "notes": "",
+    "notes": "Limit bookings to 4 consecutive clients. A 5th is only allowed if it’s the maximum for that day.",
     "billingMethods": {
       "aetna": "H",
       "bcbs": "T",
