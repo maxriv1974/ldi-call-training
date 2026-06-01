@@ -373,6 +373,7 @@
     "level": "expert",
     "insurance": [
       "aetna",
+      "bcbs",
       "self"
     ],
     "rate": "1st: $400/hr / ongoing: $250 30 min. - $400 50 min.",
