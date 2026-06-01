@@ -407,7 +407,8 @@
     ],
     "notes": "Text her (GHL) after scheduling to confirm.",
     "billingMethods": {
-      "aetna": "T"
+      "aetna": "H",
+      "bcbs": "T"
     }
   },
   {
