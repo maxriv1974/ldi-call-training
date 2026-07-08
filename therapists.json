@@ -80,6 +80,7 @@
     "url": "https://www.lovediscovery.org/team/dr.-max-riv",
     "level": "expert",
     "insurance": [
+      "aetna",
       "self"
     ],
     "rate": "$400/hr",
@@ -144,7 +145,7 @@
       "Wed",
       "Thu"
     ],
-    "notes": "Additional posssible M-F.\nPsy Testing: Personality, Social, Emotional, Relational.\n\nNO ADHD, AUTISM, CHILDREN / ONLY 18+",
+    "notes": "Additional posssible M-F.\nPsy Testing: Personality, Social, Emotional, Relational.\nFew Aetna for 9 am to 4 pm Tue through Thur.\n\nNO ADHD, AUTISM, CHILDREN / ONLY 18+",
     "billingMethods": {
       "aetna": "H"
     }
