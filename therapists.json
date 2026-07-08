@@ -407,7 +407,7 @@
       "Thu",
       "Fri"
     ],
-    "notes": "Text her (GHL) after scheduling to confirm.",
+    "notes": "Text her (GHL) after scheduling to confirm.\nBCBS clients need to be booked after Aug 1st.",
     "billingMethods": {
       "aetna": "H",
       "bcbs": "T"
