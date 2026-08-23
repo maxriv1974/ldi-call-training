@@ -71,7 +71,13 @@
       "Thu"
     ],
     "notes": "Additional possible M-F.\n\nCURRENTLY ONLY TAKING SELF-PAY.",
-    "billingMethods": {}
+    "billingMethods": {},
+    "utilization": {
+      "expectedSessionsPerWeek": 15,
+      "sessionsLast7d": 11,
+      "utilizationPct": 73.3,
+      "lastUpdated": "2026-08-23T23:20:26.062Z"
+    }
   },
   {
     "id": "max-riv",
