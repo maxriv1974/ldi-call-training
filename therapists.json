@@ -364,6 +364,12 @@
       "optum": "H",
       "oscar": "H",
       "united": "H"
+    },
+    "utilization": {
+      "expectedSessionsPerWeek": 20,
+      "sessionsLast7d": 12,
+      "utilizationPct": 60,
+      "lastUpdated": "2026-08-23T23:20:20.239Z"
     }
   },
   {
