@@ -80,6 +80,7 @@
     "url": "https://www.lovediscovery.org/team/dr.-max-riv",
     "level": "expert",
     "insurance": [
+      "aetna",
       "self"
     ],
     "rate": "$400/hr",
@@ -144,7 +145,7 @@
       "Wed",
       "Thu"
     ],
-    "notes": "Additional posssible M-F.\nPsy Testing: Personality, Social, Emotional, Relational.\n\nNO ADHD, AUTISM, CHILDREN / ONLY 18+",
+    "notes": "Additional posssible M-F.\nPsy Testing: Personality, Social, Emotional, Relational.\nFew Aetna for 9 am to 4 pm Tue through Thur.\n\nNO ADHD, AUTISM, CHILDREN / ONLY 18+",
     "billingMethods": {
       "aetna": "H"
     }
@@ -355,7 +356,7 @@
       "Thu",
       "Fri"
     ],
-    "notes": "Only takes LIGHTER couples.",
+    "notes": "Only takes LIGHTER couples.\nFlexible additional availability Tue & Thur 8-9 pm.",
     "billingMethods": {
       "aetna": "H",
       "bcbs": "T",
@@ -373,6 +374,7 @@
     "level": "expert",
     "insurance": [
       "aetna",
+      "bcbs",
       "self"
     ],
     "rate": "1st: $400/hr / ongoing: $250 30 min. - $400 50 min.",
@@ -405,9 +407,10 @@
       "Thu",
       "Fri"
     ],
-    "notes": "Text her (GHL) after scheduling to confirm.",
+    "notes": "Text her (GHL) after scheduling to confirm.\nBCBS clients need to be booked after Aug 1st.\n16+ teens and adults only.",
     "billingMethods": {
-      "aetna": "T"
+      "aetna": "H",
+      "bcbs": "T"
     }
   },
   {
@@ -910,7 +913,7 @@
       "Wed",
       "Thu"
     ],
-    "notes": "",
+    "notes": "Limit bookings to 4 consecutive clients. A 5th is only allowed if it’s the maximum for that day.",
     "billingMethods": {
       "aetna": "H",
       "bcbs": "T",
