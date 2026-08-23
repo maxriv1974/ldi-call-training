@@ -810,6 +810,12 @@
       "optum": "T",
       "oscar": "T",
       "united": "T"
+    },
+    "utilization": {
+      "expectedSessionsPerWeek": 10,
+      "sessionsLast7d": 5,
+      "utilizationPct": 50,
+      "lastUpdated": "2026-08-23T23:20:36.347Z"
     }
   },
   {
