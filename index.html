@@ -6,7 +6,7 @@
 <title>LDI Call Training — Interactive Guide</title>
 <script>
 // Auto-update: check for new version every 2 minutes and reload if found
-var _PAGE_BUILT = "2026-08-23T22:45:48Z";
+var _PAGE_BUILT = "2026-08-23T23:12:45Z";
 (function() {
   function checkVersion() {
     fetch('/version.json?t=' + Date.now(), {cache:'no-store'})
@@ -397,6 +397,11 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 .billing-H{background:#dcfce7;color:#166534}
 .drawer-field textarea{width:100%;padding:7px 10px;border:1px solid #cbd5e1;border-radius:8px;font-size:.85rem;min-height:60px;resize:vertical;font-family:inherit}
 .notes-display{font-size:.68rem;color:#dc2626;font-weight:700;margin-top:3px;line-height:1.4}
+.util-badge{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 7px;border-radius:10px}
+.util-green{background:#dcfce7;color:#15803d}
+.util-yellow{background:#fef9c3;color:#a16207}
+.util-red{background:#fee2e2;color:#b91c1c}
+.util-none{background:#f1f5f9;color:#94a3b8}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
 <script>document.addEventListener("DOMContentLoaded",function(){if(window.mermaid){mermaid.initialize({startOnLoad:false});}});</script>
@@ -1751,7 +1756,10 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
         <th class="sortable" onclick="sortTable(4)">Language</th>
         <th class="sortable" onclick="sortTable(5)">Location</th>
         <th>Specializes In</th>
-        <th class="sortable th-priority" onclick="sortTable(7)">
+        <th style="min-width:60px;text-align:center">Goal/wk</th>
+        <th style="min-width:60px;text-align:center">Last Wk</th>
+        <th style="min-width:70px;text-align:center">Util%</th>
+        <th class="sortable th-priority" onclick="sortTable(10)">
           <div class="th-priority-header">Priority <button class="reset-priority-btn" onclick="resetPriorities(event)">Reset</button></div>
         </th>
       </tr>
@@ -2342,6 +2350,15 @@ document.addEventListener('DOMContentLoaded', function() {
       (t.approaches    || []).map(approachTag).join('') +
       (t.areasOfFocus  || []).map(focusTag).join('');
     var pid = t.id || t.name.toLowerCase().replace(/\s+/g,'-');
+    var util = t.utilization || {};
+    var goal = util.expectedSessionsPerWeek != null ? util.expectedSessionsPerWeek : '—';
+    var lastWk = util.sessionsLast7d != null ? util.sessionsLast7d : '—';
+    var pct = util.utilizationPct != null ? util.utilizationPct : null;
+    var pctClass = pct == null ? 'util-none' : pct >= 80 ? 'util-green' : pct >= 50 ? 'util-yellow' : 'util-red';
+    var pctStr = pct != null ? Math.round(pct) + '%' : '—';
+    var utilCells = '<td style="text-align:center;font-size:.75rem;color:#475569">' + goal + '</td>' +
+      '<td style="text-align:center;font-size:.75rem;color:#475569">' + lastWk + '</td>' +
+      '<td style="text-align:center"><span class="util-badge ' + pctClass + '">' + pctStr + '</span></td>';
     var priority = '<td class="th-priority">' +
       '<select class="priority-select" data-id="' + pid + '" data-val="" onchange="savePriority(this)" title="Set weekly pitch priority">' +
       '<option value="">\u2014</option><option value="High">High</option>' +
@@ -2364,7 +2381,7 @@ document.addEventListener('DOMContentLoaded', function() {
       '<td>' + langBadge + '</td>' +
       '<td>' + locBadge + '</td>' +
       '<td>' + allTags + '</td>' +
-      priority + editBtn + '</tr>';
+      utilCells + priority + editBtn + '</tr>';
   }
   function renderAllDayBadges() {
     document.querySelectorAll('tr[data-pq-email]').forEach(function(row) {
