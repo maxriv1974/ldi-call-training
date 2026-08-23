@@ -1232,6 +1232,12 @@
       "Thu"
     ],
     "serviceTypes": [],
-    "pqEmail": ""
+    "pqEmail": "",
+    "utilization": {
+      "expectedSessionsPerWeek": 25,
+      "sessionsLast7d": 27,
+      "utilizationPct": 108,
+      "lastUpdated": "2026-08-23T23:20:31.844Z"
+    }
   }
 ]
