@@ -417,6 +417,12 @@
     "billingMethods": {
       "aetna": "H",
       "bcbs": "T"
+    },
+    "utilization": {
+      "expectedSessionsPerWeek": 5,
+      "sessionsLast7d": 4,
+      "utilizationPct": 80,
+      "lastUpdated": "2026-08-23T23:20:23.781Z"
     }
   },
   {
