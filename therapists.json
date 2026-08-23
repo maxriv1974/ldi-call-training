@@ -294,7 +294,13 @@
       "Thu"
     ],
     "notes": "Flexible additional availability.",
-    "billingMethods": {}
+    "billingMethods": {},
+    "utilization": {
+      "expectedSessionsPerWeek": 15,
+      "sessionsLast7d": 10,
+      "utilizationPct": 66.7,
+      "lastUpdated": "2026-08-23T23:20:28.575Z"
+    }
   },
   {
     "id": "nanette-comerio",
