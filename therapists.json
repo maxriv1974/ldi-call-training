@@ -217,7 +217,13 @@
       "Thu"
     ],
     "notes": "Only couples, not individuals.",
-    "billingMethods": {}
+    "billingMethods": {},
+    "utilization": {
+      "expectedSessionsPerWeek": 20,
+      "sessionsLast7d": 11,
+      "utilizationPct": 55,
+      "lastUpdated": "2026-08-23T23:20:27.497Z"
+    }
   },
   {
     "id": "fabiola-viviano",
