@@ -154,6 +154,12 @@
     "notes": "Additional posssible M-F.\nPsy Testing: Personality, Social, Emotional, Relational.\nFew Aetna for 9 am to 4 pm Tue through Thur.\n\nNO ADHD, AUTISM, CHILDREN / ONLY 18+",
     "billingMethods": {
       "aetna": "H"
+    },
+    "utilization": {
+      "expectedSessionsPerWeek": 18,
+      "sessionsLast7d": 14,
+      "utilizationPct": 77.8,
+      "lastUpdated": "2026-08-23T23:20:33.202Z"
     }
   },
   {
