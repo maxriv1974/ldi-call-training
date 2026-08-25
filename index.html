@@ -6,7 +6,7 @@
 <title>LDI Call Training — Interactive Guide</title>
 <script>
 // Auto-update: check for new version every 2 minutes and reload if found
-var _PAGE_BUILT = "2026-08-24T01:45:07Z";
+var _PAGE_BUILT = "2026-08-25T02:12:49Z";
 (function() {
   function checkVersion() {
     fetch('/version.json?t=' + Date.now(), {cache:'no-store'})
@@ -1995,22 +1995,23 @@ function sortTable(colIdx) {
 // ─── Priority (shared via GitHub, synced every 30s) ───
 var _priorities = {};
 
-function applyPriorities(data) {
-  _priorities = data || {};
+function applyPriorities(data, forceSort) {
+  var incoming = data || {};
+  var changed = forceSort || (JSON.stringify(incoming) !== JSON.stringify(_priorities));
+  _priorities = incoming;
   document.querySelectorAll('.priority-select').forEach(sel => {
     const id = sel.dataset.id;
     const val = _priorities[id] || '';
     sel.value = val;
     sel.dataset.val = val;
   });
-  // Auto-sort by priority order after applying
-  sortTable(7);
+  if (changed) sortTable(10);
 }
 
 function loadPriorities() {
   fetch('/api/priorities?t=' + Date.now(), {cache:'no-store'})
     .then(r => r.json())
-    .then(data => applyPriorities(data))
+    .then(data => applyPriorities(data, false))
     .catch(() => {});
 }
 
@@ -2059,7 +2060,10 @@ function showSaveIndicator(msg) {
 
 // ─── Load priorities on startup, then re-sync every 30 seconds ───
 document.addEventListener('DOMContentLoaded', function() {
-  loadPriorities();
+  fetch('/api/priorities?t=' + Date.now(), {cache:'no-store'})
+    .then(r => r.json())
+    .then(data => applyPriorities(data, true))
+    .catch(() => {});
   setInterval(loadPriorities, 30000);
 });
 
