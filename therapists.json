@@ -405,6 +405,10 @@
     "insurance": [
       "aetna",
       "bcbs",
+      "avmed",
+      "optum",
+      "oscar",
+      "united",
       "self"
     ],
     "rate": "1st: $400/hr / ongoing: $250 30 min. - $400 50 min.",
@@ -440,7 +444,11 @@
     "notes": "Text her (GHL) after scheduling to confirm.\nBCBS clients need to be booked after Aug 1st.\n16+ teens and adults only.",
     "billingMethods": {
       "aetna": "H",
-      "bcbs": "T"
+      "bcbs": "T",
+      "avmed": "T",
+      "optum": "T",
+      "oscar": "T",
+      "united": "T"
     },
     "utilization": {
       "expectedSessionsPerWeek": 5,
