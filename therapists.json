@@ -160,7 +160,8 @@
       "expectedSessionsPerWeek": 18,
       "sessionsLast7d": 14,
       "utilizationPct": 77.8,
-      "lastUpdated": "2026-08-23T23:20:33.202Z"
+      "intakeGuidance": "insurance_ok",
+      "lastUpdated": "2026-10-22T14:56:26.234Z"
     }
   },
   {
