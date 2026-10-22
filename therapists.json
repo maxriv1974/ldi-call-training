@@ -74,9 +74,10 @@
     "billingMethods": {},
     "utilization": {
       "expectedSessionsPerWeek": 15,
-      "sessionsLast7d": 11,
-      "utilizationPct": 73.3,
-      "lastUpdated": "2026-08-23T23:20:26.062Z"
+      "sessionsLast7d": 14,
+      "utilizationPct": 93.3,
+      "intakeGuidance": "self_pay_priority",
+      "lastUpdated": "2026-10-22T14:56:16.082Z"
     }
   },
   {
