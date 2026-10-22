@@ -380,7 +380,7 @@
       "Thu",
       "Fri"
     ],
-    "notes": "Only takes LIGHTER couples.\nFlexible additional availability Tue & Thur 8-9 pm.",
+    "notes": "Only takes LIGHTER couples.\nFlexible additional availability Tue & Thur 8-9 pm.\n\nNO LONGER TAKING INSURANCE. ONLY SELF-PAY AT $200.",
     "billingMethods": {
       "aetna": "H",
       "bcbs": "T",
@@ -539,7 +539,7 @@
       "Thu",
       "Fri"
     ],
-    "notes": "Offers 2hr Hypnosis - specialty service (SELF-PAY ONLY)",
+    "notes": "Offers 2hr Hypnosis - specialty service (SELF-PAY ONLY)\nNO LONGER TAKING INSURANCE. ONLY SELF-PAY AT $200.",
     "billingMethods": {
       "aetna": "H",
       "bcbs": "T",
@@ -1250,7 +1250,7 @@
       "Emotional Regulation",
       "ADHD"
     ],
-    "notes": "",
+    "notes": "NO LONGER TAKING INSURANCE. ONLY SELF-PAY AT $200.",
     "days": [
       "Mon",
       "Tue",
