@@ -1270,9 +1270,10 @@
     "pqEmail": "",
     "utilization": {
       "expectedSessionsPerWeek": 25,
-      "sessionsLast7d": 27,
-      "utilizationPct": 108,
-      "lastUpdated": "2026-08-23T23:20:31.844Z"
+      "sessionsLast7d": 31,
+      "utilizationPct": 124,
+      "intakeGuidance": "at_capacity",
+      "lastUpdated": "2026-10-22T14:56:24.323Z"
     }
   }
 ]
