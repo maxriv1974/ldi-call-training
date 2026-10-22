@@ -227,9 +227,10 @@
     "billingMethods": {},
     "utilization": {
       "expectedSessionsPerWeek": 20,
-      "sessionsLast7d": 11,
-      "utilizationPct": 55,
-      "lastUpdated": "2026-08-23T23:20:27.497Z"
+      "sessionsLast7d": 13,
+      "utilizationPct": 65,
+      "intakeGuidance": "insurance_ok",
+      "lastUpdated": "2026-10-22T14:56:17.937Z"
     }
   },
   {
