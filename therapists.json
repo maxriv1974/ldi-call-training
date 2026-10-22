@@ -638,9 +638,10 @@
     },
     "utilization": {
       "expectedSessionsPerWeek": 15,
-      "sessionsLast7d": 7,
-      "utilizationPct": 46.7,
-      "lastUpdated": "2026-08-23T23:20:34.277Z"
+      "sessionsLast7d": 13,
+      "utilizationPct": 86.7,
+      "intakeGuidance": "balanced",
+      "lastUpdated": "2026-10-22T14:56:27.644Z"
     }
   },
   {
