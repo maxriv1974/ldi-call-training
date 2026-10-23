@@ -233,10 +233,15 @@
     "billingMethods": {},
     "utilization": {
       "expectedSessionsPerWeek": 20,
-      "sessionsLast7d": 13,
-      "utilizationPct": 65,
+      "sessionsLast7d": 10,
+      "utilizationPct": 50,
       "intakeGuidance": "insurance_ok",
-      "lastUpdated": "2026-10-22T14:56:17.937Z"
+      "utilization30dPct": 57.2,
+      "pitch": {
+        "color": "green",
+        "text": "Insurance OK · self-pay $200"
+      },
+      "lastUpdated": "2026-10-23T17:15:49.044Z"
     }
   },
   {
