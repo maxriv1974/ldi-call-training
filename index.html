@@ -6,7 +6,7 @@
 <title>LDI Call Training — Interactive Guide</title>
 <script>
 // Auto-update: check for new version every 2 minutes and reload if found
-var _PAGE_BUILT = "2026-10-23T15:57:18Z";
+var _PAGE_BUILT = "2026-10-23T17:52:46Z";
 (function() {
   function checkVersion() {
     fetch('/version.json?t=' + Date.now(), {cache:'no-store'})
@@ -1758,10 +1758,10 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
         <th class="sortable" onclick="sortTable(4)">Language</th>
         <th class="sortable" onclick="sortTable(5)">Location</th>
         <th>Specializes In</th>
-        <th style="min-width:60px;text-align:center">Goal/wk</th>
-        <th style="min-width:60px;text-align:center">Last Wk</th>
-        <th style="min-width:70px;text-align:center">Util%</th>
-        <th style="min-width:160px">Pitch</th>
+        <th class="sortable" style="min-width:60px;text-align:center" onclick="sortTable(7)">Goal/wk</th>
+        <th class="sortable" style="min-width:60px;text-align:center" onclick="sortTable(8)">Last Wk</th>
+        <th class="sortable" style="min-width:70px;text-align:center" onclick="sortTable(9)">Util%</th>
+        <th class="sortable" style="min-width:160px" onclick="sortTable(10)">Pitch</th>
         <th class="sortable th-priority" onclick="sortTable(11)">
           <div class="th-priority-header">Priority <button class="reset-priority-btn" onclick="resetPriorities(event)">Reset</button></div>
         </th>
@@ -1977,13 +1977,20 @@ function sortTable(colIdx) {
   }
   // Priority column: sort by defined order (High > Medium > Low > Closed > blank)
   const PRIORITY_ORDER = {High: 0, Medium: 1, Low: 2, Closed: 3, '': 4};
-  if (colIdx === 7) {
+  if (colIdx === 11) {
     rows.sort((a, b) => {
       const av = a.querySelector('.priority-select')?.value || '';
       const bv = b.querySelector('.priority-select')?.value || '';
       const ar = PRIORITY_ORDER[av] ?? 4;
       const br = PRIORITY_ORDER[bv] ?? 4;
       return asc ? ar - br : br - ar;
+    });
+  } else if (colIdx === 7 || colIdx === 8 || colIdx === 9) {
+    // Numeric sort for Goal/wk, Last Wk, Util%
+    rows.sort((a, b) => {
+      const ac = parseFloat(a.cells[colIdx]?.textContent.replace('%','').trim()) || -1;
+      const bc = parseFloat(b.cells[colIdx]?.textContent.replace('%','').trim()) || -1;
+      return asc ? ac - bc : bc - ac;
     });
   } else {
     rows.sort((a, b) => {
@@ -2008,7 +2015,7 @@ function applyPriorities(data, forceSort) {
     sel.value = val;
     sel.dataset.val = val;
   });
-  if (changed) sortTable(10);
+  if (changed) sortTable(11);
 }
 
 function loadPriorities() {
