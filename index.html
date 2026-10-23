@@ -321,6 +321,11 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 .badge-united{background:#1e3a8a;color:#fff}
 .badge-sliding{background:#d97706;color:#fff}
 .ins-pills{display:flex;flex-wrap:wrap;gap:3px}
+.tags-wrap{display:flex;flex-wrap:wrap;gap:3px;align-items:flex-start}
+.tags-hidden{display:none}
+.tags-wrap.expanded .tags-hidden{display:contents}
+.tags-more{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 7px;border-radius:10px;background:#e2e8f0;color:#475569;cursor:pointer;white-space:nowrap;border:none;line-height:1.6}
+.tags-more:hover{background:#cbd5e1}
 /* Priority dropdown */
 .priority-select{
   width:100%;border:1px solid #e2e8f0;background:#fff;font-size:.72rem;
@@ -1961,6 +1966,18 @@ pipelineData.forEach((s, i) => {
 
 // ─── Sort therapist table ───
 let sortDir = {};
+function expandTags(wrap) {
+  wrap.classList.toggle('expanded');
+  var btn = wrap.querySelector('.tags-more');
+  if (!btn) return;
+  if (wrap.classList.contains('expanded')) {
+    btn.textContent = '− less';
+  } else {
+    var n = wrap.querySelectorAll('.tags-hidden span').length;
+    btn.textContent = '+' + n + ' more';
+  }
+}
+
 function sortTable(colIdx) {
   const table = document.getElementById('therapist-table');
   const tbody = table.querySelector('tbody');
@@ -2359,10 +2376,18 @@ document.addEventListener('DOMContentLoaded', function() {
       : t.location === 'in-person'
         ? '<span class="badge badge-inperson">In-Person</span>'
         : '<span class="badge badge-tele">Telehealth</span>';
-    var allTags =
-      (t.sessionTypes  || []).map(sessionTag).join('') +
-      (t.approaches    || []).map(approachTag).join('') +
-      (t.areasOfFocus  || []).map(focusTag).join('');
+    var allTagSpans = (t.sessionTypes||[]).map(sessionTag)
+      .concat((t.approaches||[]).map(approachTag))
+      .concat((t.areasOfFocus||[]).map(focusTag));
+    var SHOW = 4;
+    var visibleTags = allTagSpans.slice(0, SHOW).join('');
+    var hiddenTags  = allTagSpans.slice(SHOW);
+    var allTags = hiddenTags.length
+      ? '<span class="tags-wrap" onclick="expandTags(this)">' + visibleTags +
+        '<span class="tags-hidden">' + hiddenTags.join('') + '</span>' +
+        '<button class="tags-more" onclick="expandTags(this.parentNode);event.stopPropagation()">+' + hiddenTags.length + ' more</button>' +
+        '</span>'
+      : '<span class="tags-wrap">' + visibleTags + '</span>';
     var pid = t.id || t.name.toLowerCase().replace(/\s+/g,'-');
     var util = t.utilization || {};
     var goal = util.expectedSessionsPerWeek != null ? util.expectedSessionsPerWeek : '—';
