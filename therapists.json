@@ -74,10 +74,15 @@
     "billingMethods": {},
     "utilization": {
       "expectedSessionsPerWeek": 15,
-      "sessionsLast7d": 14,
-      "utilizationPct": 93.3,
-      "intakeGuidance": "self_pay_priority",
-      "lastUpdated": "2026-10-22T14:56:16.082Z"
+      "sessionsLast7d": 13,
+      "utilizationPct": 86.7,
+      "intakeGuidance": "balanced",
+      "utilization30dPct": 87.1,
+      "pitch": {
+        "color": "green",
+        "text": "Self-pay $400"
+      },
+      "lastUpdated": "2026-10-23T17:15:47.793Z"
     }
   },
   {
@@ -158,10 +163,15 @@
     },
     "utilization": {
       "expectedSessionsPerWeek": 18,
-      "sessionsLast7d": 14,
-      "utilizationPct": 77.8,
-      "intakeGuidance": "insurance_ok",
-      "lastUpdated": "2026-10-22T14:56:26.234Z"
+      "sessionsLast7d": 15,
+      "utilizationPct": 83.3,
+      "intakeGuidance": "balanced",
+      "utilization30dPct": 86.9,
+      "pitch": {
+        "color": "green",
+        "text": "Self-pay $400 (SS $300 if needed)"
+      },
+      "lastUpdated": "2026-10-23T17:15:56.211Z"
     }
   },
   {
@@ -228,10 +238,15 @@
     "billingMethods": {},
     "utilization": {
       "expectedSessionsPerWeek": 20,
-      "sessionsLast7d": 13,
-      "utilizationPct": 65,
+      "sessionsLast7d": 10,
+      "utilizationPct": 50,
       "intakeGuidance": "insurance_ok",
-      "lastUpdated": "2026-10-22T14:56:17.937Z"
+      "utilization30dPct": 57.2,
+      "pitch": {
+        "color": "green",
+        "text": "Insurance OK · self-pay $200"
+      },
+      "lastUpdated": "2026-10-23T17:15:49.044Z"
     }
   },
   {
@@ -309,7 +324,12 @@
       "sessionsLast7d": 6,
       "utilizationPct": 40,
       "intakeGuidance": "insurance_ok",
-      "lastUpdated": "2026-10-22T14:56:19.644Z"
+      "utilization30dPct": 56,
+      "pitch": {
+        "color": "red",
+        "text": "Hold — no new clients"
+      },
+      "lastUpdated": "2026-10-23T17:15:50.488Z"
     }
   },
   {
@@ -395,10 +415,15 @@
     },
     "utilization": {
       "expectedSessionsPerWeek": 20,
-      "sessionsLast7d": 7,
-      "utilizationPct": 35,
+      "sessionsLast7d": 14,
+      "utilizationPct": 70,
       "intakeGuidance": "insurance_ok",
-      "lastUpdated": "2026-10-22T14:56:08.744Z"
+      "utilization30dPct": 87.5,
+      "pitch": {
+        "color": "green",
+        "text": "Self-pay $200 (SS $175 if needed)"
+      },
+      "lastUpdated": "2026-10-23T17:15:40.692Z"
     }
   },
   {
@@ -457,10 +482,15 @@
     },
     "utilization": {
       "expectedSessionsPerWeek": 5,
-      "sessionsLast7d": 2,
-      "utilizationPct": 40,
+      "sessionsLast7d": 3,
+      "utilizationPct": 60,
       "intakeGuidance": "insurance_ok",
-      "lastUpdated": "2026-10-22T14:56:13.015Z"
+      "utilization30dPct": 32.7,
+      "pitch": {
+        "color": "green",
+        "text": "Insurance OK · self-pay $400 (SS $300 if needed)"
+      },
+      "lastUpdated": "2026-10-23T17:15:44.986Z"
     }
   },
   {
@@ -556,10 +586,15 @@
     },
     "utilization": {
       "expectedSessionsPerWeek": 25,
-      "sessionsLast7d": 23,
-      "utilizationPct": 92,
-      "intakeGuidance": "self_pay_priority",
-      "lastUpdated": "2026-10-22T14:56:14.520Z"
+      "sessionsLast7d": 20,
+      "utilizationPct": 80,
+      "intakeGuidance": "balanced",
+      "utilization30dPct": 111.1,
+      "pitch": {
+        "color": "orange",
+        "text": "No new insurance · self-pay $200"
+      },
+      "lastUpdated": "2026-10-23T17:15:46.328Z"
     }
   },
   {
@@ -638,10 +673,15 @@
     },
     "utilization": {
       "expectedSessionsPerWeek": 15,
-      "sessionsLast7d": 13,
-      "utilizationPct": 86.7,
-      "intakeGuidance": "balanced",
-      "lastUpdated": "2026-10-22T14:56:27.644Z"
+      "sessionsLast7d": 11,
+      "utilizationPct": 73.3,
+      "intakeGuidance": "insurance_ok",
+      "utilization30dPct": 60.7,
+      "pitch": {
+        "color": "red",
+        "text": "Hold — no new clients"
+      },
+      "lastUpdated": "2026-10-23T17:15:57.577Z"
     }
   },
   {
@@ -737,7 +777,12 @@
       "sessionsLast7d": 20,
       "utilizationPct": 80,
       "intakeGuidance": "balanced",
-      "lastUpdated": "2026-10-22T14:58:03.744Z"
+      "utilization30dPct": 82.1,
+      "pitch": {
+        "color": "green",
+        "text": "Self-pay $150"
+      },
+      "lastUpdated": "2026-10-23T17:15:42.075Z"
     }
   },
   {
@@ -827,7 +872,12 @@
       "sessionsLast7d": 4,
       "utilizationPct": 40,
       "intakeGuidance": "insurance_ok",
-      "lastUpdated": "2026-10-22T14:56:31.188Z"
+      "utilization30dPct": 49,
+      "pitch": {
+        "color": "green",
+        "text": "Insurance OK · self-pay $150"
+      },
+      "lastUpdated": "2026-10-23T17:16:00.249Z"
     }
   },
   {
@@ -917,10 +967,15 @@
     },
     "utilization": {
       "expectedSessionsPerWeek": 20,
-      "sessionsLast7d": 19,
-      "utilizationPct": 95,
-      "intakeGuidance": "self_pay_priority",
-      "lastUpdated": "2026-10-22T14:56:29.023Z"
+      "sessionsLast7d": 15,
+      "utilizationPct": 75,
+      "intakeGuidance": "insurance_ok",
+      "utilization30dPct": 107.3,
+      "pitch": {
+        "color": "orange",
+        "text": "No new insurance · self-pay $150"
+      },
+      "lastUpdated": "2026-10-23T17:15:58.912Z"
     }
   },
   {
@@ -1003,10 +1058,15 @@
     },
     "utilization": {
       "expectedSessionsPerWeek": 22,
-      "sessionsLast7d": 21,
-      "utilizationPct": 95.5,
-      "intakeGuidance": "self_pay_priority",
-      "lastUpdated": "2026-10-22T14:56:22.814Z"
+      "sessionsLast7d": 19,
+      "utilizationPct": 86.4,
+      "intakeGuidance": "balanced",
+      "utilization30dPct": 82.7,
+      "pitch": {
+        "color": "green",
+        "text": "Self-pay $150 (SS $125 if needed)"
+      },
+      "lastUpdated": "2026-10-23T17:15:53.255Z"
     }
   },
   {
@@ -1088,10 +1148,15 @@
     },
     "utilization": {
       "expectedSessionsPerWeek": 20,
-      "sessionsLast7d": 11,
-      "utilizationPct": 55,
+      "sessionsLast7d": 9,
+      "utilizationPct": 45,
       "intakeGuidance": "insurance_ok",
-      "lastUpdated": "2026-10-22T14:56:11.562Z"
+      "utilization30dPct": 61.8,
+      "pitch": {
+        "color": "red",
+        "text": "Hold — no new clients"
+      },
+      "lastUpdated": "2026-10-23T17:15:43.767Z"
     }
   },
   {
@@ -1182,10 +1247,15 @@
     },
     "utilization": {
       "expectedSessionsPerWeek": 25,
-      "sessionsLast7d": 17,
-      "utilizationPct": 68,
+      "sessionsLast7d": 16,
+      "utilizationPct": 64,
       "intakeGuidance": "insurance_ok",
-      "lastUpdated": "2026-10-22T14:56:21.350Z"
+      "utilization30dPct": 64.4,
+      "pitch": {
+        "color": "green",
+        "text": "Insurance OK · self-pay $150"
+      },
+      "lastUpdated": "2026-10-23T17:15:51.796Z"
     }
   },
   {
@@ -1275,10 +1345,15 @@
     "pqEmail": "",
     "utilization": {
       "expectedSessionsPerWeek": 25,
-      "sessionsLast7d": 31,
-      "utilizationPct": 124,
+      "sessionsLast7d": 33,
+      "utilizationPct": 132,
       "intakeGuidance": "at_capacity",
-      "lastUpdated": "2026-10-22T14:56:24.323Z"
+      "utilization30dPct": 121.3,
+      "pitch": {
+        "color": "orange",
+        "text": "Self-pay only · $200"
+      },
+      "lastUpdated": "2026-10-23T17:15:54.723Z"
     }
   }
 ]
