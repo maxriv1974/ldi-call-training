@@ -1098,10 +1098,15 @@
     },
     "utilization": {
       "expectedSessionsPerWeek": 20,
-      "sessionsLast7d": 11,
-      "utilizationPct": 55,
+      "sessionsLast7d": 9,
+      "utilizationPct": 45,
       "intakeGuidance": "insurance_ok",
-      "lastUpdated": "2026-10-22T14:56:11.562Z"
+      "utilization30dPct": 61.8,
+      "pitch": {
+        "color": "red",
+        "text": "Hold — no new clients"
+      },
+      "lastUpdated": "2026-10-23T17:15:43.767Z"
     }
   },
   {
