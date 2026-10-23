@@ -962,10 +962,15 @@
     },
     "utilization": {
       "expectedSessionsPerWeek": 20,
-      "sessionsLast7d": 19,
-      "utilizationPct": 95,
-      "intakeGuidance": "self_pay_priority",
-      "lastUpdated": "2026-10-22T14:56:29.023Z"
+      "sessionsLast7d": 15,
+      "utilizationPct": 75,
+      "intakeGuidance": "insurance_ok",
+      "utilization30dPct": 107.3,
+      "pitch": {
+        "color": "orange",
+        "text": "No new insurance · self-pay $150"
+      },
+      "lastUpdated": "2026-10-23T17:15:58.912Z"
     }
   },
   {
