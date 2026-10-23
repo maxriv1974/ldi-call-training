@@ -742,7 +742,12 @@
       "sessionsLast7d": 20,
       "utilizationPct": 80,
       "intakeGuidance": "balanced",
-      "lastUpdated": "2026-10-22T14:58:03.744Z"
+      "utilization30dPct": 82.1,
+      "pitch": {
+        "color": "green",
+        "text": "Self-pay $150"
+      },
+      "lastUpdated": "2026-10-23T17:15:42.075Z"
     }
   },
   {
