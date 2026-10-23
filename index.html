@@ -29,9 +29,9 @@ var _PAGE_BUILT = "2026-10-23T18:06:23Z";
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f4f8;color:#1a2332;min-height:100vh}
 
 /* ── HEADER ── */
-header{background:linear-gradient(135deg,#004d7f,#006a70);color:#fff;padding:20px 32px;display:flex;align-items:center;justify-content:space-between}
-header h1{font-size:1.4rem;font-weight:700}
-header p{font-size:.8rem;opacity:.8;margin-top:3px}
+header{background:linear-gradient(135deg,#004d7f,#006a70);color:#fff;padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+header h1{font-size:1.15rem;font-weight:700}
+header p{font-size:.75rem;opacity:.8;margin-top:2px}
 .mode-toggle{display:flex;gap:8px}
 .mode-btn{padding:8px 18px;border-radius:20px;border:2px solid rgba(255,255,255,.4);background:transparent;color:#fff;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s}
 .mode-btn.active,.mode-btn:hover{background:rgba(255,255,255,.2);border-color:#fff}
@@ -43,7 +43,7 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 .nav-tab.active{color:#004d7f;border-bottom-color:#004d7f}
 
 /* ── LAYOUT ── */
-.page{display:none;padding:28px 32px;max-width:1600px;margin:0 auto}
+.page{display:none;padding:14px 20px;max-width:1600px;margin:0 auto}
 .page.active{display:block}
 
 /* ── DUAL-PANE ── */
@@ -82,13 +82,13 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 .explore-q .listen{font-size:.72rem;color:#553c9a;font-style:italic;margin-top:2px}
 
 /* ── THERAPIST TABLE ── */
-.th-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
-.th-filter-btn{padding:6px 14px;border-radius:20px;border:2px solid #e2e8f0;background:#fff;font-size:.75rem;font-weight:600;cursor:pointer;color:#64748b;transition:all .2s}
+.th-filters{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;align-items:center}
+.th-filter-btn{padding:4px 10px;border-radius:20px;border:2px solid #e2e8f0;background:#fff;font-size:.7rem;font-weight:600;cursor:pointer;color:#64748b;transition:all .2s}
 .th-filter-btn:hover,.th-filter-btn.active{background:#004d7f;border-color:#004d7f;color:#fff}
 .th-filter-group{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;align-self:center;margin-left:8px}
 .th-table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.08)}
-.th-table th{background:#004d7f;color:#fff;padding:10px 14px;text-align:left;font-size:.73rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
-.th-table td{padding:11px 14px;font-size:.8rem;border-bottom:1px solid #f1f5f9;vertical-align:middle}
+.th-table th{background:#004d7f;color:#fff;padding:7px 10px;text-align:left;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.th-table td{padding:7px 10px;font-size:.78rem;border-bottom:1px solid #f1f5f9;vertical-align:middle}
 .th-table tr:last-child td{border-bottom:none}
 .th-table tr:hover td{background:#f8fafc}
 .th-table tr.hidden{display:none}
@@ -303,6 +303,12 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 
 /* ── Reset priority btn ── */
 .th-priority-header{display:flex;align-items:center;gap:6px;justify-content:center}
+.pitch-filter-dots{display:flex;gap:4px;margin-top:4px;align-items:center}
+.pitch-dot-btn{width:12px;height:12px;border-radius:50%;border:2px solid rgba(255,255,255,.5);cursor:pointer;padding:0;transition:transform .15s,border-color .15s;flex-shrink:0}
+.pitch-dot-btn:hover{transform:scale(1.3);border-color:#fff}
+.pitch-dot-btn.active{transform:scale(1.3);border-color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.4)}
+.pitch-clear-btn{font-size:.65rem;color:rgba(255,255,255,.7);cursor:pointer;background:none;border:none;padding:0 2px;line-height:1;transition:color .15s}
+.pitch-clear-btn:hover{color:#fff}
 .reset-priority-btn{font-size:.6rem;background:#fee2e2;color:#991b1b;border:none;
   border-radius:3px;padding:1px 5px;cursor:pointer;font-weight:700}
 .reset-priority-btn:hover{background:#fecaca}
@@ -1674,7 +1680,7 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
 
 <!-- ════ THERAPIST MATCH PAGE ════ -->
 <div class="page" id="page-therapists">
-  <div class="callout callout-blue" style="margin-bottom:20px">Use this table to quickly find the right therapist for a caller. Filter by insurance, language, or location. Click a therapist's name to view their full profile on the LDI website.</div>
+  <div class="callout callout-blue" style="margin-bottom:10px;padding:7px 12px;font-size:.75rem">Use this table to quickly find the right therapist for a caller. Filter by insurance, language, or location. Click a therapist's name to view their full profile on the LDI website.</div>
 
   <div class="edit-mode-toolbar">
     <button class="edit-roster-btn" id="editRosterBtn" onclick="toggleEditMode()" title="Edit therapist data">&#9998; Edit Roster</button>
@@ -1766,7 +1772,15 @@ header p{font-size:.8rem;opacity:.8;margin-top:3px}
         <th class="sortable" style="min-width:60px;text-align:center" onclick="sortTable(7)">Goal/wk</th>
         <th class="sortable" style="min-width:60px;text-align:center" onclick="sortTable(8)">Last Wk</th>
         <th class="sortable" style="min-width:70px;text-align:center" onclick="sortTable(9)">Util%</th>
-        <th class="sortable" style="min-width:160px" onclick="sortTable(10)">Pitch</th>
+        <th class="sortable" style="min-width:130px" onclick="sortTable(10)">
+          Pitch
+          <div class="pitch-filter-dots" onclick="event.stopPropagation()">
+            <button class="pitch-dot-btn" style="background:#16a34a" title="Filter: green" onclick="filterByPitchColor('green',this)"></button>
+            <button class="pitch-dot-btn" style="background:#f97316" title="Filter: orange" onclick="filterByPitchColor('orange',this)"></button>
+            <button class="pitch-dot-btn" style="background:#dc2626" title="Filter: red" onclick="filterByPitchColor('red',this)"></button>
+            <button class="pitch-clear-btn" title="Clear filter" onclick="filterByPitchColor(null,this)">✕</button>
+          </div>
+        </th>
         <th class="sortable th-priority" onclick="sortTable(11)">
           <div class="th-priority-header">Priority <button class="reset-priority-btn" onclick="resetPriorities(event)">Reset</button></div>
         </th>
@@ -1935,9 +1949,13 @@ function filterTherapists(type, val, btn) {
       const approaches = (row.getAttribute('data-approaches')||'').split(' | ');
       if (!focus.includes(activeFilters.specialty) && !approaches.includes(activeFilters.specialty)) finalShow = false;
     }
+    if (finalShow && _pitchColorFilter) {
+      if ((row.getAttribute('data-pitch-color')||'') !== _pitchColorFilter) finalShow = false;
+    }
     row.classList.toggle('hidden', !finalShow);
   });
 }
+function applyAllFilters() { filterTherapists(); }
 function filterBySpecialty(sel) { activeFilters.specialty = sel.value; filterTherapists(); }
 
 const stagesDiv = document.getElementById('pipeline-stages');
@@ -1966,6 +1984,15 @@ pipelineData.forEach((s, i) => {
 
 // ─── Sort therapist table ───
 let sortDir = {};
+var _pitchColorFilter = null;
+function filterByPitchColor(color, btn) {
+  _pitchColorFilter = (_pitchColorFilter === color) ? null : color;
+  // Update dot active states
+  document.querySelectorAll('.pitch-dot-btn').forEach(function(b) { b.classList.remove('active'); });
+  if (_pitchColorFilter && btn && btn.classList.contains('pitch-dot-btn')) btn.classList.add('active');
+  applyAllFilters();
+}
+
 function expandTags(wrap) {
   wrap.classList.toggle('expanded');
   var btn = wrap.querySelector('.tags-more');
@@ -2409,7 +2436,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var editBtn = '<td class="th-edit-col">' +
       (window.EDIT_MODE ? '<button class="edit-row-btn" onclick="openEditor(\'' + pid + '\')" title="Edit">&#9998;</button>' : '') +
       '</td>';
-    return '<tr data-plans="' + plans + '" data-lang="' + (t.languages||[t.language||'en']).join(' ') +
+    return '<tr data-plans="' + plans + '" data-pitch-color="' + (p ? p.color||'' : '') + '" data-lang="' + (t.languages||[t.language||'en']).join(' ') +
       '" data-days="' + (t.days||[]).join(' ') + '" data-loc="' + t.location + '" data-level="' + t.level +
       '" data-sessions="' + sessData + '" data-approaches="' + approachData +
       '" data-focus="' + focusData + '" data-id="' + pid + '" data-pq-email="' + (t.pqEmail||'') + '" data-service-types="' + getSvcFilterTypes(t) + '">' +
