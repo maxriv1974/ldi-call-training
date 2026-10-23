@@ -38,7 +38,7 @@ header p{font-size:.75rem;opacity:.8;margin-top:2px}
 
 /* ── NAV TABS ── */
 .nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:0 32px;display:flex;gap:0;overflow-x:auto}
-.nav-tab{padding:14px 20px;font-size:.82rem;font-weight:600;color:#64748b;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;user-select:none;-webkit-user-select:none}
+.nav-tab{padding:10px 16px;font-size:.78rem;font-weight:600;color:#64748b;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;user-select:none;-webkit-user-select:none}
 .nav-tab:hover{color:#004d7f}
 .nav-tab.active{color:#004d7f;border-bottom-color:#004d7f}
 
@@ -443,7 +443,16 @@ header p{font-size:.75rem;opacity:.8;margin-top:2px}
   <div class="nav-tab" onclick="showPage('checklist',this)">8-Part Checklist</div>
   <div class="nav-tab" onclick="showPage('objections',this)">Objections</div>
   <div class="nav-tab" onclick="showPage('callflow',this);setTimeout(function(){if(window.mermaid&&document.getElementById('cf-mermaid')&&!document.getElementById('cf-mermaid').querySelector('svg')){mermaid.run({nodes:[document.getElementById('cf-mermaid')]});}},100);">Call Flow</div>
-  <div id="pageEditSection" style="margin-left:auto;align-self:center;padding:0 12px;display:none;align-items:center;gap:8px"><button class="page-edit-btn" id="pageEditBtn" onclick="togglePageContentEdit()" style="box-shadow:0 2px 8px rgba(0,0,0,.15)">&#9998; Edit Content</button><div class="page-save-bar" id="pageSaveBar" style="box-shadow:0 2px 8px rgba(0,0,0,.15)"><button class="btn-save" style="background:#f59e0b;border-color:#d97706" onclick="savePageContent()">&#10003; Save</button><button class="btn-discard" onclick="discardPageContentEdit()">Discard</button></div></div>
+  <div id="rosterNavSection" style="margin-left:auto;align-self:center;padding:0 10px;display:none;align-items:center;gap:8px">
+    <button class="edit-roster-btn" id="editRosterBtn" onclick="toggleEditMode()" title="Edit therapist data">&#9998; Edit Roster</button>
+    <button class="edit-roster-btn" id="addClinicianBtn" onclick="addNewClinician()" title="Add a new clinician" style="display:none">&#43; Add Clinician</button>
+    <div class="save-edits-bar" id="saveEditsBar">
+      <span id="pendingCount">0 unsaved changes</span>
+      <button class="btn-save" onclick="saveAllEdits()">&#10003; Publish Changes</button>
+      <button class="btn-discard" onclick="discardEdits()">Discard</button>
+    </div>
+  </div>
+  <div id="pageEditSection" style="align-self:center;padding:0 12px;display:none;align-items:center;gap:8px"><button class="page-edit-btn" id="pageEditBtn" onclick="togglePageContentEdit()" style="box-shadow:0 2px 8px rgba(0,0,0,.15)">&#9998; Edit Content</button><div class="page-save-bar" id="pageSaveBar" style="box-shadow:0 2px 8px rgba(0,0,0,.15)"><button class="btn-save" style="background:#f59e0b;border-color:#d97706" onclick="savePageContent()">&#10003; Save</button><button class="btn-discard" onclick="discardPageContentEdit()">Discard</button></div></div>
 </div>
 
 
@@ -1680,18 +1689,6 @@ header p{font-size:.75rem;opacity:.8;margin-top:2px}
 
 <!-- ════ THERAPIST MATCH PAGE ════ -->
 <div class="page" id="page-therapists">
-  <div class="callout callout-blue" style="margin-bottom:10px;padding:7px 12px;font-size:.75rem">Use this table to quickly find the right therapist for a caller. Filter by insurance, language, or location. Click a therapist's name to view their full profile on the LDI website.</div>
-
-  <div class="edit-mode-toolbar">
-    <button class="edit-roster-btn" id="editRosterBtn" onclick="toggleEditMode()" title="Edit therapist data">&#9998; Edit Roster</button>
-    <button class="edit-roster-btn" id="addClinicianBtn" onclick="addNewClinician()" title="Add a new clinician" style="display:none">&#43; Add Clinician</button>
-    <div class="save-edits-bar" id="saveEditsBar">
-      <span id="pendingCount">0 unsaved changes</span>
-      <button class="btn-save" onclick="saveAllEdits()">&#10003; Publish Changes</button>
-      <button class="btn-discard" onclick="discardEdits()">Discard</button>
-    </div>
-
-  </div>
 
 <div class="th-filters">
     <span class="th-filter-group">Payment / Insurance:</span>
@@ -1805,6 +1802,8 @@ function showPage(id, el) {
   if (id === 'therapists') loadAvailability();
   var pgSec = document.getElementById('pageEditSection');
   if (pgSec) pgSec.style.display = (id === 'therapists') ? 'none' : 'flex';
+  var rosterSec = document.getElementById('rosterNavSection');
+  if (rosterSec) rosterSec.style.display = (id === 'therapists') ? 'flex' : 'none';
   // Exit page edit mode when switching tabs
   if (window._pgEditActive) discardPageContentEdit();
 }
