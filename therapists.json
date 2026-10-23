@@ -319,7 +319,12 @@
       "sessionsLast7d": 6,
       "utilizationPct": 40,
       "intakeGuidance": "insurance_ok",
-      "lastUpdated": "2026-10-22T14:56:19.644Z"
+      "utilization30dPct": 56,
+      "pitch": {
+        "color": "red",
+        "text": "Hold — no new clients"
+      },
+      "lastUpdated": "2026-10-23T17:15:50.488Z"
     }
   },
   {
