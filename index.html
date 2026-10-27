@@ -6,7 +6,7 @@
 <title>LDI Call Training — Interactive Guide</title>
 <script>
 // Auto-update: check for new version every 2 minutes and reload if found
-var _PAGE_BUILT = "2026-10-23T20:01:11Z";
+var _PAGE_BUILT = "2026-10-27T14:09:43Z";
 (function() {
   function checkVersion() {
     fetch('/version.json?t=' + Date.now(), {cache:'no-store'})
@@ -312,6 +312,13 @@ header p{font-size:.75rem;opacity:.8;margin-top:2px}
 .reset-priority-btn{font-size:.6rem;background:#fee2e2;color:#991b1b;border:none;
   border-radius:3px;padding:1px 5px;cursor:pointer;font-weight:700}
 .reset-priority-btn:hover{background:#fecaca}
+.priority-filter-dots{display:flex;gap:4px;margin-top:4px;align-items:center;justify-content:center}
+.priority-dot-btn{width:11px;height:11px;border-radius:3px;border:2px solid rgba(255,255,255,.5);cursor:pointer;padding:0;transition:transform .15s,border-color .15s;flex-shrink:0}
+.priority-dot-btn:hover{transform:scale(1.3);border-color:#fff}
+.priority-dot-btn.active{transform:scale(1.3);border-color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.4)}
+.match-edit-float{position:fixed;bottom:18px;right:18px;z-index:999;padding:8px 16px;border-radius:20px;border:2px solid #6c63ff;background:#fff;color:#6c63ff;font-size:.78rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(108,99,255,.25);transition:all .2s}
+.match-edit-float:hover{background:#6c63ff;color:#fff}
+.match-edit-float.active{background:#6c63ff;border-color:#6c63ff;color:#fff}
 
 /* ── Column width hints ── */
 .th-table th:nth-child(1){min-width:140px}
@@ -1780,6 +1787,13 @@ header p{font-size:.75rem;opacity:.8;margin-top:2px}
         </th>
         <th class="sortable th-priority" onclick="sortTable(11)">
           <div class="th-priority-header">Priority <button class="reset-priority-btn" onclick="resetPriorities(event)">Reset</button></div>
+          <div class="priority-filter-dots" onclick="event.stopPropagation()">
+            <button class="priority-dot-btn" style="background:#16a34a" title="Filter: High" onclick="filterByPriority('High',this)"></button>
+            <button class="priority-dot-btn" style="background:#ca8a04" title="Filter: Medium" onclick="filterByPriority('Medium',this)"></button>
+            <button class="priority-dot-btn" style="background:#ea580c" title="Filter: Low" onclick="filterByPriority('Low',this)"></button>
+            <button class="priority-dot-btn" style="background:#94a3b8" title="Filter: Closed" onclick="filterByPriority('Closed',this)"></button>
+            <button class="pitch-clear-btn" title="Clear filter" onclick="filterByPriority(null,this)">✕</button>
+          </div>
         </th>
       </tr>
     </thead>
@@ -1951,6 +1965,10 @@ function filterTherapists(type, val, btn) {
     if (finalShow && _pitchColorFilter) {
       if ((row.getAttribute('data-pitch-color')||'') !== _pitchColorFilter) finalShow = false;
     }
+    if (finalShow && _priorityFilter) {
+      var rowPriority = row.querySelector('.priority-select')?.value || '';
+      if (rowPriority !== _priorityFilter) finalShow = false;
+    }
     row.classList.toggle('hidden', !finalShow);
   });
 }
@@ -1986,9 +2004,16 @@ let sortDir = {};
 var _pitchColorFilter = null;
 function filterByPitchColor(color, btn) {
   _pitchColorFilter = (_pitchColorFilter === color) ? null : color;
-  // Update dot active states
   document.querySelectorAll('.pitch-dot-btn').forEach(function(b) { b.classList.remove('active'); });
   if (_pitchColorFilter && btn && btn.classList.contains('pitch-dot-btn')) btn.classList.add('active');
+  applyAllFilters();
+}
+
+var _priorityFilter = null;
+function filterByPriority(val, btn) {
+  _priorityFilter = (_priorityFilter === val) ? null : val;
+  document.querySelectorAll('.priority-dot-btn').forEach(function(b) { b.classList.remove('active'); });
+  if (_priorityFilter && btn && btn.classList.contains('priority-dot-btn')) btn.classList.add('active');
   applyAllFilters();
 }
 
@@ -2696,7 +2721,11 @@ async function savePageContent() {
 </script>
 
 <script>
-(function(){var p=new URLSearchParams(window.location.search);if(p.get('mode')==='match'||p.get('standalone')==='1'){var nav=document.getElementById('main-nav');if(nav){nav.style.display='none';}document.querySelectorAll('.page').forEach(function(pg){pg.classList.remove('active');});var tp=document.getElementById('page-therapists');if(tp){tp.classList.add('active');tp.style.paddingTop='16px';}document.title='Therapist Match — LDI';}})();
+(function(){var p=new URLSearchParams(window.location.search);if(p.get('mode')==='match'||p.get('standalone')==='1'){var nav=document.getElementById('main-nav');if(nav){nav.style.display='none';}document.querySelectorAll('.page').forEach(function(pg){pg.classList.remove('active');});var tp=document.getElementById('page-therapists');if(tp){tp.classList.add('active');tp.style.paddingTop='16px';}document.title='Therapist Match — LDI';
+// Add floating edit button since nav is hidden
+var fb=document.createElement('button');fb.className='match-edit-float';fb.id='matchEditFloat';fb.innerHTML='&#9998; Edit Roster';
+fb.onclick=function(){if(typeof toggleEditMode==='function')toggleEditMode();fb.classList.toggle('active',!!window.EDIT_MODE);};
+document.body.appendChild(fb);}})();
 </script>
 
 <div class="page" id="page-callflow">
