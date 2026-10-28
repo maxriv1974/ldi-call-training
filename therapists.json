@@ -321,15 +321,15 @@
     "billingMethods": {},
     "utilization": {
       "expectedSessionsPerWeek": 15,
-      "sessionsLast7d": 6,
-      "utilizationPct": 40,
+      "sessionsLast7d": 5,
+      "utilizationPct": 33.3,
       "intakeGuidance": "insurance_ok",
-      "utilization30dPct": 56,
+      "utilization30dPct": 54.4,
       "pitch": {
         "color": "red",
         "text": "Hold — no new clients"
       },
-      "lastUpdated": "2026-10-23T17:15:50.488Z"
+      "lastUpdated": "2026-10-28T16:38:39.037Z"
     }
   },
   {
