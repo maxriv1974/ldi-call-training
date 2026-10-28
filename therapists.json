@@ -872,12 +872,12 @@
       "sessionsLast7d": 4,
       "utilizationPct": 40,
       "intakeGuidance": "insurance_ok",
-      "utilization30dPct": 49,
+      "utilization30dPct": 53.7,
       "pitch": {
         "color": "green",
         "text": "Insurance OK · self-pay $150"
       },
-      "lastUpdated": "2026-10-23T17:16:00.249Z"
+      "lastUpdated": "2026-10-28T16:38:49.103Z"
     }
   },
   {
