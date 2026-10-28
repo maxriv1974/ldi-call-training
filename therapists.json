@@ -74,15 +74,15 @@
     "billingMethods": {},
     "utilization": {
       "expectedSessionsPerWeek": 15,
-      "sessionsLast7d": 13,
-      "utilizationPct": 86.7,
+      "sessionsLast7d": 12,
+      "utilizationPct": 80,
       "intakeGuidance": "balanced",
-      "utilization30dPct": 87.1,
+      "utilization30dPct": 84,
       "pitch": {
         "color": "green",
         "text": "Self-pay $400"
       },
-      "lastUpdated": "2026-10-23T17:15:47.793Z"
+      "lastUpdated": "2026-10-28T16:38:36.160Z"
     }
   },
   {
