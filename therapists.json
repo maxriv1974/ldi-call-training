@@ -1345,15 +1345,15 @@
     "pqEmail": "",
     "utilization": {
       "expectedSessionsPerWeek": 25,
-      "sessionsLast7d": 33,
-      "utilizationPct": 132,
+      "sessionsLast7d": 29,
+      "utilizationPct": 116,
       "intakeGuidance": "at_capacity",
-      "utilization30dPct": 121.3,
+      "utilization30dPct": 109.2,
       "pitch": {
         "color": "orange",
         "text": "Self-pay only · $200"
       },
-      "lastUpdated": "2026-10-23T17:15:54.723Z"
+      "lastUpdated": "2026-10-28T16:38:43.316Z"
     }
   }
 ]
