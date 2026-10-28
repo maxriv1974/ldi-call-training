@@ -1058,15 +1058,15 @@
     },
     "utilization": {
       "expectedSessionsPerWeek": 22,
-      "sessionsLast7d": 19,
-      "utilizationPct": 86.4,
+      "sessionsLast7d": 18,
+      "utilizationPct": 81.8,
       "intakeGuidance": "balanced",
-      "utilization30dPct": 82.7,
+      "utilization30dPct": 80.6,
       "pitch": {
         "color": "green",
         "text": "Self-pay $150 (SS $125 if needed)"
       },
-      "lastUpdated": "2026-10-23T17:15:53.255Z"
+      "lastUpdated": "2026-10-28T16:38:41.866Z"
     }
   },
   {
