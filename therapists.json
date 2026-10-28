@@ -1247,15 +1247,15 @@
     },
     "utilization": {
       "expectedSessionsPerWeek": 25,
-      "sessionsLast7d": 16,
-      "utilizationPct": 64,
+      "sessionsLast7d": 18,
+      "utilizationPct": 72,
       "intakeGuidance": "insurance_ok",
-      "utilization30dPct": 64.4,
+      "utilization30dPct": 69.1,
       "pitch": {
         "color": "green",
         "text": "Insurance OK · self-pay $150"
       },
-      "lastUpdated": "2026-10-23T17:15:51.796Z"
+      "lastUpdated": "2026-10-28T16:38:40.391Z"
     }
   },
   {
