@@ -6,7 +6,7 @@
 <title>LDI Call Training — Interactive Guide</title>
 <script>
 // Auto-update: check for new version every 2 minutes and reload if found
-var _PAGE_BUILT = "2026-10-27T14:09:43Z";
+var _PAGE_BUILT = "2026-11-06T15:31:45Z";
 (function() {
   function checkVersion() {
     fetch('/version.json?t=' + Date.now(), {cache:'no-store'})
@@ -458,6 +458,12 @@ header p{font-size:.75rem;opacity:.8;margin-top:2px}
       <button class="btn-save" onclick="saveAllEdits()">&#10003; Publish Changes</button>
       <button class="btn-discard" onclick="discardEdits()">Discard</button>
     </div>
+  </div>
+  <!-- Floating save bar for match/standalone mode (shown when nav is hidden) -->
+  <div id="saveEditsBarFloat" style="display:none;position:fixed;bottom:60px;right:18px;z-index:1000;align-items:center;gap:8px;padding:10px 16px;background:#fef9c3;border:1px solid #fde047;border-radius:12px;font-size:.8rem;font-weight:600;color:#713f12;box-shadow:0 4px 16px rgba(0,0,0,.18)">
+    <span id="pendingCountFloat">0 unsaved changes</span>
+    <button style="padding:5px 14px;border-radius:14px;border:none;cursor:pointer;font-weight:600;font-size:.78rem;background:#16a34a;color:#fff" onclick="saveAllEdits()">&#10003; Publish Changes</button>
+    <button style="padding:5px 14px;border-radius:14px;border:none;cursor:pointer;font-weight:600;font-size:.78rem;background:#e2e8f0;color:#475569" onclick="discardEdits()">Discard</button>
   </div>
   <div id="pageEditSection" style="align-self:center;padding:0 12px;display:none;align-items:center;gap:8px"><button class="page-edit-btn" id="pageEditBtn" onclick="togglePageContentEdit()" style="box-shadow:0 2px 8px rgba(0,0,0,.15)">&#9998; Edit Content</button><div class="page-save-bar" id="pageSaveBar" style="box-shadow:0 2px 8px rgba(0,0,0,.15)"><button class="btn-save" style="background:#f59e0b;border-color:#d97706" onclick="savePageContent()">&#10003; Save</button><button class="btn-discard" onclick="discardPageContentEdit()">Discard</button></div></div>
 </div>
@@ -2247,10 +2253,23 @@ document.addEventListener('DOMContentLoaded', function() {
     window._pendingEdits[id] = blank;
     if (typeof window.rebuildTable === 'function') window.rebuildTable();
     setTimeout(function(){ window.openEditor(id); }, 80);
-    var bar = document.getElementById('saveEditsBar'), cnt = document.getElementById('pendingCount');
-    if (bar) bar.classList.add('visible');
-    if (cnt) cnt.textContent = Object.keys(window._pendingEdits).length+' unsaved change(s)';
+    _syncSaveBar(true, Object.keys(window._pendingEdits).length);
   };
+
+  function _syncSaveBar(show, count) {
+    var bar = document.getElementById('saveEditsBar');
+    var floatBar = document.getElementById('saveEditsBarFloat');
+    var cnt = document.getElementById('pendingCount');
+    var cntF = document.getElementById('pendingCountFloat');
+    var label = count + ' unsaved change(s)';
+    if (window._matchMode) {
+      if (floatBar) floatBar.style.display = show ? 'flex' : 'none';
+    } else {
+      if (bar) { show ? bar.classList.add('visible') : bar.classList.remove('visible'); }
+    }
+    if (cnt) cnt.textContent = label;
+    if (cntF) cntF.textContent = label;
+  }
 
   window.openEditor = function(id) {
     var t = (window._pendingEdits && window._pendingEdits[id])
@@ -2339,9 +2358,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var idx = (window.THERAPIST_DATA||[]).findIndex(function(x){return x.id===id;});
     if (idx >= 0) window.THERAPIST_DATA[idx] = t;
     if (typeof window.rebuildRow === 'function') window.rebuildRow(id, t);
-    var bar = document.getElementById('saveEditsBar'), cnt = document.getElementById('pendingCount');
-    if (bar) bar.classList.add('visible');
-    if (cnt) cnt.textContent = Object.keys(window._pendingEdits).length+' unsaved change(s)';
+    _syncSaveBar(true, Object.keys(window._pendingEdits).length);
     closeDrawer();
   };
 
@@ -2351,8 +2368,7 @@ document.addEventListener('DOMContentLoaded', function() {
   window.discardEdits = function() {
     if (!confirm('Discard all unsaved changes?')) return;
     window._pendingEdits = {};
-    var bar = document.getElementById('saveEditsBar');
-    if (bar) bar.classList.remove('visible');
+    _syncSaveBar(false, 0);
     if (typeof window.rebuildTable === 'function') window.rebuildTable();
   };
 
@@ -2372,8 +2388,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(function(res){
       if (res.success) {
         window._pendingEdits = {};
-        var bar = document.getElementById('saveEditsBar');
-        if (bar) bar.classList.remove('visible');
+        _syncSaveBar(false, 0);
         alert('Saved! Changes will be live in ~30 seconds.');
       } else { alert('Error: '+(res.error||'Unknown error')); }
     })
@@ -2722,7 +2737,9 @@ async function savePageContent() {
 
 <script>
 (function(){var p=new URLSearchParams(window.location.search);if(p.get('mode')==='match'||p.get('standalone')==='1'){var nav=document.getElementById('main-nav');if(nav){nav.style.display='none';}document.querySelectorAll('.page').forEach(function(pg){pg.classList.remove('active');});var tp=document.getElementById('page-therapists');if(tp){tp.classList.add('active');tp.style.paddingTop='16px';}document.title='Therapist Match — LDI';
-// Add floating edit button since nav is hidden
+// Mark as match mode so save bar syncing knows to use float bar
+window._matchMode = true;
+// Floating edit button
 var fb=document.createElement('button');fb.className='match-edit-float';fb.id='matchEditFloat';fb.innerHTML='&#9998; Edit Roster';
 fb.onclick=function(){if(typeof toggleEditMode==='function')toggleEditMode();fb.classList.toggle('active',!!window.EDIT_MODE);};
 document.body.appendChild(fb);}})();
