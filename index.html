@@ -6,7 +6,7 @@
 <title>LDI Call Training — Interactive Guide</title>
 <script>
 // Auto-update: check for new version every 2 minutes and reload if found
-var _PAGE_BUILT = "2026-11-06T15:32:02Z";
+var _PAGE_BUILT = "2026-11-10T18:26:23Z";
 (function() {
   function checkVersion() {
     fetch('/version.json?t=' + Date.now(), {cache:'no-store'})
@@ -1703,6 +1703,14 @@ header p{font-size:.75rem;opacity:.8;margin-top:2px}
 <!-- ════ THERAPIST MATCH PAGE ════ -->
 <div class="page" id="page-therapists">
 
+<!-- Inline publish bar — shown when there are pending edits (works in all modes) -->
+<div id="inlinePublishBar" style="display:none;align-items:center;gap:12px;padding:10px 16px;margin-bottom:12px;background:#fef9c3;border:1px solid #fde047;border-radius:10px;font-size:.82rem;font-weight:600;color:#713f12">
+  <span>&#9998;</span>
+  <span id="inlinePendingCount">0 unsaved change(s)</span>
+  <button onclick="saveAllEdits()" style="padding:6px 18px;border-radius:14px;border:none;cursor:pointer;font-weight:700;font-size:.8rem;background:#16a34a;color:#fff">&#10003; Publish Changes</button>
+  <button onclick="discardEdits()" style="padding:6px 14px;border-radius:14px;border:none;cursor:pointer;font-weight:600;font-size:.8rem;background:#e2e8f0;color:#475569">Discard</button>
+</div>
+
 <div class="th-filters">
     <span class="th-filter-group">Payment / Insurance:</span>
     <button class="th-filter-btn active" onclick="filterTherapists('plan','all',this)">All</button>
@@ -2259,9 +2267,14 @@ document.addEventListener('DOMContentLoaded', function() {
   function _syncSaveBar(show, count) {
     var bar = document.getElementById('saveEditsBar');
     var floatBar = document.getElementById('saveEditsBarFloat');
+    var inlineBar = document.getElementById('inlinePublishBar');
     var cnt = document.getElementById('pendingCount');
     var cntF = document.getElementById('pendingCountFloat');
+    var cntI = document.getElementById('inlinePendingCount');
     var label = count + ' unsaved change(s)';
+    // Always show the inline bar inside the therapists page
+    if (inlineBar) inlineBar.style.display = show ? 'flex' : 'none';
+    // Also keep the nav/float bars in sync
     if (window._matchMode) {
       if (floatBar) floatBar.style.display = show ? 'flex' : 'none';
     } else {
@@ -2269,6 +2282,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     if (cnt) cnt.textContent = label;
     if (cntF) cntF.textContent = label;
+    if (cntI) cntI.textContent = label;
   }
 
   window.openEditor = function(id) {
